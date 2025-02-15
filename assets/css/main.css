@@ -1438,40 +1438,130 @@ p {
   background-image: url("../img/hero/map-bg.svg");
   background-repeat: no-repeat;
   background-position: left;
+  overflow: hidden;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .hero-section .hero-content {
-    margin-bottom: 50px;
+@media (max-width: 991px) {
+  .hero-section {
+    padding: 120px 0 40px;
   }
 }
 
-@media (max-width: 767px) {
+.hero-section .hero-content {
+  padding-right: 30px;
+}
+
+@media (max-width: 991px) {
   .hero-section .hero-content {
+    padding-right: 0;
+    text-align: center;
     margin-bottom: 50px;
   }
 }
 
 .hero-section .hero-content h1 {
-  font-size: 60px;
-  margin-bottom: 35px;
+  font-size: 48px;
+  margin-bottom: 25px;
+  line-height: 1.2;
 }
 
-@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+@media (max-width: 1199px) {
   .hero-section .hero-content h1 {
-    font-size: 55px;
-  }
-}
-
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
-  .hero-section .hero-content h1 {
-    font-size: 48px;
+    font-size: 40px;
   }
 }
 
 @media (max-width: 767px) {
   .hero-section .hero-content h1 {
-    font-size: 36px;
+    font-size: 32px;
+  }
+}
+
+.hero-section .hero-content p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.hero-section .hero-btns {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 991px) {
+  .hero-section .hero-btns {
+    justify-content: center;
+  }
+}
+
+.hero-section .hero-img {
+  text-align: center;
+}
+
+.hero-section .hero-img img {
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+@media (min-width: 992px) {
+  .hero-section .hero-img img {
+    transform: scale(1.1);
+  }
+}
+
+@media (max-width: 991px) {
+  .hero-section .hero-img img {
+    max-width: 80%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-section .hero-img img {
+    max-width: 100%;
+  }
+}
+
+.hero-section .main-btn {
+  padding: 12px 30px;
+  font-size: 16px;
+}
+
+@media (max-width: 767px) {
+  .hero-section .main-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Ajustes adicionais para garantir que os botões fiquem bem em mobile */
+@media (max-width: 480px) {
+  .hero-section .hero-btns {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .hero-section .hero-btns .main-btn {
+    margin: 5px 0;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+  .hero-section .hero-content h1 {
+    font-size: 50px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .hero-section .hero-content h1 {
+    font-size: 46px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-section .hero-content h1 {
+    font-size: 34px;
   }
 }
 
@@ -1667,7 +1757,6 @@ p {
   transform: translateY(-50%);
   margin-left: 10%;
   margin-top: 6%;
-
 }
 
 .tracking-section .tracking-content .single-plan {
@@ -1743,6 +1832,12 @@ p {
   }
 }
 
+@media (max-width: 670px) {
+  .shape-mobile {
+    top: -500px;
+  }
+}
+
 .search-section .search-img img {
   width: 100%;
 }
@@ -1751,16 +1846,57 @@ p {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  gap: 20px;
+  justify-content: space-between;
 }
 
 .search-content .app-info .single-info {
   text-align: center;
   border-radius: 18px;
-  padding: 40px 10px;
+  padding: 20px 10px;
   flex: 1;
-  width: 100%;
-  margin-right: 30px;
-  margin-bottom: 40px;
+  min-width: 100px; /* Define uma largura mínima */
+  margin: 0; /* Remove as margens para melhor controle do espaçamento */
+}
+
+/* Ajustes para mobile */
+@media (max-width: 767px) {
+  .search-content .app-info {
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .search-content .app-info .single-info {
+    flex: 0 1 auto;
+    width: 30%; /* Define uma largura fixa para cada item */
+    min-width: 90px;
+    margin-bottom: 0;
+  }
+
+  .search-content .app-info .single-info .icon-style {
+    padding: 10px;
+  }
+
+  .search-content .app-info .single-info .icon-style h2 {
+    font-size: 24px;
+  }
+
+  .search-content .app-info .single-info h4 {
+    font-size: 16px;
+  }
+}
+
+/* Ajuste para telas muito pequenas */
+@media (max-width: 480px) {
+  .search-content .app-info {
+    gap: 5px;
+  }
+
+  .search-content .app-info .single-info {
+    padding: 10px 5px;
+    min-width: 80px;
+  }
 }
 
 .search-content .app-info .single-info:last-child {
@@ -2287,4 +2423,116 @@ p {
     margin-bottom: 80px; /* Aumenta a margem inferior em dispositivos móveis */
     margin-top: 60px; /* Adiciona margem superior para melhor espaçamento */
   }
+}
+
+/* Ajustes para a seção hero em mobile */
+@media (max-width: 767px) {
+  .hero-section .row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .hero-section .hero-content {
+    order: 1;
+    text-align: left;
+    padding-right: 15px;
+  }
+
+  .hero-section .hero-img {
+    order: 2;
+    margin-bottom: 0;
+    padding-left: 15px;
+  }
+
+  .hero-section .hero-btns {
+    justify-content: flex-start;
+  }
+
+  .hero-section .col-lg-6 {
+    width: 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .hero-section .hero-content h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .hero-section .hero-content p {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .hero-section .main-btn {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+
+  .hero-section .hero-img img {
+    width: 100%;
+    height: auto;
+    transform: scale(1.2);
+    margin-left: -20px;
+  }
+}
+
+/* Ajustes específicos para telas muito pequenas */
+@media (max-width: 480px) {
+  .hero-section .col-lg-6 {
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .hero-section .row {
+    flex-direction: column;
+  }
+
+  .hero-section .hero-img {
+    margin-top: 30px;
+  }
+}
+
+/* Ajustes para o shape da seção tracking */
+.tracking-section .tracking-shape {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.tracking-section .tracking-shape .shape {
+  position: absolute;
+  z-index: -1;
+  height: auto;
+}
+
+.tracking-section .tracking-shape .shape-1 {
+  left: 0;
+  transform: translateY(-50%);
+  margin-left: 10%;
+  margin-top: 23%;
+  transition: all 0.3s ease;
+}
+
+/* Ajustes específicos para mobile */
+@media (max-width: 767px) {
+  .tracking-section .tracking-shape .shape-1 {
+    top: -10px; /* Move a imagem mais para cima em mobile */
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .tracking-section .tracking-shape .shape-1 {
+    top: 140px; /* Move ainda mais para cima em telas menores */
+    left: -10%;
+    max-width: 120%; /* Aumenta um pouco o tamanho */
+  }
+}
+
+/* Para garantir que o conteúdo fique visível */
+.tracking-section .container {
+  position: relative;
+  z-index: 2;
 }

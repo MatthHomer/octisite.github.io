@@ -27,11 +27,11 @@ module.exports = async (req, res) => {
           location: "${dados.location}",
           adress: "${dados.adress}",
           contactPerson: "${dados.contactPerson}",
-          whatsapp: ${dados.whatsapp},
+          whatsapp: "${dados.whatsapp}",
           about: "${dados.about}",
           email: "${dados.email}",
-          category: "${dados.category}",
-          pricing: ${dados.pricing}
+          category: { connect: { name: "${dados.category}" } },
+          pricing: "${dados.pricing}"
         }) {
           id
           name

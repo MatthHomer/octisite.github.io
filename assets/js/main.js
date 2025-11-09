@@ -1,4 +1,3 @@
-
 (function() {
 //===== Prealoder
 
@@ -6,10 +5,13 @@
 		window.setTimeout(fadeout, 500);
 	}
 
-	function fadeout() {
-		document.querySelector('.preloader').style.opacity = '0';
-		document.querySelector('.preloader').style.display = 'none';
-	}
+    function fadeout() {
+        var preloader = document.querySelector('.preloader');
+        if (preloader) {
+            preloader.style.opacity = '0';
+            preloader.style.display = 'none';
+        }
+    }
 
 
     /*=====================================
@@ -68,9 +70,10 @@
     }) 
 
 
-	// WOW active
-    new WOW().init();
-
+	// WOW active (só executa se WOW estiver definido)
+    if (typeof WOW !== 'undefined') {
+        new WOW().init();
+    }
     
     //====== counter up 
     var cu = new counterUp({

@@ -105,7 +105,7 @@
       const select = document.getElementById('categoria');
       select.innerHTML = '<option value="">Carregando categorias...</option>';
       try {
-        const res = await fetch('http://localhost:3001/categorias');
+        const res = await fetch('https://octisite-github-io.vercel.app/api/categorias');
         const data = await res.json();
         select.innerHTML = '<option value="">Selecione...</option>';
         data.forEach(cat => {
@@ -161,7 +161,7 @@
         // cnpj, location, pricing podem ser adaptados conforme necessidade
       };
       try {
-        const res = await fetch('http://localhost:3001/cadastro-prestador', {
+        const res = await fetch('https://octisite-github-io.vercel.app/api/cadastro-prestador', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(dados)

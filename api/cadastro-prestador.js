@@ -48,6 +48,8 @@ module.exports = async (req, res) => {
         body: JSON.stringify({ query: mutation })
       });
       const result = await response.json();
+      // Log do resultado para depuração
+      console.log('Hygraph mutation result:', JSON.stringify(result));
       res.status(200).json(result);
     } catch (err) {
       res.status(500).json({ error: 'Erro ao cadastrar prestador', details: err.message });

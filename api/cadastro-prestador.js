@@ -24,7 +24,6 @@ module.exports = async (req, res) => {
         createBusinessList(data: {
           name: "${dados.name}",
           cnpj: "${dados.cnpj}",
-          location: "${dados.location}",
           adress: "${dados.adress}",
           contactPerson: "${dados.contactPerson}",
           whatsapp: "${dados.whatsapp}",

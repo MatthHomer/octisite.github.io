@@ -1,3 +1,45 @@
+/* Botão flutuante WhatsApp */
+.whatsapp-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 32px;
+  right: 32px;
+  background: #25d366;
+  color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: background 0.2s;
+}
+.whatsapp-float:hover {
+  background: #128c7e;
+  color: #fff;
+}
+/* DEBUG: Visualização do slider de blog */
+.blog-slider-list {
+  background: #f0f8ff;
+  min-height: 180px;
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  gap: 24px;
+  overflow-x: visible !important;
+  scrollbar-width: none;
+}
+
+.blog-slider-list::-webkit-scrollbar {
+  display: none;
+}
+
+.blog-slider-section .card {
+  border-radius: 24px !important;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  border: none;
+}
 /*
 Template Name: AppGrids
 Author: GrayGrids

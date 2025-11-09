@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Prestador | Octi</title>
+  <link rel="stylesheet" href="assets/css/bootstrap-5.0.0-alpha-2.min.css">
+  <link rel="stylesheet" href="assets/css/LineIcons.2.0.css">
+  <link rel="stylesheet" href="assets/css/animate.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    .funil-section { background: #eaf8fc; border-radius: 18px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); padding: 32px 0; margin-top: 32px; }
+    .funil-card { background: #fff; border-radius: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 32px; margin-bottom: 32px; }
+    .step-indicator { font-size: 1.1rem; color: #0984a1; margin-bottom: 16px; }
+    .form-control, .form-select { border-radius: 12px; }
+    .preview-img { max-width: 120px; border-radius: 12px; margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="navbar-area">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-12">
+            <nav class="navbar navbar-expand-lg">
+              <a class="navbar-brand" href="index.html">
+                <img src="assets/img/logo/Octi_Logotipo_19.png" alt="Logo" />
+              </a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="funil-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <div class="funil-card shadow-lg animate__animated animate__fadeInUp">
+            <h2 class="mb-3 text-center" style="color:#0984a1;">Cadastro de Prestador</h2>
+            <form id="form-prestador">
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <label for="nomeEmpresa" class="form-label">Nome da Empresa</label>
+                  <input type="text" class="form-control" id="nomeEmpresa" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="categoria" class="form-label">Categoria de Serviço</label>
+                  <select class="form-select" id="categoria" required>
+                    <option value="">Selecione...</option>
+                    <option>Elétrica</option>
+                    <option>Hidráulica</option>
+                    <option>Pintura</option>
+                    <option>Limpeza</option>
+                    <option>Reformas</option>
+                    <option>Jardinagem</option>
+                    <option>Outro</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="contato" class="form-label">Nome do Responsável</label>
+                  <input type="text" class="form-control" id="contato" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="whatsapp" class="form-label">WhatsApp</label>
+                  <input type="tel" class="form-control" id="whatsapp" required placeholder="(99) 99999-9999">
+                </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label">E-mail</label>
+                  <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="endereco" class="form-label">Endereço</label>
+                  <input type="text" class="form-control" id="endereco" required>
+                </div>
+                <div class="col-12">
+                  <label for="sobreEmpresa" class="form-label">Sobre a Empresa e Serviços</label>
+                  <textarea class="form-control" id="sobreEmpresa" rows="3" required placeholder="Conte um pouco sobre sua empresa e os serviços oferecidos..."></textarea>
+                </div>
+                <div class="col-md-6">
+                  <label for="logoEmpresa" class="form-label">Imagem do Logotipo</label>
+                  <input type="file" class="form-control" id="logoEmpresa" accept="image/*">
+                  <img id="previewLogo" class="preview-img mt-2" style="display:none;" />
+                </div>
+                <div class="col-md-6">
+                  <label for="imagensServicos" class="form-label">Imagens dos Serviços</label>
+                  <input type="file" class="form-control" id="imagensServicos" accept="image/*" multiple>
+                  <div id="previewServicos" class="d-flex flex-wrap mt-2"></div>
+                </div>
+              </div>
+              <div class="text-center mt-4">
+                <button type="submit" class="main-btn btn-hover" style="font-size:1.1rem; padding:12px 32px;">Finalizar Cadastro</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer bg-dark text-white py-4 mt-5">
+    <div class="container text-center">
+      <p>&copy; 2025 Octi. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Preview do logo
+    document.getElementById('logoEmpresa').onchange = function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          const img = document.getElementById('previewLogo');
+          img.src = ev.target.result;
+          img.style.display = '';
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    // Preview das imagens de serviços
+    document.getElementById('imagensServicos').onchange = function(e) {
+      const files = e.target.files;
+      const preview = document.getElementById('previewServicos');
+      preview.innerHTML = '';
+      Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          const img = document.createElement('img');
+          img.src = ev.target.result;
+          img.className = 'preview-img me-2 mb-2';
+          preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+    };
+    // Finalizar cadastro (apenas frontend)
+    document.getElementById('form-prestador').onsubmit = function(e) {
+      e.preventDefault();
+      alert('Cadastro enviado! Em breve entraremos em contato.');
+      window.location.href = 'index.html';
+    };
+  </script>
+</body>
+</html>

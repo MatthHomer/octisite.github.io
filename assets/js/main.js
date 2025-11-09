@@ -31,10 +31,12 @@
 
         // show or hide the back-top-top button
         var backToTo = document.querySelector(".scroll-top");
-        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-            backToTo.style.display = "flex";
-        } else {
-            backToTo.style.display = "none";
+        if (backToTo) {
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                backToTo.style.display = "flex";
+            } else {
+                backToTo.style.display = "none";
+            }
         }
     };
 
@@ -86,31 +88,6 @@
     cu.start();
 
     //======== tiny slider
-	var slider = new tns({
-		container: '.testimonial-active',
-		slideBy: 'page',
-		autoplay: false,
-		mouseDrag: true,
-        gutter: 0,
-        items: 1,
-		nav: false,
-        controls: true,
-        controlsText: [
-            '<i class="lni lni-chevron-left prev"></i>',
-            '<i class="lni lni-chevron-right next"></i>'
-        ],
-        responsive: {
-            1200: {
-                items: 3,
-            },
-            992: {
-                items: 2,
-            },
-            0: {
-                items: 1,
-            }
-
-        }
-    });
+    // Removido o slider testimonial-active pois não existe esse container no HTML
 
 })();

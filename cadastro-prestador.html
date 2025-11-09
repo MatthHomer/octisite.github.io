@@ -14,6 +14,7 @@
     .step-indicator { font-size: 1.1rem; color: #0984a1; margin-bottom: 16px; }
     .form-control, .form-select { border-radius: 12px; }
     .preview-img { max-width: 120px; border-radius: 12px; margin-bottom: 12px; }
+    .loading-categorias { color: #0984a1; font-size: 1rem; margin-bottom: 8px; }
   </style>
 </head>
 <body>
@@ -48,14 +49,7 @@
                 <div class="col-md-6">
                   <label for="categoria" class="form-label">Categoria de Serviço</label>
                   <select class="form-select" id="categoria" required>
-                    <option value="">Selecione...</option>
-                    <option>Elétrica</option>
-                    <option>Hidráulica</option>
-                    <option>Pintura</option>
-                    <option>Limpeza</option>
-                    <option>Reformas</option>
-                    <option>Jardinagem</option>
-                    <option>Outro</option>
+                    <option value="">Carregando categorias...</option>
                   </select>
                 </div>
                 <div class="col-md-6">
@@ -106,6 +100,23 @@
   </footer>
 
   <script>
+    // Carregar categorias do backend
+    async function carregarCategorias() {
+      const select = document.getElementById('categoria');
+      select.innerHTML = '<option value="">Carregando categorias...</option>';
+      try {
+        const res = await fetch('http://localhost:3001/categorias');
+        const data = await res.json();
+        select.innerHTML = '<option value="">Selecione...</option>';
+        data.forEach(cat => {
+          select.innerHTML += `<option value="${cat.name}">${cat.name}</option>`;
+        });
+      } catch (err) {
+        select.innerHTML = '<option value="">Erro ao carregar categorias</option>';
+      }
+    }
+    carregarCategorias();
+
     // Preview do logo
     document.getElementById('logoEmpresa').onchange = function(e) {
       const file = e.target.files[0];
@@ -135,11 +146,36 @@
         reader.readAsDataURL(file);
       });
     };
-    // Finalizar cadastro (apenas frontend)
-    document.getElementById('form-prestador').onsubmit = function(e) {
+
+    // Enviar cadastro para backend seguro
+    document.getElementById('form-prestador').onsubmit = async function(e) {
       e.preventDefault();
-      alert('Cadastro enviado! Em breve entraremos em contato.');
-      window.location.href = 'index.html';
+      const dados = {
+        name: document.getElementById('nomeEmpresa').value,
+        contactPerson: document.getElementById('contato').value,
+        whatsapp: document.getElementById('whatsapp').value,
+        email: document.getElementById('email').value,
+        adress: document.getElementById('endereco').value,
+        about: document.getElementById('sobreEmpresa').value,
+        category: document.getElementById('categoria').value,
+        // cnpj, location, pricing podem ser adaptados conforme necessidade
+      };
+      try {
+        const res = await fetch('http://localhost:3001/cadastro-prestador', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dados)
+        });
+        const result = await res.json();
+        if (result.data && result.data.createBusinessList) {
+          alert('Cadastro enviado com sucesso!');
+          window.location.href = 'index.html';
+        } else {
+          alert('Erro ao cadastrar. Tente novamente.');
+        }
+      } catch (err) {
+        alert('Erro de conexão com o servidor.');
+      }
     };
   </script>
 </body>

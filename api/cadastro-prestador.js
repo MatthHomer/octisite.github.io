@@ -26,11 +26,11 @@ module.exports = async (req, res) => {
           cnpj: "${dados.cnpj}",
           adress: "${dados.adress}",
           contactPerson: "${dados.contactPerson}",
-          whatsapp: "${dados.whatsapp}",
+          whatsapp: ${dados.whatsapp ? parseInt(dados.whatsapp) : 0},
           about: "${dados.about}",
           email: "${dados.email}",
-          category: { connect: { name: "${dados.category}" } },
-          pricing: "${dados.pricing}"
+          category: { connect: { id: "${dados.category}" } },
+          pricing: ${dados.pricing ? parseFloat(dados.pricing) : 0.0}
         }) {
           id
           name

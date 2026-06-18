@@ -1,182 +1,755 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro de Prestador | Octi</title>
+  <title>Seja um Prestador Octi | Cadastro</title>
   <link rel="stylesheet" href="assets/css/bootstrap-5.0.0-alpha-2.min.css">
   <link rel="stylesheet" href="assets/css/LineIcons.2.0.css">
-  <link rel="stylesheet" href="assets/css/animate.css">
   <link rel="stylesheet" href="assets/css/main.css">
+
   <style>
-    .funil-section { background: #eaf8fc; border-radius: 18px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); padding: 32px 0; margin-top: 32px; }
-    .funil-card { background: #fff; border-radius: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 32px; margin-bottom: 32px; }
-    .step-indicator { font-size: 1.1rem; color: #0984a1; margin-bottom: 16px; }
-    .form-control, .form-select { border-radius: 12px; }
-    .preview-img { max-width: 120px; border-radius: 12px; margin-bottom: 12px; }
-    .loading-categorias { color: #0984a1; font-size: 1rem; margin-bottom: 8px; }
+    :root {
+      --octi: #0984a1;
+      --octi-dark: #066a80;
+      --octi-light: #e8f7fb;
+      --warm: #f97316;
+      --radius: 16px;
+    }
+
+    body { background: #f4fbfd; }
+
+    /* ── Navbar ── */
+    .cp-nav {
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 12px 0;
+    }
+    .cp-nav .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .cp-nav .brand img { height: 36px; }
+    .cp-nav .back-link {
+      font-size: .875rem; color: #64748b; text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .cp-nav .back-link:hover { color: var(--octi); }
+
+    /* ── Page layout ── */
+    .cp-wrapper {
+      min-height: calc(100vh - 64px);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 16px 60px;
+    }
+    .cp-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 32px rgba(9,132,161,.1);
+      width: 100%;
+      max-width: 620px;
+      overflow: hidden;
+    }
+
+    /* ── Header strip ── */
+    .cp-header {
+      background: linear-gradient(135deg, var(--octi) 0%, var(--octi-dark) 100%);
+      padding: 28px 32px 24px;
+      color: #fff;
+    }
+    .cp-header .badge-pill {
+      display: inline-block;
+      background: rgba(255,255,255,.2);
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+    .cp-header h1 { font-size: 1.5rem; font-weight: 700; margin: 0 0 4px; }
+    .cp-header p { font-size: .9rem; opacity: .85; margin: 0; }
+
+    /* ── Progress bar ── */
+    .cp-progress {
+      padding: 0 32px;
+      background: var(--octi-light);
+      border-bottom: 1px solid #d0eef5;
+    }
+    .cp-steps {
+      display: flex;
+      gap: 0;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .cp-step {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 0;
+      font-size: .8rem;
+      font-weight: 500;
+      color: #94a3b8;
+      position: relative;
+    }
+    .cp-step + .cp-step::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 20px;
+      background: #c8e6ee;
+    }
+    .cp-step .step-num {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      border: 2px solid #c8e6ee;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; font-weight: 700;
+      transition: all .3s;
+      flex-shrink: 0;
+    }
+    .cp-step.active { color: var(--octi); }
+    .cp-step.active .step-num {
+      background: var(--octi);
+      border-color: var(--octi);
+      color: #fff;
+    }
+    .cp-step.done { color: #22c55e; }
+    .cp-step.done .step-num {
+      background: #22c55e;
+      border-color: #22c55e;
+      color: #fff;
+    }
+
+    /* ── Form body ── */
+    .cp-body { padding: 32px; }
+
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+
+    .field-group { margin-bottom: 20px; }
+    .field-group label {
+      display: block;
+      font-size: .875rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+    .field-group label .required { color: var(--octi); margin-left: 2px; }
+    .field-group .hint {
+      font-size: .75rem;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .cp-input, .cp-select, .cp-textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: .9375rem;
+      color: #1e293b;
+      background: #fff;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .cp-input:focus, .cp-select:focus, .cp-textarea:focus {
+      border-color: var(--octi);
+      box-shadow: 0 0 0 3px rgba(9,132,161,.12);
+    }
+    .cp-input.has-error, .cp-select.has-error, .cp-textarea.has-error {
+      border-color: #ef4444;
+    }
+    .cp-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2394a3b8' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    .cp-textarea { resize: vertical; min-height: 100px; }
+
+    .field-error {
+      display: none;
+      font-size: .75rem;
+      color: #ef4444;
+      margin-top: 4px;
+    }
+    .field-group.invalid .field-error { display: block; }
+    .field-group.invalid .cp-input,
+    .field-group.invalid .cp-select,
+    .field-group.invalid .cp-textarea { border-color: #ef4444; }
+
+    /* ── File upload ── */
+    .file-drop {
+      border: 2px dashed #d0eef5;
+      border-radius: 10px;
+      padding: 24px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      position: relative;
+    }
+    .file-drop:hover, .file-drop.dragover { border-color: var(--octi); background: var(--octi-light); }
+    .file-drop input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .file-drop .icon { font-size: 1.8rem; margin-bottom: 6px; }
+    .file-drop .label { font-size: .875rem; color: #64748b; }
+    .file-drop .label strong { color: var(--octi); }
+
+    .preview-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .preview-img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 1.5px solid #e2e8f0; }
+    .preview-logo { width: 100px; height: 100px; object-fit: contain; border-radius: 10px; border: 1.5px solid #e2e8f0; padding: 6px; background: #f8fafc; }
+
+    /* ── Buttons ── */
+    .cp-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: .9375rem; font-weight: 600;
+      cursor: pointer; border: none;
+      transition: all .2s;
+    }
+    .cp-btn-primary {
+      background: var(--octi);
+      color: #fff;
+    }
+    .cp-btn-primary:hover { background: var(--octi-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(9,132,161,.3); }
+    .cp-btn-primary:active { transform: translateY(0); }
+    .cp-btn-primary:disabled { opacity: .6; cursor: not-allowed; transform: none; box-shadow: none; }
+    .cp-btn-outline {
+      background: transparent;
+      color: var(--octi);
+      border: 1.5px solid var(--octi);
+    }
+    .cp-btn-outline:hover { background: var(--octi-light); }
+
+    /* ── Nav actions ── */
+    .cp-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    /* ── Success state ── */
+    .cp-success {
+      display: none;
+      padding: 48px 32px;
+      text-align: center;
+    }
+    .cp-success.active { display: block; }
+    .success-icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2rem;
+      animation: popIn .4s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .cp-success h2 { font-size: 1.4rem; font-weight: 700; color: #1e293b; margin-bottom: 8px; }
+    .cp-success p { color: #64748b; font-size: .9375rem; margin-bottom: 24px; }
+
+    /* ── Spinner ── */
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Trust bar ── */
+    .cp-trust {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: .8rem; color: #475569;
+      background: var(--octi-light);
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+    .trust-item i { color: var(--octi); }
+
+    @media (max-width: 576px) {
+      .cp-header, .cp-body { padding: 24px 20px; }
+      .cp-progress { padding: 0 20px; }
+      .cp-step .step-label { display: none; }
+    }
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="navbar-area">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-12">
-            <nav class="navbar navbar-expand-lg">
-              <a class="navbar-brand" href="index.html">
-                <img src="assets/img/logo/Octi_Logotipo_19.png" alt="Logo" />
-              </a>
-            </nav>
+
+  <!-- Navbar minimal -->
+  <nav class="cp-nav">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a href="index.html" class="brand">
+        <img src="assets/img/logo/Octi_Logotipo_19.png" alt="Octi">
+      </a>
+      <a href="index.html" class="back-link">
+        <i class="lni lni-arrow-left"></i> Voltar ao site
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <div class="cp-wrapper">
+    <div class="cp-card">
+
+      <!-- Header -->
+      <div class="cp-header">
+        <div class="badge-pill">✨ Cadastro gratuito</div>
+        <h1 id="form-headline">Seja um Prestador Octi</h1>
+        <p id="form-subtitle">Receba solicitações de clientes da sua cidade. Rápido e sem complicação.</p>
+      </div>
+
+      <!-- Step progress -->
+      <div class="cp-progress">
+        <ul class="cp-steps">
+          <li class="cp-step active" id="step-indicator-1">
+            <span class="step-num">1</span>
+            <span class="step-label">Seus dados</span>
+          </li>
+          <li class="cp-step" id="step-indicator-2">
+            <span class="step-num">2</span>
+            <span class="step-label">Seu negócio</span>
+          </li>
+          <li class="cp-step" id="step-indicator-3">
+            <span class="step-num">3</span>
+            <span class="step-label">Finalizar</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Form body -->
+      <div class="cp-body" id="form-body">
+
+        <!-- ── STEP 1: Dados de contato ── -->
+        <div class="step-panel active" id="panel-1">
+          <div class="cp-trust">
+            <span class="trust-item"><i class="lni lni-lock-alt"></i> 100% seguro</span>
+            <span class="trust-item"><i class="lni lni-checkmark-circle"></i> Grátis para sempre</span>
+            <span class="trust-item"><i class="lni lni-whatsapp"></i> Suporte via WhatsApp</span>
+          </div>
+
+          <div class="field-group" id="fg-contato">
+            <label for="contato">Seu nome completo <span class="required">*</span></label>
+            <input type="text" class="cp-input" id="contato" placeholder="Ex: João da Silva" autocomplete="name">
+            <p class="field-error">Informe seu nome completo.</p>
+          </div>
+
+          <div class="field-group" id="fg-whatsapp">
+            <label for="whatsapp">WhatsApp <span class="required">*</span></label>
+            <input type="tel" class="cp-input" id="whatsapp" placeholder="(11) 99999-9999" autocomplete="tel" maxlength="15">
+            <p class="hint">Usaremos para te contatar sobre novos pedidos.</p>
+            <p class="field-error">Informe um número de WhatsApp válido.</p>
+          </div>
+
+          <div class="field-group" id="fg-email">
+            <label for="email">E-mail <span class="required">*</span></label>
+            <input type="email" class="cp-input" id="email" placeholder="seuemail@exemplo.com" autocomplete="email">
+            <p class="field-error">Informe um e-mail válido.</p>
+          </div>
+
+          <div class="cp-actions">
+            <span class="text-muted" style="font-size:.8rem;">Passo 1 de 3</span>
+            <button type="button" class="cp-btn cp-btn-primary" id="btn-next-1">
+              Continuar <i class="lni lni-arrow-right"></i>
+            </button>
           </div>
         </div>
-      </div>
-    </div>
-  </header>
 
-  <section class="funil-section">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-9">
-          <div class="funil-card shadow-lg animate__animated animate__fadeInUp">
-            <h2 class="mb-3 text-center" style="color:#0984a1;">Cadastro de Prestador</h2>
-            <form id="form-prestador">
-              <div class="row g-4">
-                <div class="col-md-6">
-                  <label for="nomeEmpresa" class="form-label">Nome da Empresa</label>
-                  <input type="text" class="form-control" id="nomeEmpresa" required>
-                </div>
-                <div class="col-md-6">
-                  <label for="categoria" class="form-label">Categoria de Serviço</label>
-                  <select class="form-select" id="categoria" required>
-                    <option value="">Carregando categorias...</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label for="contato" class="form-label">Nome do Responsável</label>
-                    <input type="text" class="form-control" id="contato" required autocomplete="name">
-                </div>
-                <div class="col-md-6">
-                  <label for="whatsapp" class="form-label">WhatsApp</label>
-                    <input type="tel" class="form-control" id="whatsapp" required placeholder="(99) 99999-9999" autocomplete="tel">
-                </div>
-                <div class="col-md-6">
-                  <label for="email" class="form-label">E-mail</label>
-                    <input type="email" class="form-control" id="email" required autocomplete="email">
-                </div>
-                <div class="col-md-6">
-                  <label for="endereco" class="form-label">Endereço</label>
-                    <input type="text" class="form-control" id="endereco" required autocomplete="street-address">
-                </div>
-                <div class="col-12">
-                  <label for="sobreEmpresa" class="form-label">Sobre a Empresa e Serviços</label>
-                  <textarea class="form-control" id="sobreEmpresa" rows="3" required placeholder="Conte um pouco sobre sua empresa e os serviços oferecidos..."></textarea>
-                </div>
-                <div class="col-md-6">
-                  <label for="logoEmpresa" class="form-label">Imagem do Logotipo</label>
-                  <input type="file" class="form-control" id="logoEmpresa" accept="image/*">
-                  <img id="previewLogo" class="preview-img mt-2" style="display:none;" />
-                </div>
-                <div class="col-md-6">
-                  <label for="imagensServicos" class="form-label">Imagens dos Serviços</label>
-                  <input type="file" class="form-control" id="imagensServicos" accept="image/*" multiple>
-                  <div id="previewServicos" class="d-flex flex-wrap mt-2"></div>
-                </div>
-              </div>
-              <div class="text-center mt-4">
-                <button type="submit" class="main-btn btn-hover" style="font-size:1.1rem; padding:12px 32px;">Finalizar Cadastro</button>
-              </div>
-            </form>
+        <!-- ── STEP 2: Dados do negócio ── -->
+        <div class="step-panel" id="panel-2">
+          <div class="field-group" id="fg-nomeEmpresa">
+            <label for="nomeEmpresa">Nome da empresa ou serviço <span class="required">*</span></label>
+            <input type="text" class="cp-input" id="nomeEmpresa" placeholder="Ex: Elétrica do João">
+            <p class="field-error">Informe o nome da empresa.</p>
+          </div>
+
+          <div class="field-group" id="fg-categoria">
+            <label for="categoria">Categoria de serviço <span class="required">*</span></label>
+            <select class="cp-select" id="categoria">
+              <option value="">Selecione a categoria...</option>
+            </select>
+            <p class="field-error">Selecione uma categoria.</p>
+          </div>
+
+          <div class="field-group" id="fg-endereco">
+            <label for="endereco">Cidade de atuação <span class="required">*</span></label>
+            <input type="text" class="cp-input" id="endereco" placeholder="Ex: São Paulo, SP" autocomplete="address-level2">
+            <p class="field-error">Informe sua cidade de atuação.</p>
+          </div>
+
+          <div class="field-group" id="fg-sobreEmpresa">
+            <label for="sobreEmpresa">Conte sobre seus serviços <span class="required">*</span></label>
+            <textarea class="cp-textarea" id="sobreEmpresa" rows="3" placeholder="Ex: Faço instalações elétricas residenciais e comerciais com 10 anos de experiência..."></textarea>
+            <p class="hint">Seja específico — isso ajuda clientes a te escolherem.</p>
+            <p class="field-error">Descreva seus serviços.</p>
+          </div>
+
+          <div class="cp-actions">
+            <button type="button" class="cp-btn cp-btn-outline" id="btn-back-2">
+              <i class="lni lni-arrow-left"></i> Voltar
+            </button>
+            <button type="button" class="cp-btn cp-btn-primary" id="btn-next-2">
+              Continuar <i class="lni lni-arrow-right"></i>
+            </button>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <footer class="footer bg-dark text-white py-4 mt-5">
-    <div class="container text-center">
-      <p>&copy; 2025 Octi. Todos os direitos reservados.</p>
-    </div>
-  </footer>
+        <!-- ── STEP 3: Imagens e envio ── -->
+        <div class="step-panel" id="panel-3">
+          <p class="mb-4" style="color:#64748b;font-size:.9rem;">
+            As imagens são <strong>opcionais</strong> mas aumentam muito suas chances de ser contratado.
+          </p>
+
+          <div class="field-group" id="fg-logo">
+            <label for="logoEmpresa">Logo da empresa</label>
+            <div class="file-drop" id="logo-drop">
+              <input type="file" id="logoEmpresa" accept="image/*">
+              <div class="icon">🏷️</div>
+              <div class="label">
+                <strong>Clique para enviar</strong> ou arraste aqui<br>
+                <small style="color:#94a3b8;">JPG, PNG — máx. 5MB</small>
+              </div>
+            </div>
+            <img id="previewLogo" class="preview-logo mt-2" style="display:none;" alt="Preview do logo">
+          </div>
+
+          <div class="field-group" id="fg-imgs">
+            <label for="imagensServicos">Fotos dos seus serviços</label>
+            <div class="file-drop" id="imgs-drop">
+              <input type="file" id="imagensServicos" accept="image/*" multiple>
+              <div class="icon">📸</div>
+              <div class="label">
+                <strong>Clique para enviar</strong> ou arraste aqui<br>
+                <small style="color:#94a3b8;">Até 5 imagens — JPG, PNG — máx. 5MB cada</small>
+              </div>
+            </div>
+            <div class="preview-grid" id="previewServicos"></div>
+          </div>
+
+          <!-- Resumo -->
+          <div id="resumo-box" style="background:#f8fafc;border-radius:12px;padding:18px;margin:20px 0;border:1px solid #e2e8f0;font-size:.875rem;">
+            <p style="font-weight:600;color:#1e293b;margin-bottom:10px;">Resumo do cadastro</p>
+            <div id="resumo-content" style="color:#475569;line-height:1.8;"></div>
+          </div>
+
+          <div id="submit-error" style="display:none;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:12px 16px;color:#dc2626;font-size:.875rem;margin-bottom:16px;"></div>
+
+          <div class="cp-actions">
+            <button type="button" class="cp-btn cp-btn-outline" id="btn-back-3">
+              <i class="lni lni-arrow-left"></i> Voltar
+            </button>
+            <button type="button" class="cp-btn cp-btn-primary" id="btn-submit" style="min-width:160px;">
+              Finalizar Cadastro
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /cp-body -->
+
+      <!-- Success state -->
+      <div class="cp-success" id="success-panel">
+        <div class="success-icon">✓</div>
+        <h2>Cadastro enviado!</h2>
+        <p>
+          Recebemos seus dados e nossa equipe vai entrar em contato em breve.<br>
+          <strong>Fique de olho no seu WhatsApp.</strong>
+        </p>
+        <a href="index.html" class="cp-btn cp-btn-primary">
+          <i class="lni lni-home"></i> Voltar ao início
+        </a>
+      </div>
+
+    </div><!-- /cp-card -->
+  </div><!-- /cp-wrapper -->
 
   <script>
-    // Carregar categorias do backend
-    async function carregarCategorias() {
-      const select = document.getElementById('categoria');
-      select.innerHTML = '<option value="">Carregando categorias...</option>';
-      try {
-        const res = await fetch('https://octisite-github-io.vercel.app/api/categorias');
-        const data = await res.json();
-        select.innerHTML = '<option value="">Selecione...</option>';
-        data.forEach(cat => {
-          select.innerHTML += `<option value="${cat.id}">${cat.name}</option>`;
-        });
-      } catch (err) {
-        select.innerHTML = '<option value="">Erro ao carregar categorias</option>';
-      }
-    }
-    carregarCategorias();
-
-    // Preview do logo
-    document.getElementById('logoEmpresa').onchange = function(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(ev) {
-          const img = document.getElementById('previewLogo');
-          img.src = ev.target.result;
-          img.style.display = '';
-        };
-        reader.readAsDataURL(file);
-      }
-    };
-    // Preview das imagens de serviços
-    document.getElementById('imagensServicos').onchange = function(e) {
-      const files = e.target.files;
-      const preview = document.getElementById('previewServicos');
-      preview.innerHTML = '';
-      Array.from(files).forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function(ev) {
-          const img = document.createElement('img');
-          img.src = ev.target.result;
-          img.className = 'preview-img me-2 mb-2';
-          preview.appendChild(img);
-        };
-        reader.readAsDataURL(file);
-      });
+  (function() {
+    // ── Supabase config ───────────────────────────────────────────────────
+    var SUPABASE_URL = 'https://tdttqltbnizljmsajqlc.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkdHRxbHRibml6bGptc2FqcWxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMDc0NzAsImV4cCI6MjA1NTU4MzQ3MH0.v__13i-EzViT2Eaz4gd2CFJlTq_W5kbDdIQtXSpXnfU';
+    var SUPABASE_HEADERS = {
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
     };
 
-    // Enviar cadastro para backend seguro
-    document.getElementById('form-prestador').onsubmit = async function(e) {
-      e.preventDefault();
-      const dados = {
-        name: document.getElementById('nomeEmpresa').value,
-        contactPerson: document.getElementById('contato').value,
-        whatsapp: document.getElementById('whatsapp').value,
-        email: document.getElementById('email').value,
-        adress: document.getElementById('endereco').value,
-        about: document.getElementById('sobreEmpresa').value,
-        category: document.getElementById('categoria').value, // agora envia o id
-        // cnpj, pricing podem ser adaptados conforme necessidade
-      };
-      try {
-        const res = await fetch('https://octisite-github-io.vercel.app/api/cadastro-prestador', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(dados)
-        });
-        const result = await res.json();
-        if (result.data && result.data.createBusinessList) {
-          alert('Cadastro enviado com sucesso!');
-          window.location.href = 'index.html';
-        } else {
-          alert('Erro ao cadastrar. Tente novamente.');
+    // ── Load site config from Supabase ────────────────────────────────────
+    fetch(SUPABASE_URL + '/rest/v1/site_config?select=key,value', { headers: SUPABASE_HEADERS })
+      .then(function(r) { return r.json(); })
+      .then(function(rows) {
+        if (!Array.isArray(rows)) return;
+        var cfg = {};
+        rows.forEach(function(r) { cfg[r.key] = r.value; });
+
+        if (cfg.form_active === 'false') {
+          document.getElementById('form-body').style.display = 'none';
+          document.querySelector('.cp-progress').style.display = 'none';
+          var notice = document.createElement('div');
+          notice.style.cssText = 'padding:40px 24px;text-align:center;color:#64748b;font-size:1rem;';
+          notice.textContent = 'Cadastros temporariamente encerrados. Volte em breve!';
+          document.querySelector('.cp-card').appendChild(notice);
+          return;
         }
-      } catch (err) {
-        alert('Erro de conexão com o servidor.');
+        if (cfg.form_headline) document.getElementById('form-headline').textContent = cfg.form_headline;
+        if (cfg.form_subtitle) document.getElementById('form-subtitle').textContent = cfg.form_subtitle;
+        if (cfg.form_cta)      document.getElementById('btn-submit').textContent = cfg.form_cta;
+      })
+      .catch(function() { /* keep defaults */ });
+
+    // ── Categorias (fallback local) ────────────────────────────────────────
+    var CATEGORIAS_FALLBACK = [
+      { id: 'eletrica',      name: '⚡ Elétrica'        },
+      { id: 'hidraulica',    name: '🔧 Hidráulica'      },
+      { id: 'pintura',       name: '🎨 Pintura'         },
+      { id: 'reformas',      name: '🏗️ Reformas'        },
+      { id: 'limpeza',       name: '🧹 Limpeza'         },
+      { id: 'ar-condicionado', name: '❄️ Ar-Condicionado' },
+      { id: 'jardinagem',    name: '🌿 Jardinagem'      },
+      { id: 'seguranca',     name: '🔐 Segurança'       },
+      { id: 'marcenaria',    name: '🪵 Marcenaria'      },
+      { id: 'energia-solar', name: '☀️ Energia Solar'   },
+      { id: 'telhado',       name: '🏠 Telhado'         },
+      { id: 'mudancas',      name: '📦 Mudanças'        },
+      { id: 'dedetizacao',   name: '🐜 Dedetização'     },
+      { id: 'instalacoes',   name: '🔩 Instalações'     },
+      { id: 'academia',      name: '💪 Personal Trainer' },
+      { id: 'beleza',        name: '💇 Beleza'          },
+      { id: 'informatica',   name: '💻 Informática'     },
+      { id: 'fotografo',     name: '📷 Fotografia'      },
+      { id: 'design',        name: '🖌️ Design'          },
+      { id: 'traducao',      name: '🌐 Tradução'        },
+      { id: 'motorista',     name: '🚗 Motorista'       },
+      { id: 'culinaria',     name: '👨‍🍳 Culinária'       },
+      { id: 'aulas',         name: '📚 Aulas Particulares' },
+      { id: 'pet',           name: '🐾 Pet Care'        },
+    ];
+
+    function preencherCategorias(lista) {
+      var sel = document.getElementById('categoria');
+      lista.forEach(function(cat) {
+        var opt = document.createElement('option');
+        opt.value = cat.id || cat.name;
+        opt.textContent = cat.name;
+        sel.appendChild(opt);
+      });
+    }
+
+    // Tenta API, cai no fallback
+    fetch('https://octisite-github-io.vercel.app/api/categorias')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (Array.isArray(data) && data.length) preencherCategorias(data);
+        else preencherCategorias(CATEGORIAS_FALLBACK);
+      })
+      .catch(function() { preencherCategorias(CATEGORIAS_FALLBACK); });
+
+    // ── WhatsApp mask ─────────────────────────────────────────────────────
+    document.getElementById('whatsapp').addEventListener('input', function(e) {
+      var v = e.target.value.replace(/\D/g, '');
+      if (v.length > 11) v = v.slice(0, 11);
+      var fmt = '';
+      if (v.length >= 1) fmt = '(' + v.slice(0,2);
+      if (v.length >= 3) fmt += ') ' + v.slice(2, v.length <= 10 ? 6 : 7);
+      if (v.length >= 7) fmt += '-' + v.slice(v.length <= 10 ? 6 : 7);
+      e.target.value = fmt;
+    });
+
+    // ── Validation helpers ────────────────────────────────────────────────
+    function setValid(fieldGroup) {
+      document.getElementById(fieldGroup).classList.remove('invalid');
+    }
+    function setInvalid(fieldGroup) {
+      document.getElementById(fieldGroup).classList.add('invalid');
+      return false;
+    }
+    function val(id) { return document.getElementById(id).value.trim(); }
+
+    function validateStep1() {
+      var ok = true;
+      if (!val('contato')) { setInvalid('fg-contato'); ok = false; } else setValid('fg-contato');
+      var phone = val('whatsapp').replace(/\D/g,'');
+      if (phone.length < 10) { setInvalid('fg-whatsapp'); ok = false; } else setValid('fg-whatsapp');
+      var emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRx.test(val('email'))) { setInvalid('fg-email'); ok = false; } else setValid('fg-email');
+      return ok;
+    }
+
+    function validateStep2() {
+      var ok = true;
+      if (!val('nomeEmpresa')) { setInvalid('fg-nomeEmpresa'); ok = false; } else setValid('fg-nomeEmpresa');
+      if (!val('categoria'))   { setInvalid('fg-categoria');   ok = false; } else setValid('fg-categoria');
+      if (!val('endereco'))    { setInvalid('fg-endereco');     ok = false; } else setValid('fg-endereco');
+      if (!val('sobreEmpresa') || val('sobreEmpresa').length < 20) {
+        setInvalid('fg-sobreEmpresa'); ok = false;
+      } else setValid('fg-sobreEmpresa');
+      return ok;
+    }
+
+    // ── Step navigation ───────────────────────────────────────────────────
+    var currentStep = 1;
+
+    function goToStep(n) {
+      for (var i = 1; i <= 3; i++) {
+        document.getElementById('panel-' + i).classList.toggle('active', i === n);
+        var ind = document.getElementById('step-indicator-' + i);
+        ind.classList.remove('active', 'done');
+        if (i === n) ind.classList.add('active');
+        else if (i < n) ind.classList.add('done');
       }
-    };
+      currentStep = n;
+      if (n === 3) buildResumo();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.getElementById('btn-next-1').addEventListener('click', function() {
+      if (validateStep1()) goToStep(2);
+    });
+    document.getElementById('btn-back-2').addEventListener('click', function() { goToStep(1); });
+    document.getElementById('btn-next-2').addEventListener('click', function() {
+      if (validateStep2()) goToStep(3);
+    });
+    document.getElementById('btn-back-3').addEventListener('click', function() { goToStep(2); });
+
+    // ── Clear validation on input ─────────────────────────────────────────
+    ['contato','whatsapp','email','nomeEmpresa','endereco','sobreEmpresa'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('input', function() {
+        var fg = el.closest('.field-group');
+        if (fg) fg.classList.remove('invalid');
+      });
+    });
+    document.getElementById('categoria').addEventListener('change', function() {
+      setValid('fg-categoria');
+    });
+
+    // ── Image previews ────────────────────────────────────────────────────
+    document.getElementById('logoEmpresa').addEventListener('change', function(e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      var img = document.getElementById('previewLogo');
+      img.src = URL.createObjectURL(file);
+      img.style.display = 'block';
+      // Update drop zone label
+      document.querySelector('#logo-drop .label').innerHTML =
+        '<strong>' + escHtml(file.name) + '</strong><br><small style="color:#94a3b8;">Clique para trocar</small>';
+    });
+
+    document.getElementById('imagensServicos').addEventListener('change', function(e) {
+      var files = Array.from(e.target.files).slice(0, 5);
+      var preview = document.getElementById('previewServicos');
+      preview.innerHTML = '';
+      files.forEach(function(file) {
+        var img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.className = 'preview-img';
+        preview.appendChild(img);
+      });
+      document.querySelector('#imgs-drop .label').innerHTML =
+        '<strong>' + files.length + ' foto' + (files.length > 1 ? 's' : '') + ' selecionada' + (files.length > 1 ? 's' : '') + '</strong><br>' +
+        '<small style="color:#94a3b8;">Clique para trocar</small>';
+    });
+
+    // ── Resumo (step 3) ───────────────────────────────────────────────────
+    function buildResumo() {
+      var sel = document.getElementById('categoria');
+      var catLabel = sel.options[sel.selectedIndex]
+        ? sel.options[sel.selectedIndex].text
+        : val('categoria');
+
+      var html = [
+        row('Nome',     val('contato')),
+        row('WhatsApp', val('whatsapp')),
+        row('E-mail',   val('email')),
+        row('Empresa',  val('nomeEmpresa')),
+        row('Categoria',catLabel),
+        row('Cidade',   val('endereco')),
+        row('Sobre',    val('sobreEmpresa').slice(0,80) + (val('sobreEmpresa').length > 80 ? '...' : '')),
+      ].join('');
+      document.getElementById('resumo-content').innerHTML = html;
+    }
+    function row(label, value) {
+      return '<div style="display:flex;gap:8px;"><span style="min-width:90px;font-weight:600;color:#1e293b;">' +
+        escHtml(label) + '</span><span>' + escHtml(value) + '</span></div>';
+    }
+
+    // ── Submit ────────────────────────────────────────────────────────────
+    document.getElementById('btn-submit').addEventListener('click', function() {
+      var btn = this;
+      var errBox = document.getElementById('submit-error');
+      errBox.style.display = 'none';
+
+      // Disable + spinner
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Enviando...';
+
+      var dados = {
+        name:           val('nomeEmpresa'),
+        contact_person: val('contato'),
+        whatsapp:       val('whatsapp'),
+        email:          val('email') || null,
+        address:        val('endereco'),
+        about:          val('sobreEmpresa'),
+        category:       val('categoria'),
+      };
+
+      fetch(SUPABASE_URL + '/rest/v1/provider_leads', {
+        method: 'POST',
+        headers: Object.assign({}, SUPABASE_HEADERS, {
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        }),
+        body: JSON.stringify(dados)
+      })
+      .then(function(r) {
+        if (r.ok || r.status === 201) {
+          showSuccess();
+        } else {
+          return r.text().then(function(t) { throw new Error(t); });
+        }
+      })
+      .catch(function() {
+        btn.disabled = false;
+        btn.innerHTML = 'Tentar novamente';
+        errBox.textContent = 'Erro ao enviar. Verifique sua internet e tente novamente.';
+        errBox.style.display = 'block';
+      });
+    });
+
+    function showSuccess() {
+      document.getElementById('form-body').style.display = 'none';
+      document.querySelector('.cp-progress').style.display = 'none';
+      var s = document.getElementById('success-panel');
+      s.classList.add('active');
+    }
+
+    // ── Util ──────────────────────────────────────────────────────────────
+    function escHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+  })();
   </script>
 </body>
 </html>

@@ -1,62 +1,97 @@
-// blog-post.js - Carrega conteúdo completo do post do Hygraph
+// blog-post.js - Carrega conteúdo completo do post do Supabase
 
-const HYGRAPH_API = "https://api-us-west-2.hygraph.com/v2/cm6pzx1wi00ki07wet8piy0zy/master";
-const HYGRAPH_TOKEN = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImdjbXMtbWFpbi1wcm9kdWN0aW9uIn0.eyJ2ZXJzaW9uIjozLCJpYXQiOjE3Mzg2NDQ0MDMsImF1ZCI6WyJodHRwczovL2FwaS11cy13ZXN0LTIuaHlncmFwaC5jb20vdjIvY202cHp4MXdpMDBraTA3d2V0OHBpeTB6eS9tYXN0ZXIiLCJtYW5hZ2VtZW50LW5leHQuZ3JhcGhjbXMuY29tIl0sImlzcyI6Imh0dHBzOi8vbWFuYWdlbWVudC11cy13ZXN0LTIuaHlncmFwaC5jb20vIiwic3ViIjoiMjM5YmY2YWItZTVjYS00ZjkxLTg0MzctYTM3MDE0MWNmMzMyIiwianRpIjoiY2thNWoyZW9iMDN0YzAxd2gwZGZkNjdyeSJ9.FIgvO6oOfKANRmEOICz0HYI0te89E9j_ngps6G-cwW8RnPnE4CAFjr_xJ0v73CSFnCIBxSJ9SfQriyiF2CNAz6GveN46RzK1rFf63QVQqOIrZJPDNbOuQ0O7n7RDgFRZF7dadmAJUnhbAlkGZCZhJqLC-SZHGlriGfpa046ggnkLR9HZE4UVAOlP-pxjy_DRsFlKIjdRpUtRMYKxTlH41kwrxinKSDzR23gVliavVxxywcapba9n0ZnEDMVQIp9eUz3fwKcG6sHU8e9LXialA415yfO0aNY0BFCqZS4lTXHFpJbzb2FkmQLD1TzXpcLY6XOu0AGimonMfTR1yxU7nVmy6Rt0h6KuHD8QQkMc8F30Zh2Qzrf9uvEJ0SSO2JYc8k4NSR35UdZpQjySoPe4LU6rgXMNxhUnEHHg7SfVzhmtU91PPWSzbc8xsEJT1c_T2etFaVyH354viR36NEKajYDAiuWq0RzuV3js8sw13vHMsYW67_jUvQV6oslk2NDf0l7wOVTXvQnJ8TtiCiG36OeGrdfM8WgPREkvBBl757PdUCUa4eGdsjNGT5FApvU3XjyglTwz68LBdWTuprzJ4iZb02_iCE3iHtiOA34-nqNL2YmP2Sctv0K2EiGgCTvxntxS06KxazcUy7XGKBzptBbpfvUx7QDeYh2ic7eBUYc";
+const SUPABASE_URL = "https://tdttqltbnizljmsajqlc.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkdHRxbHRibml6bGptc2FqcWxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMDc0NzAsImV4cCI6MjA1NTU4MzQ3MH0.v__13i-EzViT2Eaz4gd2CFJlTq_W5kbDdIQtXSpXnfU";
 
 function getSlug() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("slug");
+  return new URLSearchParams(window.location.search).get("slug");
 }
 
 async function carregarConteudoPost() {
+  const container = document.getElementById("blog-post-content");
+  if (!container) return;
+
   const slug = getSlug();
   if (!slug) {
-    document.getElementById("blog-post-content").innerHTML = '<div class="col-12 text-center">Post não encontrado.</div>';
-    return;
-  }
-
-  const query = `{
-    post(where: {slug: "${slug}"}, stage: PUBLISHED) {
-      title
-      content { html }
-      coverImage { url }
-      date
-    }
-  }`;
-
-  const res = await fetch(HYGRAPH_API, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${HYGRAPH_TOKEN}`
-    },
-    body: JSON.stringify({ query })
-  });
-
-  const { data } = await res.json();
-  const post = data?.post;
-  const container = document.getElementById("blog-post-content");
-  container.innerHTML = "";
-
-  if (!post) {
-    container.innerHTML = '<div class="col-12 text-center">Post não encontrado.</div>';
+    container.innerHTML = '<div class="col-12 text-center py-5 text-muted">Post não encontrado.</div>';
     return;
   }
 
   container.innerHTML = `
-    <div class="col-lg-8">
-      <div class="card shadow-lg wow fadeInUp" data-wow-delay=".2s">
-        <img src="${post.coverImage?.url || 'assets/img/blog-placeholder.png'}" class="blog-post-img" alt="${post.title}">
-        <div class="card-body">
-          <h2 class="card-title mb-3">${post.title}</h2>
-          <div class="card-text newsletter-content">${post.content?.html || ''}</div>
+    <div class="col-12 text-center py-5">
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>`;
+
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/blog_posts?slug=eq.${encodeURIComponent(slug)}&status=eq.published&select=title,content,cover_url,published_at,author&limit=1`,
+      {
+        headers: {
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+      }
+    );
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const data = await res.json();
+    const post = Array.isArray(data) ? data[0] : null;
+    container.innerHTML = "";
+
+    if (!post) {
+      container.innerHTML = '<div class="col-12 text-center py-5 text-muted">Post não encontrado.</div>';
+      return;
+    }
+
+    const date = post.published_at
+      ? new Date(post.published_at).toLocaleDateString("pt-BR", {
+          day: "2-digit", month: "long", year: "numeric"
+        })
+      : "";
+
+    container.innerHTML = `
+      <div class="col-lg-8 mx-auto">
+        <div class="card shadow-lg wow fadeInUp" data-wow-delay=".1s">
+          ${post.cover_url
+            ? `<img
+                src="${post.cover_url}"
+                class="card-img-top"
+                alt="${escHtml(post.title)}"
+                style="max-height:400px;object-fit:cover;"
+                onerror="this.style.display='none'"
+              >`
+            : ""}
+          <div class="card-body p-4 p-lg-5">
+            <h1 class="card-title h2 mb-3">${escHtml(post.title)}</h1>
+            <div class="d-flex align-items-center gap-3 mb-4 text-muted small">
+              ${date ? `<span>📅 ${date}</span>` : ""}
+              ${post.author ? `<span>✍️ ${escHtml(post.author)}</span>` : ""}
+            </div>
+            <div class="blog-post-body">
+              ${post.content || "<p>Conteúdo não disponível.</p>"}
+            </div>
+          </div>
+          <div class="card-footer py-3 px-4">
+            <a href="blog.html" class="btn btn-outline-primary btn-sm">
+              ← Voltar ao Blog
+            </a>
+          </div>
         </div>
-        <div class="card-footer text-muted small">
-          ${new Date(post.date).toLocaleDateString('pt-BR')}
-        </div>
-      </div>
-    </div>
-  `;
+      </div>`;
+
+    // Atualiza o título da aba
+    document.title = `${post.title} | Blog Octi`;
+
+  } catch (err) {
+    console.error("Erro ao carregar post:", err);
+    container.innerHTML = '<div class="col-12 text-center py-5 text-muted">Não foi possível carregar o post.</div>';
+  }
+}
+
+function escHtml(str) {
+  if (!str) return "";
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
 document.addEventListener("DOMContentLoaded", carregarConteudoPost);

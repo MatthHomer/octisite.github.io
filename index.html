@@ -3,48 +3,34 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Octi - Seu Melhor App de Serviços.</title>
-    <meta name="description" content="Octi - Encontre prestadores de serviços qualificados, agende e acompanhe seus serviços com facilidade." />
+    <title>Octi — Encontre Prestadores de Serviços de Confiança</title>
+    <meta name="description" content="Chega de pedir indicação no grupo do WhatsApp. O Octi conecta você a eletricistas, encanadores, pintores e muito mais — com avaliações reais e 100% gratuito." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo/Octi_Logotipo_07.png"/>
-    <!-- Place favicon.ico in the root directory -->
 
-    <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="assets/css/bootstrap-5.0.0-alpha-2.min.css" />
     <link rel="stylesheet" href="assets/css/LineIcons.2.0.css" />
     <link rel="stylesheet" href="assets/css/animate.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/redesign.css" />
   </head>
   <body>
-    <!--[if lte IE 9]>
-      <p class="browserupgrade">
-        Você está usando um navegador <strong>desatualizado</strong>. Por favor,
-        <a href="https://browsehappy.com/">atualize seu navegador</a> para melhorar sua experiência e segurança.
-      </p>
-    <![endif]-->
 
-    <!-- ========================= preloader start ========================= -->
+    <!-- ========================= Preloader ========================= -->
     <div class="preloader">
       <div class="loader">
         <div class="ytp-spinner">
           <div class="ytp-spinner-container">
             <div class="ytp-spinner-rotator">
-              <div class="ytp-spinner-left">
-                <div class="ytp-spinner-circle"></div>
-              </div>
-              <div class="ytp-spinner-right">
-                <div class="ytp-spinner-circle"></div>
-              </div>
+              <div class="ytp-spinner-left"><div class="ytp-spinner-circle"></div></div>
+              <div class="ytp-spinner-right"><div class="ytp-spinner-circle"></div></div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- preloader end -->
 
-    <!-- ========================= header start ========================= -->
-    <header class="header">
-    <!-- ========================= header start ========================= -->
+    <!-- ========================= Header ========================= -->
     <header class="header">
       <div class="navbar-area">
         <div class="container">
@@ -52,565 +38,746 @@
             <div class="col-lg-12">
               <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand" href="index.html">
-                  <img src="assets/img/logo/Octi_Logotipo_19.png" alt="Logo" />
+                  <img src="assets/img/logo/Octi_Logotipo_19.png" alt="Octi" />
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" aria-label="Abrir menu" aria-expanded="false">
                   <span class="toggler-icon"></span>
                   <span class="toggler-icon"></span>
                   <span class="toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                   <ul id="nav" class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                      <a class="page-scroll" href="#home">Início</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="page-scroll" href="#feature">Recursos</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="page-scroll" href="#tracking">Explorar</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="page-scroll" href="#download">Baixar</a>
-                    </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="blog.html">Blog</a>
-                      </li>
+                    <li class="nav-item"><a class="page-scroll" href="#home">Início</a></li>
+                    <li class="nav-item"><a class="page-scroll" href="#categorias">Categorias</a></li>
+                    <li class="nav-item"><a class="page-scroll" href="#como-funciona">Como Funciona</a></li>
+                    <li class="nav-item"><a class="page-scroll" href="#download">Baixar</a></li>
+                    <li class="nav-item"><a href="blog.html">Blog</a></li>
                   </ul>
                 </div>
-                <!-- navbar collapse -->
               </nav>
-              <!-- navbar -->
             </div>
           </div>
-          <!-- row -->
         </div>
-        <!-- container -->
       </div>
-      <!-- navbar area -->
     </header>
-    <!-- ========================= header end ========================= -->
 
-    <!-- ========================= hero-section start ========================= -->
-    <section id="home" class="hero-section">
+    <!-- ========================= Hero ========================= -->
+    <section id="home" class="hero-v2">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-6">
-            <div class="hero-content">
-              <h1 class="wow fadeInUp" data-wow-delay=".2s">
-                Encontre os melhores prestadores de serviços perto de você<br>
-                <span style="font-size:1.1rem;color:#0984a1;font-weight:600;">Totalmente gratuito para todos!</span>
-              </h1>
-              <p class="wow fadeInUp" data-wow-delay=".4s">
-                O Octi conecta você aos melhores profissionais da sua região. Eletricistas, encanadores, pintores e muito mais, tudo em um só app.
+            <div class="wow fadeInLeft" data-wow-delay=".1s">
+              <div class="hero-badge">
+                <span class="pulse-dot"></span> Gratuito para todos
+              </div>
+              <h1>Chega de pedir indicação no grupo do WhatsApp.</h1>
+              <p class="hero-desc">
+                O <span id="typewriter-service" class="hero-typewriter">Eletricista</span> que você precisa
+                está perto de você — e está no Octi.
               </p>
-              <div class="hero-btns">
-                <a href="https://play.google.com/store/apps/details?id=com.homerbr.Octi" class="main-btn btn-hover wow fadeInUp" data-wow-delay=".6s">Baixar Agora</a>
-                <a href="#feature" class="main-btn border-btn btn-hover wow fadeInUp" data-wow-delay=".6s">Saiba Mais</a>
+              <div class="hero-actions">
+                <a href="https://play.google.com/store/apps/details?id=com.homerbr.Octi"
+                   class="btn-primary-v2" target="_blank" rel="noopener">
+                  <i class="lni lni-play-store"></i> Baixar na Play Store
+                </a>
+                <a href="#como-funciona" class="btn-secondary-v2 page-scroll">
+                  Ver como funciona <i class="lni lni-arrow-right"></i>
+                </a>
+              </div>
+              <div class="hero-trust">
+                <span>24+ categorias</span>
+                <span>Avaliações reais</span>
+                <span>100% gratuito</span>
               </div>
             </div>
           </div>
           <div class="col-lg-6">
-            <div class="hero-img wow fadeInUp" data-wow-delay=".5s">
-              <img src="assets/img/hero/hero-img2.png" alt="" class="img-fluid" style="width: 40%;">
+            <div class="hero-img-v2 wow fadeInRight" data-wow-delay=".2s">
+              <img src="assets/img/hero/hero-img2.png" alt="App Octi — encontre profissionais" />
             </div>
           </div>
         </div>
-      </div>
-      <div class="hero-shape">
-        <!-- Removido o shape-1 que estava causando problemas no mobile -->
       </div>
     </section>
-    <!-- ========================= hero-section end ========================= -->
 
-    <!-- ========================= blog-slider-section start ========================= -->
-    <!-- ========================= feature-section start ========================= -->
-    <section id="feature" class="feature-section pt-10">
+    <!-- ========================= Trust Bar ========================= -->
+    <div class="trust-bar">
+      <div class="container">
+        <div class="trust-bar-items">
+          <div class="trust-bar-item">
+            <i class="lni lni-lock"></i>
+            <span>Cadastro 100% seguro</span>
+          </div>
+          <div class="trust-bar-item">
+            <i class="lni lni-star-filled"></i>
+            <span>Avaliações verificadas</span>
+          </div>
+          <div class="trust-bar-item">
+            <i class="lni lni-map-marker"></i>
+            <span>Profissionais locais</span>
+          </div>
+          <div class="trust-bar-item">
+            <i class="lni lni-coin"></i>
+            <span>Sempre gratuito</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================= Stats Strip ========================= -->
+    <div class="stats-strip">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-xxl-5 col-xl-6 col-lg-7">
-            <div class="section-title text-center mb-30">
-              <h1 class="mb-25 wow fadeInUp" data-wow-delay=".2s">Para Usuários</h1>
-              <p class="wow fadeInUp" data-wow-delay=".4s">Descubra como o Octi facilita encontrar e contratar serviços</p>
+          <div class="col-lg-3 col-md-4 col-4">
+            <div class="stat-strip-item">
+              <strong class="countup" cup-end="24" cup-append="+">24+</strong>
+              <span>Categorias</span>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-4">
+            <div class="stat-strip-item">
+              <strong class="countup" cup-end="60" cup-append="+">60+</strong>
+              <span>Prestadores</span>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-4">
+            <div class="stat-strip-item">
+              <strong>100%</strong>
+              <span>Gratuito</span>
             </div>
           </div>
         </div>
+      </div>
+    </div>
 
+    <!-- ========================= Pain Points ========================= -->
+    <section class="pain-section">
+      <div class="container">
         <div class="row justify-content-center">
-          <div class="col-lg-4 col-md-8 col-sm-10">
-            <div class="single-feature">
-              <div class="icon color-1">
+          <div class="col-lg-8 text-center mb-60">
+            <span class="section-label section-label-warm">Parece familiar?</span>
+            <h2 class="section-title-v2">Você já passou por isso?</h2>
+            <p class="section-subtitle">Achar um bom profissional de confiança é frustrante demais.</p>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="pain-card wow fadeInUp" data-wow-delay=".1s">
+              <div class="pain-emoji">😤</div>
+              <h4>"Alguém indica um bom encanador?"</h4>
+              <p>Você posta no grupo do WhatsApp e fica horas aguardando uma indicação que talvez nem resolva o seu problema.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="pain-card wow fadeInUp" data-wow-delay=".25s">
+              <div class="pain-emoji">📞</div>
+              <h4>Liga para três, dois não atendem</h4>
+              <p>Quando alguém responde, cobra mais do que você esperava — e você ainda não tem certeza se é de confiança.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="pain-card wow fadeInUp" data-wow-delay=".4s">
+              <div class="pain-emoji">🤷</div>
+              <h4>Contrata sem saber se presta</h4>
+              <p>Sem avaliações reais, você fica no escuro. O serviço pode ser excelente — ou uma dor de cabeça enorme.</p>
+            </div>
+          </div>
+        </div>
+        <div class="pain-bridge wow fadeInUp" data-wow-delay=".3s">
+          <span>O Octi resolve tudo isso</span>
+          <i class="lni lni-arrow-down"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= Categories ========================= -->
+    <section id="categorias" class="categories-v2">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center mb-60">
+            <span class="section-label">Serviços disponíveis</span>
+            <h2 class="section-title-v2">O que você precisa?</h2>
+            <p class="section-subtitle">24 categorias de profissionais prontos para te atender</p>
+          </div>
+        </div>
+        <div class="category-grid">
+          <div class="category-card wow fadeInUp" data-wow-delay=".05s">
+            <span class="category-emoji">⚡</span><span class="cat-name">Elétrica</span>
+          </div>
+          <div class="category-card wow fadeInUp" data-wow-delay=".1s">
+            <span class="category-emoji">🔧</span><span class="cat-name">Hidráulica</span>
+          </div>
+          <div class="category-card wow fadeInUp" data-wow-delay=".15s">
+            <span class="category-emoji">🎨</span><span class="cat-name">Pintura</span>
+          </div>
+          <div class="category-card wow fadeInUp" data-wow-delay=".2s">
+            <span class="category-emoji">🏗️</span><span class="cat-name">Reformas</span>
+          </div>
+          <div class="category-card wow fadeInUp" data-wow-delay=".25s">
+            <span class="category-emoji">🧹</span><span class="cat-name">Limpeza</span>
+          </div>
+          <div class="category-card wow fadeInUp" data-wow-delay=".3s">
+            <span class="category-emoji">❄️</span><span class="cat-name">Ar-Condicionado</span>
+          </div>
+          <div class="category-card wow fadeInUp" data-wow-delay=".35s">
+            <span class="category-emoji">🌿</span><span class="cat-name">Jardinagem</span>
+          </div>
+          <div class="category-card wow fadeInUp" data-wow-delay=".4s">
+            <span class="category-emoji">🔐</span><span class="cat-name">Segurança</span>
+          </div>
+          <div class="category-card wow fadeInUp" data-wow-delay=".45s">
+            <span class="category-emoji">🪵</span><span class="cat-name">Marcenaria</span>
+          </div>
+          <div class="category-card wow fadeInUp" data-wow-delay=".5s">
+            <span class="category-emoji">☀️</span><span class="cat-name">Energia Solar</span>
+          </div>
+          <div class="category-card wow fadeInUp" data-wow-delay=".55s">
+            <span class="category-emoji">🏠</span><span class="cat-name">Telhado</span>
+          </div>
+          <div class="category-card wow fadeInUp" data-wow-delay=".6s">
+            <span class="category-emoji">📦</span><span class="cat-name">Mudanças</span>
+          </div>
+        </div>
+        <div class="categories-more">
+          <a href="#download" class="page-scroll">
+            + 12 categorias disponíveis no app <i class="lni lni-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= Comparison ========================= -->
+    <section class="comparison-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center mb-60">
+            <span class="section-label">A diferença é clara</span>
+            <h2 class="section-title-v2">Com o Octi, tudo muda</h2>
+          </div>
+        </div>
+        <div class="comparison-wrapper wow fadeInUp" data-wow-delay=".15s">
+          <div class="comparison-col col-bad">
+            <div class="comparison-header">
+              <span class="comp-icon">😤</span>
+              <strong>Sem o Octi</strong>
+            </div>
+            <ul class="comparison-list">
+              <li><i class="lni lni-close"></i> Pede indicação no grupo do WhatsApp</li>
+              <li><i class="lni lni-close"></i> Espera horas por uma resposta</li>
+              <li><i class="lni lni-close"></i> Liga para vários números</li>
+              <li><i class="lni lni-close"></i> Dois não atendem, um cobra caro</li>
+              <li><i class="lni lni-close"></i> Contrata sem nenhuma avaliação</li>
+              <li><i class="lni lni-close"></i> Fica na incerteza sobre a qualidade</li>
+            </ul>
+          </div>
+          <div class="comparison-vs">VS</div>
+          <div class="comparison-col col-good">
+            <div class="comparison-header">
+              <span class="comp-icon">✅</span>
+              <strong>Com o Octi</strong>
+            </div>
+            <ul class="comparison-list">
+              <li><i class="lni lni-checkmark"></i> Busca direta no app em 30 segundos</li>
+              <li><i class="lni lni-checkmark"></i> Vê profissionais disponíveis no mapa</li>
+              <li><i class="lni lni-checkmark"></i> Lê avaliações reais de clientes</li>
+              <li><i class="lni lni-checkmark"></i> Contata diretamente pelo app</li>
+              <li><i class="lni lni-checkmark"></i> Agenda com confirmação na hora</li>
+              <li><i class="lni lni-checkmark"></i> Avalia e ajuda outros usuários</li>
+            </ul>
+            <a href="https://play.google.com/store/apps/details?id=com.homerbr.Octi"
+               class="btn-primary-v2 btn-sm-v2 mt-20" target="_blank" rel="noopener">
+              Quero usar o Octi
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= How it Works ========================= -->
+    <section id="como-funciona" class="howto-v2">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center mb-60">
+            <span class="section-label">Simples assim</span>
+            <h2 class="section-title-v2">3 passos para resolver qualquer serviço</h2>
+            <p class="section-subtitle">Sem complicação, sem taxa, sem surpresa</p>
+          </div>
+        </div>
+        <div class="steps-grid">
+          <div class="step-item wow fadeInUp" data-wow-delay=".1s">
+            <div class="step-number">1</div>
+            <h4>Encontre</h4>
+            <p>Busque por categoria ou explore o mapa com profissionais disponíveis perto de você</p>
+          </div>
+          <div class="step-item wow fadeInUp" data-wow-delay=".25s">
+            <div class="step-number">2</div>
+            <h4>Contate</h4>
+            <p>Veja o perfil completo, avaliações de clientes reais e entre em contato direto pelo app</p>
+          </div>
+          <div class="step-item wow fadeInUp" data-wow-delay=".4s">
+            <div class="step-number">3</div>
+            <h4>Avalie</h4>
+            <p>Após o serviço, deixe sua avaliação honesta e ajude outros usuários a escolher bem</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= Features ========================= -->
+    <section id="feature" class="features-v2">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center mb-60">
+            <span class="section-label">Recursos</span>
+            <h2 class="section-title-v2">Feito para quem precisa de agilidade</h2>
+            <p class="section-subtitle">Ferramentas que tornam a contratação de serviços simples e segura</p>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="feature-card-v2 wow fadeInUp" data-wow-delay=".1s">
+              <div class="feature-icon-v2 teal">
                 <i class="lni lni-map-marker"></i>
               </div>
-              <div class="content">
-                <h3>Localização em Mapa</h3>
-                <p>Encontre prestadores próximos a você com localização em tempo real e filtros por categoria</p>
-              </div>
+              <h4>Mapa em Tempo Real</h4>
+              <p>Veja exatamente onde estão os profissionais disponíveis e filtre pela categoria que você precisa</p>
             </div>
           </div>
-          <div class="col-lg-4 col-md-8 col-sm-10">
-            <div class="single-feature">
-              <div class="icon color-2">
+          <div class="col-lg-4 col-md-6">
+            <div class="feature-card-v2 wow fadeInUp" data-wow-delay=".25s">
+              <div class="feature-icon-v2 yellow">
                 <i class="lni lni-calendar"></i>
               </div>
-              <div class="content">
-                <h3>Agendamento Fácil</h3>
-                <p>Agende serviços diretamente pelo app e gerencie todos seus compromissos em um só lugar</p>
-              </div>
+              <h4>Agendamento Sem Ligação</h4>
+              <p>Sem ficar tentando falar com alguém — agende diretamente pelo app e gerencie tudo em um lugar</p>
             </div>
           </div>
-          <div class="col-lg-4 col-md-8 col-sm-10">
-            <div class="single-feature">
-              <div class="icon color-3">
+          <div class="col-lg-4 col-md-6">
+            <div class="feature-card-v2 wow fadeInUp" data-wow-delay=".4s">
+              <div class="feature-icon-v2 red">
                 <i class="lni lni-star"></i>
               </div>
-              <div class="content">
-                <h3>Avaliações Reais</h3>
-                <p>Avaliações e comentários apenas de clientes que realmente utilizaram o serviço</p>
-              </div>
+              <h4>Avaliações que Importam</h4>
+              <p>Somente clientes que realizaram o serviço podem avaliar — sem avaliações falsas, sem surpresas</p>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- ========================= feature-section end ========================= -->
 
-    <!-- ========================= tracking-section start ========================= -->
-    <section id="tracking" class="tracking-section pt-10">
-      <div class="tracking-shape">
-        <img src="assets/img/search/search-shape-alt2-flip.png" alt="" class="shape shape-1">
-      </div>
+    <!-- ========================= For Providers (FOMO) ========================= -->
+    <section class="providers-v2">
       <div class="container">
         <div class="row align-items-center">
-          <div class="col-lg-6 col-xl-7">
-            <div class="tracking-image-wrapper">
-              <img src="assets/img/plan/plan-img.png" alt="">
+          <div class="col-lg-7 wow fadeInLeft" data-wow-delay=".1s">
+            <div class="providers-live-badge">
+              <span class="pulse-dot pulse-green"></span>
+              Clientes buscando profissionais agora
+            </div>
+            <h2>Neste momento, alguém está procurando um profissional como você.</h2>
+            <p class="fomo-warning">
+              <i class="lni lni-warning"></i>
+              Cada dia sem cadastro é um cliente que encontra outro profissional.
+            </p>
+            <p>O Octi é 100% gratuito para prestadores. Crie seu perfil em minutos e comece a receber novos clientes ainda hoje.</p>
+            <ul class="providers-bullets">
+              <li>Painel completo para gerenciar agenda e serviços</li>
+              <li>Apareça no mapa para clientes da sua região</li>
+              <li>Acompanhe estatísticas e avaliações do seu perfil</li>
+              <li>Receba notificações de novos clientes interessados</li>
+            </ul>
+            <a href="cadastro-prestador.html" class="btn-white">
+              Quero receber clientes agora <i class="lni lni-arrow-right"></i>
+            </a>
+            <div class="btn-sub-note">
+              <i class="lni lni-lock"></i> Sem taxa &nbsp;·&nbsp;
+              <i class="lni lni-coin"></i> Sempre gratuito &nbsp;·&nbsp;
+              <i class="lni lni-checkmark-circle"></i> Cancele quando quiser
             </div>
           </div>
-          <div class="col-lg-6 col-xl-5">
-            <div class="tracking-content">
-              <div class="section-title mb-50">
-                <h1 class="mb-40 wow fadeInUp" data-wow-delay=".2s">Recursos Exclusivos</h1>
-                <p class="wow fadeInUp" data-wow-delay=".4s">
-                  Descubra funcionalidades únicas que tornam o Octi a melhor escolha para encontrar serviços.
-                </p>
-              </div>
-              <div class="single-plan">
-                <div class="icon-style color-1">
-                  <i class="lni lni-folder"></i>
-                </div>
-                <div class="content">
-                  <h3>Categorias Especializadas</h3>
-                  <p>De serviços básicos a especializados: eletricistas, encanadores, marceneiros, paisagistas e muito mais.</p>
-                </div>
-              </div>
-              <div class="single-plan">
-                <div class="icon-style color-2">
-                  <i class="lni lni-hammer"></i>
-                </div>
-                <div class="content">
-                  <h3>Projetos Personalizados</h3>
-                  <p>Encontre profissionais para projetos específicos, reformas e instalações sob medida.</p>
-                </div>
-              </div>
-              <div class="single-plan">
-                <div class="icon-style color-3">
-                  <i class="lni lni-book"></i>
-                </div>
-                <div class="content">
-                  <h3>Conteúdo Educativo</h3>
-                  <p>Blog com dicas de manutenção, tutoriais DIY e artigos sobre reforma e decoração.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Nova seção Para Prestadores -->
-        <div class="row justify-content-center mt-100">
-          <div class="col-xxl-5 col-xl-6 col-lg-7">
-            <div class="section-title text-center mb-30">
-              <h1 class="mb-25 wow fadeInUp" data-wow-delay=".2s">Para Prestadores</h1>
-              <p class="wow fadeInUp" data-wow-delay=".4s">Impulsione seu negócio com ferramentas profissionais</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="col-lg-4 col-md-8 col-sm-10">
-            <div class="single-feature"><!-- Usa a mesma classe da seção de usuários -->
-              <div class="icon color-1"><!-- Mantém a estrutura do ícone acima -->
-                <i class="lni lni-dashboard"></i>
-              </div>
-              <div class="content"><!-- Conteúdo abaixo do ícone -->
-                <h3>Painel Completo</h3>
-                <p>Gerencie seu perfil, agenda e serviços com total autonomia através do painel administrativo</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-8 col-sm-10">
-            <div class="single-feature">
-              <div class="icon color-2">
-                <i class="lni lni-graph"></i>
-              </div>
-              <div class="content">
-                <h3>Análise de Dados</h3>
-                <p>Acompanhe estatísticas de visualizações, agendamentos e avaliações dos seus serviços</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-8 col-sm-10">
-            <div class="single-feature">
-              <div class="icon color-3">
-                <i class="lni lni-bullhorn"></i>
-              </div>
-              <div class="content">
-                <h3>Mais Visibilidade</h3>
-                <p>Destaque-se no mapa e receba notificações de novos clientes interessados</p>
-              </div>
+          <div class="col-lg-5 wow fadeInRight" data-wow-delay=".25s">
+            <div class="providers-img">
+              <img src="assets/img/count-up/count-up-img-app.png" alt="Painel do prestador no Octi" />
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- ========================= tracking-section end ========================= -->
 
-    <!-- ========================= counter-up-section start ========================= -->
-    <section class="counter-up-section pt-10">
-      <div class="counter-shape">
-        <img src="assets/img/search/search-shape-alt2.png" alt="" class="shape">
-      </div>
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-xl-5 col-lg-6">
-            <div class="search-content">
-              <div class="section-title mb-40">
-                <h1 class="mb-40 wow fadeInUp" data-wow-delay=".2s">Nossos Números</h1>
-                <p class="wow fadeInUp" data-wow-delay=".4s">
-                  Veja o impacto que estamos causando no mercado de serviços.
-                </p>
-              </div>
-              <div class="app-info">
-                <div class="single-info">
-                  <div class="icon-style color-1">
-                    <h2 id="secondo1" class="countup" cup-end="14" cup-append="+">0</h2>
-                  </div>
-                  <h4>Categorias</h4>
-                </div>
-                <div class="single-info">
-                  <div class="icon-style color-2">
-                    <h2 id="secondo2" class="countup" cup-end="60" cup-append="+">20</h2>
-                  </div>
-                  <h4>Prestadores</h4>
-                </div>
-                <div class="single-info">
-                  <div class="icon-style color-3">
-                    <h2 id="secondo3" class="countup" cup-end="30" cup-append="+">0</h2>
-                  </div>
-                  <h4>Funções</h4>
-                </div>
-              </div>
-              <p>Junte-se a milhares de usuários satisfeitos.</p>
-            </div>
-          </div>
-
-          <div class="col-xl-7 col-lg-6">
-            <div class="counter-up-img text-lg-right">
-              <img src="assets/img/count-up/count-up-img-app.png" alt="">
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- ========================= counter-up-section end ========================= -->
-
-    
-    <!-- ========================= testimonial-section start ========================= -->
-    <section id="testimonial" class="testimonial-section pt-30 pb-100">
+    <!-- ========================= Testimonials ========================= -->
+    <section id="testimonial" class="testimonial-section pt-80 pb-80">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-xxl-5 col-xl-6 col-lg-7">
-            <div class="section-title text-center mb-60">
-              <h1 class="mb-25 wow fadeInUp" data-wow-delay=".2s">O que dizem nossos usuários</h1>
-              <p class="wow fadeInUp" data-wow-delay=".4s">Veja as experiências reais de quem já utiliza o Octi</p>
-            </div>
+          <div class="col-lg-8 text-center mb-60">
+            <span class="section-label">Depoimentos</span>
+            <h2 class="section-title-v2">Quem usa, recomenda</h2>
+            <p class="section-subtitle">Experiências reais de usuários e prestadores do Octi</p>
           </div>
         </div>
-
-        <div class="row testimonial-wrapper">
-          <div class="col-lg-4 col-md-6">
-            <div class="single-testimonial wow fadeInUp" data-wow-delay=".2s">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-30">
+            <div class="single-testimonial wow fadeInUp" data-wow-delay=".1s">
               <div class="rating mb-15">
-                <i class="lni lni-star-filled"></i>
-                <i class="lni lni-star-filled"></i>
-                <i class="lni lni-star-filled"></i>
-                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
               </div>
               <div class="content">
-                <p>"Encontrei um ótimo eletricista pelo Octi. O agendamento foi super fácil e o serviço foi excelente. Agora sempre uso o app quando preciso de algum profissional."</p>
+                <p>"Encontrei um eletricista em menos de 5 minutos. Sem precisar pedir nada no WhatsApp. O serviço foi perfeito e o profissional tinha ótimas avaliações. Nunca mais vou procurar de outro jeito."</p>
               </div>
               <div class="info">
-                <div class="image">
-                  <img src="assets/img/testimonial/user2.jpg" alt="Foto do usuário">
-                </div>
+                <div class="image"><img src="assets/img/testimonial/user2.jpg" alt="Ana Silva"></div>
                 <div class="text">
                   <h5>Ana Silva</h5>
-                  <p>Dona de Casa</p>
+                  <p>Usuária Octi · Porto Alegre</p>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="single-testimonial wow fadeInUp" data-wow-delay=".4s">
+          <div class="col-lg-4 col-md-6 mb-30">
+            <div class="single-testimonial wow fadeInUp" data-wow-delay=".25s">
               <div class="rating mb-15">
-                <i class="lni lni-star-filled"></i>
-                <i class="lni lni-star-filled"></i>
-                <i class="lni lni-star-filled"></i>
-                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
               </div>
               <div class="content">
-                <p>"Como prestador de serviços, o Octi transformou meu negócio. A plataforma me ajudou a conquistar novos clientes e organizar melhor minha agenda."</p>
+                <p>"Meu movimento aumentou depois que entrei no Octi. Recebi novos clientes que eu nunca teria alcançado antes. E o melhor: é gratuito. Não existe motivo para não se cadastrar."</p>
               </div>
               <div class="info">
-                <div class="image">
-                  <img src="assets/img/testimonial/user1.jpg" alt="Foto do usuário">
-                </div>
+                <div class="image"><img src="assets/img/testimonial/user1.jpg" alt="Carlos Oliveira"></div>
                 <div class="text">
                   <h5>Carlos Oliveira</h5>
-                  <p>Encanador Profissional</p>
+                  <p>Encanador · Prestador Octi</p>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="single-testimonial wow fadeInUp" data-wow-delay=".6s">
+          <div class="col-lg-4 col-md-6 mb-30">
+            <div class="single-testimonial wow fadeInUp" data-wow-delay=".4s">
               <div class="rating mb-15">
-                <i class="lni lni-star-filled"></i>
-                <i class="lni lni-star-filled"></i>
-                <i class="lni lni-star-filled"></i>
-                <i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i>
+                <i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i>
                 <i class="lni lni-star-filled"></i>
               </div>
               <div class="content">
-                <p>"O blog de DIY me ajudou muito com pequenos reparos, e quando precisei de um profissional, encontrei rapidamente pelo app. Muito prático e confiável!"</p>
+                <p>"Precisei de um pintor com urgência antes de uma festa em casa. Abri o Octi, vi as avaliações, contratei na hora. O cara chegou no dia seguinte. Fiquei impressionada com a facilidade."</p>
               </div>
               <div class="info">
-                <div class="image">
-                  <img src="assets/img/testimonial/user3.jpg" alt="Foto do usuário">
-                </div>
+                <div class="image"><img src="assets/img/testimonial/user3.jpg" alt="Marina Santos"></div>
                 <div class="text">
                   <h5>Marina Santos</h5>
-                  <p>Cliente Premium</p>
+                  <p>Usuária Octi · Canoas</p>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12">
-            <div class="text-center mt-50">
-              <a href="https://play.google.com/store/apps/details?id=com.homerbr.Octi/" class="main-btn btn-hover wow fadeInUp" data-wow-delay=".6s">Experimente Agora</a>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- ========================= testimonial-section end ========================= -->
-    <!-- ========================= blog-slider-section start ========================= -->
-    <section id="blog-slider" class="blog-slider-section pt-30 pb-100">
+
+    <!-- ========================= FAQ ========================= -->
+    <section class="faq-v2">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-xxl-5 col-xl-6 col-lg-7">
-            <div class="section-title text-center mb-30">
-              <h1 class="mb-25 wow fadeInUp" data-wow-delay=".2s">Blog & Dicas</h1>
-              <p class="wow fadeInUp" data-wow-delay=".4s">Confira as últimas novidades, tutoriais e dicas do nosso blog</p>
+          <div class="col-lg-8 text-center mb-60">
+            <span class="section-label">Dúvidas</span>
+            <h2 class="section-title-v2">Perguntas frequentes</h2>
+            <p class="section-subtitle">Respondemos as principais dúvidas sobre o Octi</p>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="faq-list">
+
+              <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                  O Octi é realmente gratuito para todos?
+                  <i class="lni lni-plus faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                  <p>Sim, 100% gratuito. Tanto para usuários que buscam serviços quanto para prestadores que se cadastram. Não existe taxa de cadastro, mensalidade ou comissão. É gratuito para sempre.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                  Como sei que o profissional é confiável?
+                  <i class="lni lni-plus faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                  <p>Cada prestador tem um perfil público com avaliações de clientes que realmente utilizaram o serviço. Você pode ver a nota, ler os comentários e decidir com segurança antes de contratar.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                  O Octi está disponível para iPhone?
+                  <i class="lni lni-plus faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                  <p>Por enquanto o Octi está disponível apenas para Android na Google Play Store. A versão para iOS (iPhone) está em desenvolvimento e será lançada em breve. Cadastre-se para ser avisado!</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                  Como me cadastro como prestador de serviços?
+                  <i class="lni lni-plus faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                  <p>Acesse a <a href="cadastro-prestador.html" style="color:var(--primary);font-weight:600;">página de cadastro de prestadores</a>, preencha seus dados, escolha sua categoria e aguarde a confirmação. O processo leva menos de 5 minutos e é completamente gratuito.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                  Tem profissionais cadastrados na minha cidade?
+                  <i class="lni lni-plus faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                  <p>O Octi está em expansão contínua. Baixe o app e veja os profissionais disponíveis na sua região pelo mapa. Caso sua cidade ainda tenha poucos prestadores, esse é o momento ideal para os profissionais se cadastrarem e se destacarem!</p>
+                </div>
+              </div>
+
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= Blog ========================= -->
+    <section id="blog-slider" class="blog-slider-section pt-30 pb-80">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center mb-30">
+            <span class="section-label">Blog</span>
+            <h2 class="section-title-v2">Dicas & Tutoriais</h2>
+            <p class="section-subtitle">Conteúdo gratuito sobre manutenção, reforma e como contratar bem</p>
           </div>
         </div>
         <div class="blog-slider-wrapper lateral-style">
           <div class="row align-items-stretch">
             <div class="col-lg-1 d-flex align-items-center justify-content-center">
-              <button class="blog-slider-btn blog-slider-btn-left" aria-label="Anterior"><i class="lni lni-chevron-left"></i></button>
+              <button class="blog-slider-btn blog-slider-btn-left" aria-label="Anterior">
+                <i class="lni lni-chevron-left"></i>
+              </button>
             </div>
             <div class="col-lg-10">
               <div class="blog-slider-list d-flex flex-row flex-nowrap overflow-auto">
-                <!-- Os cards dos posts serão inseridos aqui via JS -->
+                <!-- Posts inseridos via blog-slider.js -->
               </div>
             </div>
             <div class="col-lg-1 d-flex align-items-center justify-content-center">
-              <button class="blog-slider-btn blog-slider-btn-right" aria-label="Próximo"><i class="lni lni-chevron-right"></i></button>
+              <button class="blog-slider-btn blog-slider-btn-right" aria-label="Próximo">
+                <i class="lni lni-chevron-right"></i>
+              </button>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- ========================= blog-slider-section end ========================= -->
-    <!-- ========================= call-to-action prestador start ========================= -->
-    <section class="cta-prestador-section py-5" style="background: #eaf8fc;">
+
+    <!-- ========================= Download ========================= -->
+    <section id="download" class="download-v2">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-lg-8 text-center">
-            <h2 class="mb-3" style="color:#0984a1;">Gostou do Octi?</h2>
-            <p class="mb-4" style="font-size:1.2rem;">Se você é prestador de serviços, faça parte da nossa comunidade! Cadastre-se e aumente suas oportunidades.<br><span style="color:#0984a1;font-weight:600;">O cadastro é gratuito para todos!</span></p>
-            <a href="cadastro-prestador.html" class="main-btn btn-hover" style="font-size:1.1rem; padding:12px 32px;">Quero me cadastrar</a>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- ========================= call-to-action prestador end ========================= -->
-    
-    <!-- ========================= download-section start ========================= -->
-    <section id="download" class="download-section pt-10 pb-10">
-      <div class="map-bg">
-        <img src="assets/img/download/map-bg.svg" alt="">
-      </div>
-      <div class="download-shape">
-        <img src="assets/img/search/search-shape-alt2.png" alt="" class="shape shape-1">
-      </div>
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-6 order-last order-lg-first">
-            <div class="download-content mb-50">
-              <div class="section-title mb-40">
-                <h1 class="mb-30 wow fadeInUp" data-wow-delay=".2s">Instale e Comece a Usar</h1>
-                <p class="wow fadeInUp" data-wow-delay=".4s">
-                  Baixe agora e junte-se à revolução dos serviços digitais.<br>
-                  <span style="color:#0984a1;font-weight:600;">O app é gratuito para todos!</span>
-                </p>
-              </div>
-              <ul class="download">
-                <li>
-                  <a href="javascript:void(0)">
-                    <span class="icon"><i class="lni lni-apple"></i></span>
-                    <span class="text">Baixe na <b>App Store</b> </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://play.google.com/store/apps/details?id=com.homerbr.Octi&pcampaignid=web_share" target="_blank" rel="noopener">
-                    <span class="icon"><i class="lni lni-play-store"></i></span>
-                    <span class="text">Baixe na <b>Play Store</b> </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="download-img  text-lg-right">
-              <img src="assets/img/download/download-img2.png" alt="">
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- ========================= download-section end ========================= -->
-    
-    <!-- ========================= footer start ========================= -->
-    <footer id="footer" class="footer">
-      <div class="footer-shape">
-        <img src="assets/img/footer/footer-shape-1.svg" alt="" class="shape shape-1">
-      </div>
-      <div class="container">
-        <div class="widget-wrapper">
-          <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="footer-widget">
-                <div class="logo">
-                  <a href="index.html">
-                    <img src="assets/img/logo/Octi_Logotipo_07.png" alt="" class="logo-2" style="max-width: 70px; border-radius: 10px; margin-top: 120px; margin-left: 70px;"> 
-                  </a>
+          <div class="col-lg-7 text-center wow fadeInUp" data-wow-delay=".1s">
+            <span class="section-label">Disponível agora</span>
+            <h2>Baixe o Octi.<br>É grátis. É agora.</h2>
+            <p>Pare de depender de grupos e indicações incertas. O profissional certo está a um toque de distância.</p>
+            <div class="download-buttons">
+              <a href="https://play.google.com/store/apps/details?id=com.homerbr.Octi&pcampaignid=web_share"
+                 target="_blank" rel="noopener" class="store-btn">
+                <i class="lni lni-play-store store-icon"></i>
+                <div class="store-text">
+                  <small>Disponível no</small>
+                  <strong>Google Play</strong>
                 </div>
-                <ul class="socials">
-                  <li>
-                    <a href="javascript:void(0)"> <i class="lni lni-facebook-filled"></i> </a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0)"> <i class="lni lni-twitter-filled"></i> </a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0)"> <i class="lni lni-instagram-filled"></i> </a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0)"> <i class="lni lni-linkedin-original"></i> </a>
-                  </li>
-                </ul>
+              </a>
+              <div class="store-btn disabled" title="Em breve para iOS">
+                <i class="lni lni-apple store-icon"></i>
+                <div class="store-text">
+                  <small>Em breve na</small>
+                  <strong>App Store</strong>
+                </div>
               </div>
             </div>
+            <p class="download-note">
+              <i class="lni lni-lock"></i> Gratuito · Sem anúncios · Sem taxa
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-              <div class="footer-widget">
-                <h3>Recursos</h3>
-                <ul class="links">
-                  <li> <a href="javascript:void(0)">Fácil Uso</a> </li>
-                  <li> <a href="javascript:void(0)">Funciona em aparelhos</a> </li>
-                  <li> <a href="javascript:void(0)">Sempre atualizado</a> </li>
-                  <li> <a href="javascript:void(0)">Venha ser Octi</a> </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="col-xl-3 col-lg-2 col-md-6 col-sm-6">
-              <div class="footer-widget">
-                <h3>Sobre Nós</h3>
-                <ul class="links">
-                  <li> <a href="javascript:void(0)">Início</a> </li>
-                  <li> <a href="javascript:void(0)">Recursos</a> </li>
-                  <li> <a href="javascript:void(0)">Explorar</a> </li>
-                  <li> <a href="javascript:void(0)">Baixar</a> </li>
-                </ul>
-              </div>
-            </div>
-            
-            <div class="col-xl-2 col-lg-3 col-md-6 col-sm-6">
-              <div class="footer-widget">
-                <h3>Suporte</h3>
-                <ul class="links">
-                    <li> <a href="about.html">Sobre Nós</a> </li>
-                  <li> <a href="privacity.html">Política de Privacidade</a> </li>
-                  <li> <a href="terms.html">Termos de Serviços</a> </li>
-                    <li> <a href="accessibility.html">Acessibilidade</a> </li>
-                    <li> <a href="blog.html">Blog</a> </li>
-                </ul>
+    <!-- ========================= Footer ========================= -->
+    <footer class="footer-v2">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-40">
+            <div class="footer-brand">
+              <img src="assets/img/logo/Octi_Logotipo_07.png" alt="Octi" />
+              <p class="footer-tagline">Conectamos você ao profissional certo — sem complicação, sem taxa, sempre perto.</p>
+              <div class="footer-social">
+                <a href="javascript:void(0)" aria-label="Facebook"><i class="lni lni-facebook-filled"></i></a>
+                <a href="javascript:void(0)" aria-label="Instagram"><i class="lni lni-instagram-filled"></i></a>
+                <a href="javascript:void(0)" aria-label="LinkedIn"><i class="lni lni-linkedin-original"></i></a>
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="copy-right-wrapper">
-          <p>Desenvolvido por <a href="https://graygrids.com" rel="nofollow" target="_blank">Quidittas Int. Emp.</a></p>
+          <div class="col-lg-2 col-md-3 col-6 mb-40">
+            <h5>Navegar</h5>
+            <ul class="footer-links">
+              <li><a href="#home" class="page-scroll">Início</a></li>
+              <li><a href="#categorias" class="page-scroll">Categorias</a></li>
+              <li><a href="#como-funciona" class="page-scroll">Como Funciona</a></li>
+              <li><a href="#download" class="page-scroll">Baixar App</a></li>
+              <li><a href="blog.html">Blog</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-2 col-md-3 col-6 mb-40">
+            <h5>Profissionais</h5>
+            <ul class="footer-links">
+              <li><a href="cadastro-prestador.html">Cadastrar-se</a></li>
+              <li><a href="#categorias" class="page-scroll">Ver Categorias</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-40">
+            <h5>Suporte</h5>
+            <ul class="footer-links">
+              <li><a href="about.html">Sobre Nós</a></li>
+              <li><a href="privacity.html">Política de Privacidade</a></li>
+              <li><a href="terms.html">Termos de Serviço</a></li>
+              <li><a href="accessibility.html">Acessibilidade</a></li>
+              <li><a href="https://wa.me/5551996301302" target="_blank" rel="noopener">Fale Conosco</a></li>
+            </ul>
+          </div>
         </div>
       </div>
-
-      
+      <div class="footer-bottom">
+        <div class="container">
+          <p>© 2026 Octi. Todos os direitos reservados. Quidittas Int. Emp.</p>
+        </div>
+      </div>
     </footer>
-    
-    
-    
-    
-    <!-- ========================= footer end ========================= -->
 
-    <!-- Botão flutuante WhatsApp -->
+    <!-- WhatsApp Float -->
     <a href="https://wa.me/5551996301302" target="_blank" class="whatsapp-float" aria-label="Fale pelo WhatsApp">
       <i class="lni lni-whatsapp" style="font-size:2.4rem;"></i>
     </a>
 
-    <!-- ========================= scroll-top ========================= -->
-   <!--  <a href="#" class="scroll-top btn-hover">
-      <i class="lni lni-chevron-up"></i>
-    </a> -->
+    <!-- Social Proof Toast -->
+    <div id="social-toast" class="social-toast" role="status" aria-live="polite" style="display:none;">
+      <div class="social-toast-inner">
+        <div class="social-toast-avatar">👤</div>
+        <div class="social-toast-text">
+          <strong id="toast-name">Carlos M.</strong>
+          <span id="toast-action">contratou um Eletricista</span>
+          <small id="toast-time">2 min atrás</small>
+        </div>
+        <button id="toast-close" class="social-toast-close" aria-label="Fechar">×</button>
+      </div>
+    </div>
 
-    <!-- ========================= JS here ========================= -->
+    <!-- Scripts -->
     <script src="assets/js/bootstrap.5.0.0.alpha-2-min.js"></script>
     <script src="assets/js/wow.min.js"></script>
     <script src="assets/js/count-up.min.js"></script>
-    <!-- Tiny Slider CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/min/tiny-slider.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/blog-slider.js"></script>
+
+    <script>
+    (function () {
+      // ── Mobile menu toggle ──────────────────────────────────
+      var toggler  = document.querySelector('.navbar-toggler');
+      var collapse = document.querySelector('.navbar-collapse');
+      if (toggler && collapse) {
+        toggler.addEventListener('click', function () {
+          var open = collapse.classList.contains('show');
+          collapse.classList.toggle('show', !open);
+          toggler.setAttribute('aria-expanded', String(!open));
+        });
+      }
+
+      // ── Typewriter effect no hero ───────────────────────────
+      var services = ['Eletricista','Encanador','Pintor','Marceneiro','Diarista','Jardineiro','Instalador'];
+      var el = document.getElementById('typewriter-service');
+      var idx = 0, char = 0, deleting = false;
+      function type() {
+        var word = services[idx];
+        if (deleting) {
+          el.textContent = word.substring(0, char - 1);
+          char--;
+          if (char === 0) { deleting = false; idx = (idx + 1) % services.length; }
+          setTimeout(type, 75);
+        } else {
+          el.textContent = word.substring(0, char + 1);
+          char++;
+          if (char === word.length) { deleting = true; setTimeout(type, 2000); }
+          else { setTimeout(type, 110); }
+        }
+      }
+      setTimeout(type, 1200);
+
+      // ── FAQ accordion ───────────────────────────────────────
+      window.toggleFaq = function(btn) {
+        var item   = btn.parentElement;
+        var icon   = btn.querySelector('.faq-icon');
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(function(i) {
+          i.classList.remove('open');
+          var ic = i.querySelector('.faq-icon');
+          if (ic) { ic.classList.remove('lni-minus'); ic.classList.add('lni-plus'); }
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          if (icon) { icon.classList.remove('lni-plus'); icon.classList.add('lni-minus'); }
+        }
+      };
+
+      // ── Social proof toast ──────────────────────────────────
+      var toasts = [
+        { name: 'Carlos M.',   action: 'contratou um Eletricista',          time: '2 min atrás'  },
+        { name: 'Ana B.',      action: 'encontrou um Encanador de confiança', time: '5 min atrás' },
+        { name: 'Pedro L.',    action: 'agendou um serviço de Pintura',      time: '8 min atrás'  },
+        { name: 'Mariana S.',  action: 'avaliou um Marceneiro com 5 ⭐',     time: '3 min atrás'  },
+        { name: 'Roberto C.',  action: 'se cadastrou como Eletricista',      time: '1 min atrás'  },
+        { name: 'Juliana F.',  action: 'contratou serviço de Limpeza',       time: '6 min atrás'  },
+        { name: 'Felipe A.',   action: 'encontrou um Pintor próximo',        time: '4 min atrás'  },
+        { name: 'Beatriz N.',  action: 'agendou instalação de Ar-Cond.',     time: '7 min atrás'  },
+      ];
+      var tIdx = 0;
+      var toast     = document.getElementById('social-toast');
+      var toastName = document.getElementById('toast-name');
+      var toastAct  = document.getElementById('toast-action');
+      var toastTime = document.getElementById('toast-time');
+      var toastX    = document.getElementById('toast-close');
+
+      function showToast() {
+        var d = toasts[tIdx % toasts.length];
+        toastName.textContent = d.name;
+        toastAct.textContent  = d.action;
+        toastTime.textContent = d.time;
+        toast.style.display   = 'block';
+        toast.classList.remove('toast-hide');
+        tIdx++;
+        setTimeout(function () {
+          toast.classList.add('toast-hide');
+          setTimeout(function () { toast.style.display = 'none'; }, 400);
+        }, 5000);
+      }
+
+      toastX.addEventListener('click', function () {
+        toast.classList.add('toast-hide');
+        setTimeout(function () { toast.style.display = 'none'; }, 400);
+      });
+
+      setTimeout(showToast, 4000);
+      setInterval(showToast, 11000);
+    })();
+    </script>
+
   </body>
 </html>

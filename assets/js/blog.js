@@ -1,63 +1,76 @@
-// blog.js - Carrega posts do Hygraph e exibe na página do blog
+// blog.js - Carrega posts publicados do Supabase
 
-const HYGRAPH_API = "https://api-us-west-2.hygraph.com/v2/cm6pzx1wi00ki07wet8piy0zy/master";
-const HYGRAPH_TOKEN = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImdjbXMtbWFpbi1wcm9kdWN0aW9uIn0.eyJ2ZXJzaW9uIjozLCJpYXQiOjE3Mzg2NDQ0MDMsImF1ZCI6WyJodHRwczovL2FwaS11cy13ZXN0LTIuaHlncmFwaC5jb20vdjIvY202cHp4MXdpMDBraTA3d2V0OHBpeTB6eS9tYXN0ZXIiLCJtYW5hZ2VtZW50LW5leHQuZ3JhcGhjbXMuY29tIl0sImlzcyI6Imh0dHBzOi8vbWFuYWdlbWVudC11cy13ZXN0LTIuaHlncmFwaC5jb20vIiwic3ViIjoiMjM5YmY2YWItZTVjYS00ZjkxLTg0MzctYTM3MDE0MWNmMzMyIiwianRpIjoiY2thNWoyZW9iMDN0YzAxd2gwZGZkNjdyeSJ9.FIgvO6oOfKANRmEOICz0HYI0te89E9j_ngps6G-cwW8RnPnE4CAFjr_xJ0v73CSFnCIBxSJ9SfQriyiF2CNAz6GveN46RzK1rFf63QVQqOIrZJPDNbOuQ0O7n7RDgFRZF7dadmAJUnhbAlkGZCZhJqLC-SZHGlriGfpa046ggnkLR9HZE4UVAOlP-pxjy_DRsFlKIjdRpUtRMYKxTlH41kwrxinKSDzR23gVliavVxxywcapba9n0ZnEDMVQIp9eUz3fwKcG6sHU8e9LXialA415yfO0aNY0BFCqZS4lTXHFpJbzb2FkmQLD1TzXpcLY6XOu0AGimonMfTR1yxU7nVmy6Rt0h6KuHD8QQkMc8F30Zh2Qzrf9uvEJ0SSO2JYc8k4NSR35UdZpQjySoPe4LU6rgXMNxhUnEHHg7SfVzhmtU91PPWSzbc8xsEJT1c_T2etFaVyH354viR36NEKajYDAiuWq0RzuV3js8sw13vHMsYW67_jUvQV6oslk2NDf0l7wOVTXvQnJ8TtiCiG36OeGrdfM8WgPREkvBBl757PdUCUa4eGdsjNGT5FApvU3XjyglTwz68LBdWTuprzJ4iZb02_iCE3iHtiOA34-nqNL2YmP2Sctv0K2EiGgCTvxntxS06KxazcUy7XGKBzptBbpfvUx7QDeYh2ic7eBUYc";
+const SUPABASE_URL = "https://tdttqltbnizljmsajqlc.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkdHRxbHRibml6bGptc2FqcWxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMDc0NzAsImV4cCI6MjA1NTU4MzQ3MH0.v__13i-EzViT2Eaz4gd2CFJlTq_W5kbDdIQtXSpXnfU";
 
 async function carregarPostsBlog() {
-  const query = `{
-    posts(orderBy: date_DESC, stage: PUBLISHED) {
-      id
-      title
-      excerpt
-      content {
-        html
-      }
-      coverImage {
-        url
-      }
-      date
-      slug
-    }
-  }`;
-
-  const res = await fetch(HYGRAPH_API, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${HYGRAPH_TOKEN}`
-    },
-    body: JSON.stringify({ query })
-  });
-
-  const { data } = await res.json();
-  const posts = data?.posts || [];
   const container = document.getElementById("blog-posts");
-  container.innerHTML = "";
+  if (!container) return;
 
-  if (posts.length === 0) {
-    container.innerHTML = '<div class="col-12 text-center">Nenhum post encontrado.</div>';
-    return;
+  container.innerHTML = `
+    <div class="col-12 text-center py-5">
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>`;
+
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/blog_posts?status=eq.published&order=published_at.desc&select=id,title,slug,excerpt,cover_url,published_at`,
+      {
+        headers: {
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+      }
+    );
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const posts = await res.json();
+    container.innerHTML = "";
+
+    if (!Array.isArray(posts) || posts.length === 0) {
+      container.innerHTML = '<div class="col-12 text-center py-5 text-muted">Nenhum post publicado ainda.</div>';
+      return;
+    }
+
+    posts.forEach(function(post, i) {
+      const delay = (i * 0.1).toFixed(1);
+      const date = post.published_at
+        ? new Date(post.published_at).toLocaleDateString("pt-BR")
+        : "";
+
+      const el = document.createElement("div");
+      el.className = "col-md-6 col-lg-4";
+      el.innerHTML = `
+        <div class="card h-100 shadow-sm wow fadeInUp" data-wow-delay="${delay}s">
+          <img
+            src="${post.cover_url || "assets/img/blog-placeholder.png"}"
+            class="card-img-top"
+            alt="${escHtml(post.title)}"
+            style="height:200px;object-fit:cover;"
+            onerror="this.src='assets/img/blog-placeholder.png'"
+          >
+          <div class="card-body">
+            <h5 class="card-title">${escHtml(post.title)}</h5>
+            <p class="card-text text-muted">${escHtml(post.excerpt || "")}</p>
+            <a href="blog-post.html?slug=${encodeURIComponent(post.slug)}" class="btn btn-primary btn-sm">
+              Leia mais
+            </a>
+          </div>
+          ${date ? `<div class="card-footer text-muted small">${date}</div>` : ""}
+        </div>`;
+      container.appendChild(el);
+    });
+
+  } catch (err) {
+    console.error("Erro ao carregar posts:", err);
+    container.innerHTML = '<div class="col-12 text-center py-5 text-muted">Não foi possível carregar os posts.</div>';
   }
+}
 
-  posts.forEach(post => {
-    const postEl = document.createElement("div");
-    postEl.className = "col-md-6 col-lg-4";
-    postEl.innerHTML = `
-      <div class="card h-100 shadow-sm wow fadeInUp" data-wow-delay=".2s">
-        <img src="${post.coverImage?.url || 'assets/img/blog-placeholder.png'}" class="card-img-top" alt="${post.title}">
-        <div class="card-body">
-          <h5 class="card-title">${post.title}</h5>
-          <p class="card-text">${post.excerpt || ''}</p>
-          <a href="blog-post.html?slug=${post.slug}" class="btn btn-primary">Leia mais</a>
-        </div>
-        <div class="card-footer text-muted small">
-          ${new Date(post.date).toLocaleDateString('pt-BR')}
-        </div>
-      </div>
-    `;
-    // O campo post.content.html estará disponível para reutilização na página de detalhes
-    container.appendChild(postEl);
-  });
+function escHtml(str) {
+  if (!str) return "";
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
 document.addEventListener("DOMContentLoaded", carregarPostsBlog);

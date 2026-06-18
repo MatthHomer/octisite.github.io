@@ -1,7 +1,7 @@
 // Função serverless Vercel: cadastro seguro de prestador no Hygraph
 const fetch = require('node-fetch');
 
-const HYGRAPH_API = "https://sa-east-1.cdn.hygraph.com/content/clrwk4fly0sv901tedf2aznmt/master";
+const HYGRAPH_API = process.env.HYGRAPH_API;
 const HYGRAPH_TOKEN = process.env.HYGRAPH_TOKEN;
 
 module.exports = async (req, res) => {

@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html class="no-js" lang="pt-br">
   <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PSKNWXT5');</script>
+    <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>Octi — Encontre Prestadores de Serviços de Confiança</title>
@@ -15,6 +22,10 @@
     <link rel="stylesheet" href="assets/css/redesign.css" />
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PSKNWXT5"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <!-- ========================= Preloader ========================= -->
     <div class="preloader">
@@ -77,7 +88,7 @@
               </p>
               <div class="hero-actions">
                 <a href="https://play.google.com/store/apps/details?id=com.homerbr.Octi"
-                   class="btn-primary-v2" target="_blank" rel="noopener">
+                   class="btn-primary-v2" target="_blank" rel="noopener" data-ga-event="hero_play_store">
                   <i class="lni lni-play-store"></i> Baixar na Play Store
                 </a>
                 <a href="#como-funciona" class="btn-secondary-v2 page-scroll">
@@ -160,26 +171,72 @@
             <p class="section-subtitle">Achar um bom profissional de confiança é frustrante demais.</p>
           </div>
         </div>
-        <div class="row g-4">
+        <div class="row g-4 align-items-stretch">
           <div class="col-lg-4 col-md-6">
-            <div class="pain-card wow fadeInUp" data-wow-delay=".1s">
-              <div class="pain-emoji">😤</div>
-              <h4>"Alguém indica um bom encanador?"</h4>
-              <p>Você posta no grupo do WhatsApp e fica horas aguardando uma indicação que talvez nem resolva o seu problema.</p>
+            <div class="scenario-card wow fadeInUp" data-wow-delay=".1s">
+              <div class="scenario-head">
+                <span class="scenario-avatar">👥</span>
+                <div>
+                  <strong>Grupo do Bairro</strong>
+                  <small>23 participantes</small>
+                </div>
+              </div>
+              <div class="scenario-body">
+                <div class="bubble bubble-out">
+                  Alguém indica um encanador de confiança? 🙏<span class="bubble-time">14:02</span>
+                </div>
+                <div class="bubble bubble-in">
+                  Acho que tenho o número de alguém, deixa eu ver...<span class="bubble-time">16:47</span>
+                </div>
+                <span class="scenario-note">3h depois, ainda sem indicação certeira</span>
+              </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
-            <div class="pain-card wow fadeInUp" data-wow-delay=".25s">
-              <div class="pain-emoji">📞</div>
-              <h4>Liga para três, dois não atendem</h4>
-              <p>Quando alguém responde, cobra mais do que você esperava — e você ainda não tem certeza se é de confiança.</p>
+            <div class="scenario-card wow fadeInUp" data-wow-delay=".25s">
+              <div class="scenario-head">
+                <span class="scenario-avatar"><i class="lni lni-phone"></i></span>
+                <div>
+                  <strong>Chamadas recentes</strong>
+                  <small>Hoje</small>
+                </div>
+              </div>
+              <div class="scenario-body">
+                <div class="call-row missed">
+                  <span class="call-icon"><i class="lni lni-phone"></i></span>
+                  <div class="call-info"><span class="call-name">Eletricista #1</span><span class="call-status">Não atendeu</span></div>
+                  <span class="call-time">09:14</span>
+                </div>
+                <div class="call-row missed">
+                  <span class="call-icon"><i class="lni lni-phone"></i></span>
+                  <div class="call-info"><span class="call-name">Eletricista #2</span><span class="call-status">Caixa postal</span></div>
+                  <span class="call-time">09:21</span>
+                </div>
+                <div class="call-row answered">
+                  <span class="call-icon"><i class="lni lni-phone-set"></i></span>
+                  <div class="call-info"><span class="call-name">Eletricista #3</span><span class="call-status">Cobrou o triplo</span></div>
+                  <span class="call-time">09:35</span>
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
-            <div class="pain-card wow fadeInUp" data-wow-delay=".4s">
-              <div class="pain-emoji">🤷</div>
-              <h4>Contrata sem saber se presta</h4>
-              <p>Sem avaliações reais, você fica no escuro. O serviço pode ser excelente — ou uma dor de cabeça enorme.</p>
+            <div class="scenario-card wow fadeInUp" data-wow-delay=".4s">
+              <div class="scenario-head">
+                <span class="scenario-avatar"><i class="lni lni-user"></i></span>
+                <div>
+                  <strong>Perfil do profissional</strong>
+                  <small>Indicado no grupo</small>
+                </div>
+              </div>
+              <div class="scenario-body">
+                <div class="profile-mock">
+                  <div class="profile-avatar"><i class="lni lni-user"></i></div>
+                  <p class="profile-name">"O cara do WhatsApp"</p>
+                  <div class="profile-stars">★★★★★</div>
+                  <span class="profile-warn"><i class="lni lni-warning"></i> 0 avaliações reais</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -285,7 +342,7 @@
               <li><i class="lni lni-checkmark"></i> Avalia e ajuda outros usuários</li>
             </ul>
             <a href="https://play.google.com/store/apps/details?id=com.homerbr.Octi"
-               class="btn-primary-v2 btn-sm-v2 mt-20" target="_blank" rel="noopener">
+               class="btn-primary-v2 btn-sm-v2 mt-20" target="_blank" rel="noopener" data-ga-event="comparison_play_store">
               Quero usar o Octi
             </a>
           </div>
@@ -333,32 +390,68 @@
             <p class="section-subtitle">Ferramentas que tornam a contratação de serviços simples e segura</p>
           </div>
         </div>
-        <div class="row g-4">
+        <div class="row g-4 align-items-stretch">
           <div class="col-lg-4 col-md-6">
-            <div class="feature-card-v2 wow fadeInUp" data-wow-delay=".1s">
-              <div class="feature-icon-v2 teal">
-                <i class="lni lni-map-marker"></i>
+            <div class="feature-tile wow fadeInUp" data-wow-delay=".1s">
+              <div class="feature-tile-visual bg-map">
+                <div class="map-mock">
+                  <span class="map-pin you"><i class="lni lni-user"></i></span>
+                  <span class="map-pin p1"><i class="lni lni-hammer"></i></span>
+                  <span class="map-pin p2"><i class="lni lni-hammer"></i></span>
+                  <span class="map-pin p3"><i class="lni lni-hammer"></i></span>
+                </div>
+                <span class="scenario-note">3 profissionais disponíveis agora</span>
               </div>
-              <h4>Mapa em Tempo Real</h4>
-              <p>Veja exatamente onde estão os profissionais disponíveis e filtre pela categoria que você precisa</p>
+              <div class="feature-tile-body">
+                <div class="feature-tile-icon teal"><i class="lni lni-map-marker"></i></div>
+                <h4>Mapa em Tempo Real</h4>
+                <p>Veja exatamente onde estão os profissionais disponíveis e filtre pela categoria que você precisa</p>
+              </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
-            <div class="feature-card-v2 wow fadeInUp" data-wow-delay=".25s">
-              <div class="feature-icon-v2 yellow">
-                <i class="lni lni-calendar"></i>
+            <div class="feature-tile wow fadeInUp" data-wow-delay=".25s">
+              <div class="feature-tile-visual bg-light">
+                <div class="schedule-row">
+                  <span class="schedule-time">09:00</span>
+                  <span class="schedule-label">Pintura — Centro</span>
+                  <i class="lni lni-checkmark-circle"></i>
+                </div>
+                <div class="schedule-row active">
+                  <span class="schedule-time">14:00</span>
+                  <span class="schedule-label">Reparo elétrico — confirmado</span>
+                  <i class="lni lni-checkmark-circle"></i>
+                </div>
+                <div class="schedule-row">
+                  <span class="schedule-time">17:30</span>
+                  <span class="schedule-label">Horário livre</span>
+                </div>
               </div>
-              <h4>Agendamento Sem Ligação</h4>
-              <p>Sem ficar tentando falar com alguém — agende diretamente pelo app e gerencie tudo em um lugar</p>
+              <div class="feature-tile-body">
+                <div class="feature-tile-icon yellow"><i class="lni lni-calendar"></i></div>
+                <h4>Agendamento Sem Ligação</h4>
+                <p>Sem ficar tentando falar com alguém — agende diretamente pelo app e gerencie tudo em um lugar</p>
+              </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
-            <div class="feature-card-v2 wow fadeInUp" data-wow-delay=".4s">
-              <div class="feature-icon-v2 red">
-                <i class="lni lni-star"></i>
+            <div class="feature-tile wow fadeInUp" data-wow-delay=".4s">
+              <div class="feature-tile-visual bg-light">
+                <div class="review-mock">
+                  <span class="review-score">4.9</span>
+                  <div class="review-bars">
+                    <div class="review-bar"><span style="width:92%"></span></div>
+                    <div class="review-bar"><span style="width:80%"></span></div>
+                    <div class="review-bar"><span style="width:58%"></span></div>
+                  </div>
+                </div>
+                <span class="scenario-note"><i class="lni lni-checkmark-circle"></i> 128 avaliações verificadas</span>
               </div>
-              <h4>Avaliações que Importam</h4>
-              <p>Somente clientes que realizaram o serviço podem avaliar — sem avaliações falsas, sem surpresas</p>
+              <div class="feature-tile-body">
+                <div class="feature-tile-icon red"><i class="lni lni-star-filled"></i></div>
+                <h4>Avaliações que Importam</h4>
+                <p>Somente clientes que realizaram o serviço podem avaliar — sem avaliações falsas, sem surpresas</p>
+              </div>
             </div>
           </div>
         </div>
@@ -381,12 +474,18 @@
             </p>
             <p>O Octi é 100% gratuito para prestadores. Crie seu perfil em minutos e comece a receber novos clientes ainda hoje.</p>
             <ul class="providers-bullets">
-              <li>Painel completo para gerenciar agenda e serviços</li>
-              <li>Apareça no mapa para clientes da sua região</li>
-              <li>Acompanhe estatísticas e avaliações do seu perfil</li>
-              <li>Receba notificações de novos clientes interessados</li>
+              <li>Aceite projetos públicos ou receba pedidos direcionados só para você</li>
+              <li>Controle sua agenda — marque férias, dias de folga e veja os serviços do dia</li>
+              <li>Veja a localização do serviço antes de decidir se aceita</li>
+              <li>Acompanhe o operacional e o financeiro dos seus atendimentos</li>
             </ul>
-            <a href="cadastro-prestador.html" class="btn-white">
+            <div class="provider-perks">
+              <span class="provider-perk"><i class="lni lni-map-marker"></i> Localização do serviço</span>
+              <span class="provider-perk"><i class="lni lni-calendar"></i> Agenda com férias e folgas</span>
+              <span class="provider-perk"><i class="lni lni-briefcase"></i> Projetos públicos ou direcionados</span>
+              <span class="provider-perk"><i class="lni lni-stats-up"></i> Controle financeiro e operacional</span>
+            </div>
+            <a href="cadastro-prestador.html" class="btn-white" data-ga-event="providers_cadastro">
               Quero receber clientes agora <i class="lni lni-arrow-right"></i>
             </a>
             <div class="btn-sub-note">
@@ -396,8 +495,40 @@
             </div>
           </div>
           <div class="col-lg-5 wow fadeInRight" data-wow-delay=".25s">
-            <div class="providers-img">
-              <img src="assets/img/count-up/count-up-img-app.png" alt="Painel do prestador no Octi" />
+            <div class="providers-phone-stage">
+              <div class="providers-img">
+                <img src="assets/img/count-up/count-up-img-app.png" alt="Painel do prestador no Octi" />
+              </div>
+              <!-- Desktop (>=1200px): cards scattered around the phone -->
+              <div class="phone-float-card pf-1">
+                <p class="q">Mas eu já tenho muito grupo de WhatsApp...</p>
+                <p class="a"><i class="lni lni-checkmark-circle"></i> Mas são todos de qualidade? No Octi você vê o projeto e o local antes de aceitar.</p>
+              </div>
+              <div class="phone-float-card pf-2">
+                <p class="q">Como assim "projetos"?</p>
+                <p class="a"><i class="lni lni-checkmark-circle"></i> Públicos para todos ou direcionados só para você.</p>
+              </div>
+              <div class="phone-float-card pf-3">
+                <p class="q">Não tenho tempo pra organizar agenda</p>
+                <p class="a"><i class="lni lni-checkmark-circle"></i> Marque férias, dias de folga e veja os serviços do dia.</p>
+              </div>
+              <div class="phone-float-card pf-4">
+                <p class="q">Dá pra saber onde é o serviço?</p>
+                <p class="a"><i class="lni lni-checkmark-circle"></i> Sim, a localização aparece antes de aceitar.</p>
+              </div>
+              <!-- Mobile/tablet (<1200px): a few cards beside the phone -->
+              <div class="phone-card-mobile pcm-1">
+                <p class="q">Mas eu já tenho muito grupo de WhatsApp...</p>
+                <p class="a"><i class="lni lni-checkmark-circle"></i> Mas são todos de qualidade? No Octi você vê o projeto e o local antes de aceitar.</p>
+              </div>
+              <div class="phone-card-mobile pcm-2">
+                <p class="q">Como assim "projetos"?</p>
+                <p class="a"><i class="lni lni-checkmark-circle"></i> Públicos para todos ou direcionados só para você.</p>
+              </div>
+              <div class="phone-card-mobile pcm-3">
+                <p class="q">Não tenho tempo pra organizar agenda</p>
+                <p class="a"><i class="lni lni-checkmark-circle"></i> Marque férias, dias de folga e veja os serviços do dia.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -588,7 +719,7 @@
             <p>Pare de depender de grupos e indicações incertas. O profissional certo está a um toque de distância.</p>
             <div class="download-buttons">
               <a href="https://play.google.com/store/apps/details?id=com.homerbr.Octi&pcampaignid=web_share"
-                 target="_blank" rel="noopener" class="store-btn">
+                 target="_blank" rel="noopener" class="store-btn" data-ga-event="download_play_store">
                 <i class="lni lni-play-store store-icon"></i>
                 <div class="store-text">
                   <small>Disponível no</small>
@@ -639,7 +770,7 @@
           <div class="col-lg-2 col-md-3 col-6 mb-40">
             <h5>Profissionais</h5>
             <ul class="footer-links">
-              <li><a href="cadastro-prestador.html">Cadastrar-se</a></li>
+              <li><a href="cadastro-prestador.html" data-ga-event="footer_cadastro">Cadastrar-se</a></li>
               <li><a href="#categorias" class="page-scroll">Ver Categorias</a></li>
             </ul>
           </div>

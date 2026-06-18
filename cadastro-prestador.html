@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PSKNWXT5');</script>
+  <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Seja um Prestador Octi | Cadastro</title>
@@ -294,9 +301,164 @@
       .cp-progress { padding: 0 20px; }
       .cp-step .step-label { display: none; }
     }
+
+    /* ── Pitch / objection cloud ── */
+    .cp-pitch {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 16px 4px;
+      text-align: center;
+    }
+    .cp-pitch h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+    .cp-pitch .cp-pitch-sub {
+      color: #64748b;
+      font-size: .95rem;
+      margin-bottom: 22px;
+    }
+
+    .objection-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px 14px;
+    }
+    .objection-row-bottom { margin-top: 8px; }
+
+    .objection-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(9,132,161,.08);
+      padding: 14px 16px;
+      width: 230px;
+      text-align: left;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .objection-card:hover {
+      transform: rotate(0deg) translateY(-3px) scale(1.03) !important;
+      box-shadow: 0 10px 26px rgba(9,132,161,.16);
+      z-index: 3 !important;
+    }
+    .objection-card .q {
+      font-size: .8rem;
+      color: #94a3b8;
+      font-style: italic;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .objection-card .q::before { content: '“'; }
+    .objection-card .q::after { content: '”'; }
+    .objection-card .a {
+      font-size: .85rem;
+      color: #1e293b;
+      font-weight: 600;
+      line-height: 1.45;
+      display: flex;
+      gap: 6px;
+    }
+    .objection-card .a i { color: var(--octi); flex-shrink: 0; margin-top: 2px; }
+
+    .objection-card.tilt-1 { transform: rotate(-2.5deg); }
+    .objection-card.tilt-2 { transform: rotate(2deg); }
+    .objection-card.tilt-3 { transform: rotate(-3deg); }
+    .objection-card.tilt-4 { transform: rotate(3deg); }
+    .objection-card.tilt-5 { transform: rotate(2.5deg); }
+    .objection-card.tilt-6 { transform: rotate(-2deg); }
+    .objection-card.tilt-7 { transform: rotate(-1.5deg); }
+    .objection-card.tilt-8 { transform: rotate(1.5deg); }
+
+    /* ── Stage: form in the center, objection cards peeking from the sides ── */
+    .cp-stage {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(320px,640px) minmax(0,1fr);
+      align-items: center;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .cp-stage .cp-wrapper {
+      grid-column: 2;
+      position: relative;
+      z-index: 2;
+    }
+    .cp-side {
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 70px;
+      position: relative;
+      z-index: 1;
+    }
+    .cp-side-left  { grid-column: 1; align-items: flex-end; }
+    .cp-side-right { grid-column: 3; align-items: flex-start; }
+    .cp-side .objection-card { width: 210px; }
+    .cp-side-left  .objection-card { margin-right: -46px; }
+    .cp-side-right .objection-card { margin-left: -46px; }
+
+    .cp-perks {
+      max-width: 760px;
+      margin: 28px auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    .cp-perk {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--octi-light);
+      color: var(--octi-dark);
+      font-size: .8125rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 100px;
+    }
+    .cp-perk i { font-size: .95rem; }
+
+    @media (max-width: 1199px) {
+      .cp-side .objection-card { width: 180px; }
+      .cp-side-left  .objection-card { margin-right: -28px; }
+      .cp-side-right .objection-card { margin-left: -28px; }
+      .cp-side { gap: 50px; }
+    }
+
+    @media (max-width: 991px) {
+      .cp-stage { grid-template-columns: 1fr; }
+      .cp-stage .cp-wrapper { grid-column: 1; order: 2; }
+      .cp-side {
+        grid-column: 1;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 0 auto 18px;
+        max-width: 620px;
+      }
+      .cp-side-left  { order: 1; justify-content: center; }
+      .cp-side-right { order: 3; justify-content: center; margin: 18px auto 0; }
+      .cp-side .objection-card,
+      .cp-side-left .objection-card,
+      .cp-side-right .objection-card { width: 100%; max-width: 280px; margin: 0; }
+    }
+
+    @media (max-width: 767px) {
+      .objection-card { width: 100%; max-width: 320px; }
+      .objection-card.tilt-1, .objection-card.tilt-2, .objection-card.tilt-3,
+      .objection-card.tilt-4, .objection-card.tilt-5, .objection-card.tilt-6,
+      .objection-card.tilt-7, .objection-card.tilt-8 { transform: none; }
+      .cp-pitch { padding: 32px 16px 4px; }
+      .cp-pitch h2 { font-size: 1.3rem; }
+    }
   </style>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PSKNWXT5"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
   <!-- Navbar minimal -->
   <nav class="cp-nav">
@@ -310,7 +472,35 @@
     </div>
   </nav>
 
-  <!-- Main content -->
+  <!-- Pitch: intro + a couple of objections above -->
+  <div class="cp-pitch">
+    <h2>Ainda com pé atrás?</h2>
+    <p class="cp-pitch-sub">A gente já ouviu de tudo. Aqui vão algumas respostas:</p>
+    <div class="objection-row objection-row-top">
+      <div class="objection-card tilt-1">
+        <p class="q">Mas eu já tenho muito grupo de WhatsApp...</p>
+        <p class="a"><i class="lni lni-checkmark-circle"></i> Mas são todos de qualidade? No Octi você vê o projeto e o local antes de aceitar.</p>
+      </div>
+      <div class="objection-card tilt-2">
+        <p class="q">Preciso pagar alguma mensalidade?</p>
+        <p class="a"><i class="lni lni-checkmark-circle"></i> Não. Cadastro e uso são 100% gratuitos, sempre.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage: form in the center, objections peeking from the sides -->
+  <div class="cp-stage">
+    <div class="cp-side cp-side-left">
+      <div class="objection-card tilt-3">
+        <p class="q">Vou receber mensagem de gente que nem fecha?</p>
+        <p class="a"><i class="lni lni-checkmark-circle"></i> Você escolhe projetos públicos do seu perfil ou recebe pedidos feitos só para você.</p>
+      </div>
+      <div class="objection-card tilt-5">
+        <p class="q">Não tenho tempo pra organizar agenda</p>
+        <p class="a"><i class="lni lni-checkmark-circle"></i> Você controla sua agenda, marca férias e dias de folga, e vê os serviços do dia em um só lugar.</p>
+      </div>
+    </div>
+
   <div class="cp-wrapper">
     <div class="cp-card">
 
@@ -484,8 +674,48 @@
     </div><!-- /cp-card -->
   </div><!-- /cp-wrapper -->
 
+    <div class="cp-side cp-side-right">
+      <div class="objection-card tilt-4">
+        <p class="q">Como assim "projetos"?</p>
+        <p class="a"><i class="lni lni-checkmark-circle"></i> O cliente cria um projeto no app — público para todos ou direcionado a um prestador específico.</p>
+      </div>
+      <div class="objection-card tilt-6">
+        <p class="q">E se minha agenda já tiver cheia num dia?</p>
+        <p class="a"><i class="lni lni-checkmark-circle"></i> Você bloqueia o dia no app e ninguém te manda pedido nesse período.</p>
+      </div>
+    </div>
+  </div><!-- /cp-stage -->
+
+  <!-- Pitch: a couple more objections below + perks -->
+  <div class="cp-pitch">
+    <div class="objection-row objection-row-bottom">
+      <div class="objection-card tilt-7">
+        <p class="q">Dá pra saber onde é o serviço antes de aceitar?</p>
+        <p class="a"><i class="lni lni-checkmark-circle"></i> Sim — a localização aparece antes de você decidir se topa ou não.</p>
+      </div>
+      <div class="objection-card tilt-8">
+        <p class="q">E o financeiro, dá pra ter controle?</p>
+        <p class="a"><i class="lni lni-checkmark-circle"></i> Você acompanha o operacional e o financeiro dos seus serviços direto no app.</p>
+      </div>
+    </div>
+
+    <div class="cp-perks">
+      <span class="cp-perk"><i class="lni lni-map-marker"></i> Localização do serviço</span>
+      <span class="cp-perk"><i class="lni lni-calendar"></i> Agenda com férias e folgas</span>
+      <span class="cp-perk"><i class="lni lni-briefcase"></i> Projetos públicos ou direcionados</span>
+      <span class="cp-perk"><i class="lni lni-stats-up"></i> Controle financeiro e operacional</span>
+    </div>
+  </div>
+
   <script>
   (function() {
+    // ── GA4/GTM funnel tracking ────────────────────────────────────────────
+    function trackEvent(name, extra) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(Object.assign({ event: name }, extra || {}));
+    }
+    trackEvent('cadastro_prestador_start');
+
     // ── Supabase config ───────────────────────────────────────────────────
     var SUPABASE_URL = 'https://tdttqltbnizljmsajqlc.supabase.co';
     var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkdHRxbHRibml6bGptc2FqcWxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMDc0NzAsImV4cCI6MjA1NTU4MzQ3MH0.v__13i-EzViT2Eaz4gd2CFJlTq_W5kbDdIQtXSpXnfU';
@@ -623,11 +853,11 @@
     }
 
     document.getElementById('btn-next-1').addEventListener('click', function() {
-      if (validateStep1()) goToStep(2);
+      if (validateStep1()) { trackEvent('cadastro_prestador_step', { step: 2 }); goToStep(2); }
     });
     document.getElementById('btn-back-2').addEventListener('click', function() { goToStep(1); });
     document.getElementById('btn-next-2').addEventListener('click', function() {
-      if (validateStep2()) goToStep(3);
+      if (validateStep2()) { trackEvent('cadastro_prestador_step', { step: 3 }); goToStep(3); }
     });
     document.getElementById('btn-back-3').addEventListener('click', function() { goToStep(2); });
 
@@ -737,6 +967,7 @@
     });
 
     function showSuccess() {
+      trackEvent('cadastro_prestador_success');
       document.getElementById('form-body').style.display = 'none';
       document.querySelector('.cp-progress').style.display = 'none';
       var s = document.getElementById('success-panel');

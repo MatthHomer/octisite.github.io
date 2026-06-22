@@ -1,0 +1,77 @@
+<svg viewBox="0 0 340 700" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, Helvetica, Arial, sans-serif">
+  <defs>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.08"/>
+    </filter>
+    <linearGradient id="hdrGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1f6b49"/>
+      <stop offset="100%" stop-color="#163f2c"/>
+    </linearGradient>
+    <linearGradient id="btnGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#34a06c"/>
+      <stop offset="100%" stop-color="#2d8a5a"/>
+    </linearGradient>
+    <linearGradient id="badgeGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1f6b49"/>
+      <stop offset="100%" stop-color="#0f3d29"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="2" y="2" width="336" height="696" rx="46" fill="#111113"/>
+  <rect x="10" y="10" width="320" height="680" rx="38" fill="#FFFFFF"/>
+  <clipPath id="screenClip"><rect x="10" y="10" width="320" height="680" rx="38"/></clipPath>
+
+  <g clip-path="url(#screenClip)">
+    <rect x="10" y="10" width="320" height="118" fill="url(#hdrGrad)"/>
+    <text x="44" y="38" font-size="13" font-weight="600" fill="#FFFFFF">9:41</text>
+    <rect x="130" y="10" width="80" height="22" rx="11" fill="#0c2419"/>
+    <circle cx="40" cy="68" r="15" fill="#ffffff" opacity="0.12"/>
+    <text x="40" y="73" text-anchor="middle" font-size="15" fill="#FFFFFF">←</text>
+    <text x="64" y="74" font-size="15" font-weight="700" fill="#FFFFFF">Tudo pronto!</text>
+    <g>
+      <rect x="24" y="100" width="62" height="4" rx="2" fill="#FFFFFF"/>
+      <rect x="92" y="100" width="62" height="4" rx="2" fill="#FFFFFF"/>
+      <rect x="160" y="100" width="62" height="4" rx="2" fill="#FFFFFF"/>
+      <rect x="228" y="100" width="62" height="4" rx="2" fill="#FFFFFF"/>
+    </g>
+  </g>
+
+  <rect x="24" y="150" width="292" height="84" rx="18" fill="url(#badgeGrad)" filter="url(#cardShadow)"/>
+  <text x="170" y="184" text-anchor="middle" font-size="26">🏅</text>
+  <text x="170" y="206" text-anchor="middle" font-size="14" font-weight="700" fill="#FFFFFF">Profissional Fundador</text>
+  <text x="170" y="222" text-anchor="middle" font-size="9.5" fill="#c6e8d4">Você está entre os primeiros profissionais do Octi</text>
+
+  <rect x="24" y="248" width="292" height="158" rx="14" fill="#FFFFFF" stroke="#ededee" stroke-width="1.5" filter="url(#cardShadow)"/>
+  <g font-size="12">
+    <text x="40" y="276" fill="#a1a1aa">Nome do negócio</text>
+    <text x="300" y="276" text-anchor="end" font-weight="700" fill="#3f3f46">Elétrica do João</text>
+    <line x1="24" y1="288" x2="316" y2="288" stroke="#f4f4f5"/>
+
+    <text x="40" y="308" fill="#a1a1aa">Categoria</text>
+    <text x="300" y="308" text-anchor="end" font-weight="700" fill="#3f3f46">Elétrica</text>
+    <line x1="24" y1="320" x2="316" y2="320" stroke="#f4f4f5"/>
+
+    <text x="40" y="340" fill="#a1a1aa">Cidade</text>
+    <text x="300" y="340" text-anchor="end" font-weight="700" fill="#3f3f46">São Paulo, SP · 10 km</text>
+    <line x1="24" y1="352" x2="316" y2="352" stroke="#f4f4f5"/>
+
+    <text x="40" y="372" fill="#a1a1aa">Experiência</text>
+    <text x="300" y="372" text-anchor="end" font-weight="700" fill="#3f3f46">5 anos</text>
+    <line x1="24" y1="384" x2="316" y2="384" stroke="#f4f4f5"/>
+
+    <text x="40" y="396" fill="#a1a1aa">Valor/hora</text>
+    <text x="300" y="396" text-anchor="end" font-weight="700" fill="#3f3f46">R$ 150,00/h</text>
+  </g>
+
+  <text x="24" y="432" font-size="13" font-weight="700" fill="#18181b">Por que vale a pena?</text>
+  <text x="24" y="456" font-size="11.5" fill="#3f3f46">✅ Zero taxa de cadastro</text>
+  <text x="24" y="478" font-size="11.5" fill="#3f3f46">✅ Badge Profissional Fundador</text>
+  <text x="24" y="500" font-size="11.5" fill="#3f3f46">✅ Comece a receber solicitações hoje</text>
+
+  <text x="24" y="530" font-size="10.5" fill="#a1a1aa">Após ativar, clientes na sua área vão</text>
+  <text x="24" y="544" font-size="10.5" fill="#a1a1aa">visualizar seu perfil.</text>
+
+  <rect x="24" y="610" width="292" height="48" rx="14" fill="url(#btnGrad)" filter="url(#cardShadow)"/>
+  <text x="170" y="639" text-anchor="middle" font-size="14" font-weight="700" fill="#FFFFFF">🚀 Ativar meu perfil</text>
+  <text x="170" y="666" text-anchor="middle" font-size="8.5" fill="#a1a1aa">Ao ativar, você concorda com os Termos para Profissionais.</text>
+</svg>

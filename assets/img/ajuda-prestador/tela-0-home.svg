@@ -1,0 +1,87 @@
+<svg viewBox="0 0 340 700" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, Helvetica, Arial, sans-serif">
+  <defs>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.08"/>
+    </filter>
+    <linearGradient id="hdrGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1f6b49"/>
+      <stop offset="100%" stop-color="#163f2c"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="2" y="2" width="336" height="696" rx="46" fill="#111113"/>
+  <rect x="10" y="10" width="320" height="680" rx="38" fill="#FFFFFF"/>
+  <clipPath id="screenClip"><rect x="10" y="10" width="320" height="680" rx="38"/></clipPath>
+
+  <g clip-path="url(#screenClip)">
+    <rect x="10" y="10" width="320" height="118" fill="url(#hdrGrad)"/>
+    <text x="44" y="38" font-size="13" font-weight="600" fill="#FFFFFF">9:41</text>
+    <rect x="130" y="10" width="80" height="22" rx="11" fill="#0c2419"/>
+    <text x="24" y="72" font-size="11" fill="#c6e8d4">Sua localização</text>
+    <text x="24" y="90" font-size="14" font-weight="700" fill="#FFFFFF">São Paulo, SP ▾</text>
+
+    <rect x="24" y="104" width="292" height="40" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <text x="38" y="129" font-size="12" fill="#a1a1aa">🔍  Buscar serviço ou profissional</text>
+  </g>
+
+  <text x="24" y="168" font-size="13" font-weight="700" fill="#18181b">Categorias</text>
+  <g font-size="9.5" font-weight="600">
+    <circle cx="46" cy="196" r="24" fill="#e8f5ee"/>
+    <text x="46" y="202" text-anchor="middle" font-size="16">⚡</text>
+    <text x="46" y="230" text-anchor="middle" fill="#3f3f46">Elétrica</text>
+
+    <circle cx="116" cy="196" r="24" fill="#fff4ed"/>
+    <text x="116" y="202" text-anchor="middle" font-size="16">🎨</text>
+    <text x="116" y="230" text-anchor="middle" fill="#3f3f46">Pintura</text>
+
+    <circle cx="186" cy="196" r="24" fill="#e8f5ee"/>
+    <text x="186" y="202" text-anchor="middle" font-size="16">🚿</text>
+    <text x="186" y="230" text-anchor="middle" fill="#3f3f46">Encanamento</text>
+
+    <circle cx="256" cy="196" r="24" fill="#fff4ed"/>
+    <text x="256" y="202" text-anchor="middle" font-size="16">🧹</text>
+    <text x="256" y="230" text-anchor="middle" fill="#3f3f46">Limpeza</text>
+  </g>
+
+  <text x="24" y="266" font-size="13" font-weight="700" fill="#18181b">Recomendados para você</text>
+  <text x="24" y="282" font-size="10" fill="#a1a1aa">São Paulo, SP</text>
+
+  <rect x="24" y="294" width="292" height="76" rx="14" fill="#FFFFFF" stroke="#ededee" stroke-width="1.5" filter="url(#cardShadow)"/>
+  <circle cx="56" cy="332" r="22" fill="#9dd6b4"/>
+  <text x="92" y="324" font-size="12" font-weight="700" fill="#18181b">Elétrica do João</text>
+  <text x="92" y="340" font-size="10" fill="#a1a1aa">⭐ 4.9 · Elétrica · 2,3 km</text>
+  <text x="92" y="356" font-size="10" fill="#2d8a5a" font-weight="600">A partir de R$ 150,00/h</text>
+
+  <rect x="24" y="382" width="292" height="76" rx="14" fill="#FFFFFF" stroke="#ededee" stroke-width="1.5" filter="url(#cardShadow)"/>
+  <circle cx="56" cy="420" r="22" fill="#ffc99e"/>
+  <text x="92" y="412" font-size="12" font-weight="700" fill="#18181b">Pintura Express</text>
+  <text x="92" y="428" font-size="10" fill="#a1a1aa">⭐ 4.7 · Pintura · 4,1 km</text>
+  <text x="92" y="444" font-size="10" fill="#2d8a5a" font-weight="600">A partir de R$ 120,00/h</text>
+
+  <!-- Tab bar -->
+  <line x1="10" y1="616" x2="330" y2="616" stroke="#e5e5e5"/>
+  <g font-size="9" font-weight="600">
+    <text x="44" y="642" text-anchor="middle" font-size="20" fill="#2d8a5a">⌂</text>
+    <text x="44" y="660" text-anchor="middle" fill="#2d8a5a">Início</text>
+
+    <text x="112" y="642" text-anchor="middle" font-size="18" fill="#a1a1aa">🔍</text>
+    <text x="112" y="660" text-anchor="middle" fill="#a1a1aa">Buscar</text>
+
+    <text x="180" y="642" text-anchor="middle" font-size="18" fill="#a1a1aa">📁</text>
+    <text x="180" y="660" text-anchor="middle" fill="#a1a1aa">Projetos</text>
+
+    <text x="248" y="642" text-anchor="middle" font-size="18" fill="#a1a1aa">💬</text>
+    <text x="248" y="660" text-anchor="middle" fill="#a1a1aa">Chat</text>
+
+    <rect x="278" y="624" width="44" height="44" rx="14" fill="#e8f5ee"/>
+    <text x="300" y="644" text-anchor="middle" font-size="19" fill="#2d8a5a">👤</text>
+    <text x="300" y="660" text-anchor="middle" fill="#2d8a5a" font-weight="700">Perfil</text>
+  </g>
+
+  <!-- callout pointing to Perfil tab -->
+  <path d="M300 600 L300 618" stroke="#F97316" stroke-width="3" stroke-dasharray="2 3" fill="none"/>
+  <rect x="240" y="566" width="124" height="30" rx="8" fill="#F97316" filter="url(#cardShadow)"/>
+  <text x="302" y="586" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">Toque aqui ↓</text>
+
+  <rect x="130" y="678" width="80" height="5" rx="2.5" fill="#18181b" opacity="0.2"/>
+</svg>

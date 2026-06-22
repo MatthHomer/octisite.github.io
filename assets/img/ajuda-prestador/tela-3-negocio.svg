@@ -1,0 +1,74 @@
+<svg viewBox="0 0 340 700" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, Helvetica, Arial, sans-serif">
+  <defs>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.08"/>
+    </filter>
+    <linearGradient id="hdrGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1f6b49"/>
+      <stop offset="100%" stop-color="#163f2c"/>
+    </linearGradient>
+    <linearGradient id="btnGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#34a06c"/>
+      <stop offset="100%" stop-color="#2d8a5a"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="2" y="2" width="336" height="696" rx="46" fill="#111113"/>
+  <rect x="10" y="10" width="320" height="680" rx="38" fill="#FFFFFF"/>
+  <clipPath id="screenClip"><rect x="10" y="10" width="320" height="680" rx="38"/></clipPath>
+
+  <g clip-path="url(#screenClip)">
+    <rect x="10" y="10" width="320" height="118" fill="url(#hdrGrad)"/>
+    <text x="44" y="38" font-size="13" font-weight="600" fill="#FFFFFF">9:41</text>
+    <rect x="130" y="10" width="80" height="22" rx="11" fill="#0c2419"/>
+    <circle cx="40" cy="68" r="15" fill="#ffffff" opacity="0.12"/>
+    <text x="40" y="73" text-anchor="middle" font-size="15" fill="#FFFFFF">←</text>
+    <text x="64" y="74" font-size="15" font-weight="700" fill="#FFFFFF">Seu negócio</text>
+    <g>
+      <rect x="24" y="100" width="62" height="4" rx="2" fill="#FFFFFF"/>
+      <rect x="92" y="100" width="62" height="4" rx="2" fill="#FFFFFF"/>
+      <rect x="160" y="100" width="62" height="4" rx="2" fill="#ffffff" opacity="0.28"/>
+      <rect x="228" y="100" width="62" height="4" rx="2" fill="#ffffff" opacity="0.28"/>
+    </g>
+  </g>
+
+  <text x="24" y="158" font-size="18" font-weight="700" fill="#18181b">Sobre seu negócio</text>
+
+  <text x="24" y="186" font-size="11" font-weight="700" fill="#3f3f46">Nome do seu negócio *</text>
+  <rect x="24" y="194" width="292" height="44" rx="12" fill="#fafafa" stroke="#ededee" stroke-width="1.5"/>
+  <text x="38" y="220" font-size="13" fill="#18181b">Elétrica do João</text>
+
+  <text x="24" y="258" font-size="11" font-weight="700" fill="#3f3f46">Sua cidade *</text>
+  <rect x="24" y="266" width="292" height="44" rx="12" fill="#fafafa" stroke="#ededee" stroke-width="1.5"/>
+  <text x="38" y="292" font-size="13" fill="#18181b">São Paulo, SP</text>
+
+  <text x="24" y="338" font-size="11" font-weight="700" fill="#3f3f46">Raio de atendimento</text>
+  <g font-size="11" font-weight="600">
+    <rect x="24" y="348" width="54" height="32" rx="10" fill="#FFFFFF" stroke="#d4d4d8" stroke-width="1.3" filter="url(#cardShadow)"/>
+    <text x="51" y="368" text-anchor="middle" fill="#3f3f46">5 km</text>
+
+    <rect x="84" y="348" width="62" height="32" rx="10" fill="#e8f5ee" stroke="#2d8a5a" stroke-width="1.6" filter="url(#cardShadow)"/>
+    <text x="115" y="368" text-anchor="middle" fill="#1a5c40">10 km</text>
+
+    <rect x="152" y="348" width="62" height="32" rx="10" fill="#FFFFFF" stroke="#d4d4d8" stroke-width="1.3" filter="url(#cardShadow)"/>
+    <text x="183" y="368" text-anchor="middle" fill="#3f3f46">20 km</text>
+
+    <rect x="220" y="348" width="96" height="32" rx="10" fill="#FFFFFF" stroke="#d4d4d8" stroke-width="1.3" filter="url(#cardShadow)"/>
+    <text x="268" y="368" text-anchor="middle" fill="#3f3f46">Toda a cidade</text>
+  </g>
+
+  <text x="24" y="412" font-size="11" font-weight="700" fill="#3f3f46">Anos de experiência</text>
+  <rect x="24" y="420" width="292" height="50" rx="12" fill="#fafafa" stroke="#ededee" stroke-width="1.5"/>
+  <circle cx="52" cy="445" r="16" fill="#FFFFFF" stroke="#d4d4d8" stroke-width="1.3"/>
+  <text x="52" y="450" text-anchor="middle" font-size="16" fill="#3f3f46">−</text>
+  <text x="170" y="452" text-anchor="middle" font-size="16" font-weight="700" fill="#18181b">5 anos</text>
+  <circle cx="288" cy="445" r="16" fill="url(#btnGrad)"/>
+  <text x="288" y="451" text-anchor="middle" font-size="16" fill="#FFFFFF">+</text>
+
+  <rect x="24" y="486" width="292" height="46" rx="12" fill="#fff4ed" stroke="#ffc99e" stroke-width="1.3"/>
+  <text x="40" y="514" font-size="11" font-weight="600" fill="#9a3f12">⭐ Profissionais com 5+ anos recebem 40% mais solicitações</text>
+
+  <rect x="24" y="618" width="292" height="48" rx="14" fill="url(#btnGrad)" filter="url(#cardShadow)"/>
+  <text x="170" y="647" text-anchor="middle" font-size="15" font-weight="700" fill="#FFFFFF">Próximo →</text>
+  <rect x="130" y="678" width="80" height="5" rx="2.5" fill="#18181b" opacity="0.2"/>
+</svg>

@@ -58,7 +58,11 @@ async function carregarConteudoPost() {
                 src="${post.cover_url}"
                 class="card-img-top"
                 alt="${escHtml(post.title)}"
+                width="800"
+                height="400"
                 style="max-height:400px;object-fit:cover;"
+                fetchpriority="high"
+                decoding="async"
                 onerror="this.style.display='none'"
               >`
             : ""}
@@ -80,8 +84,8 @@ async function carregarConteudoPost() {
         </div>
       </div>`;
 
-    // Atualiza o título da aba
-    document.title = `${post.title} | Blog Octi`;
+    atualizarMetaTags(post, slug);
+    injetarSchemaBlogPosting(post, slug);
 
   } catch (err) {
     console.error("Erro ao carregar post:", err);
@@ -92,6 +96,75 @@ async function carregarConteudoPost() {
 function escHtml(str) {
   if (!str) return "";
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function plainTextExcerpt(html, maxLen) {
+  if (!html) return "";
+  const text = html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  return text.length > maxLen ? text.slice(0, maxLen - 1).trim() + "…" : text;
+}
+
+function setMeta(id, attr, value) {
+  const el = document.getElementById(id);
+  if (el) el.setAttribute(attr, value);
+}
+
+function atualizarMetaTags(post, slug) {
+  const pageUrl = `https://octi.site/blog-post.html?slug=${encodeURIComponent(slug)}`;
+  const description = plainTextExcerpt(post.content, 160) ||
+    "Leia as últimas dicas e novidades do blog Octi sobre contratação de prestadores de serviços.";
+  const image = post.cover_url || "https://octi.site/assets/img/og/og-default.jpg";
+  const fullTitle = `${post.title} | Blog Octi`;
+
+  document.title = fullTitle;
+  document.getElementById("page-title").textContent = fullTitle;
+  setMeta("meta-description", "content", description);
+  setMeta("canonical-link", "href", pageUrl);
+  setMeta("og-url", "content", pageUrl);
+  setMeta("og-title", "content", fullTitle);
+  setMeta("og-description", "content", description);
+  setMeta("og-image", "content", image);
+  setMeta("og-image-alt", "content", post.title);
+  setMeta("twitter-title", "content", fullTitle);
+  setMeta("twitter-description", "content", description);
+  setMeta("twitter-image", "content", image);
+  setMeta("twitter-image-alt", "content", post.title);
+  if (post.published_at) {
+    setMeta("article-published-time", "content", post.published_at);
+  }
+}
+
+function injetarSchemaBlogPosting(post, slug) {
+  const pageUrl = `https://octi.site/blog-post.html?slug=${encodeURIComponent(slug)}`;
+  const description = plainTextExcerpt(post.content, 160);
+  const image = post.cover_url || "https://octi.site/assets/img/og/og-default.jpg";
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${pageUrl}#blogposting`,
+    "mainEntityOfPage": { "@type": "WebPage", "@id": pageUrl },
+    "headline": post.title,
+    "description": description,
+    "image": image,
+    "inLanguage": "pt-BR",
+    "isPartOf": { "@id": "https://octi.site/#website" },
+    "publisher": { "@id": "https://octi.site/#organization" },
+    "author": {
+      "@type": post.author ? "Person" : "Organization",
+      "name": post.author || "Octi"
+    }
+  };
+  if (post.published_at) {
+    schema.datePublished = post.published_at;
+    schema.dateModified = post.published_at;
+  }
+
+  const script = document.createElement("script");
+  script.type = "application/ld+json";
+  script.id = "blogposting-schema";
+  script.textContent = JSON.stringify(schema);
+  document.head.appendChild(script);
 }
 
 document.addEventListener("DOMContentLoaded", carregarConteudoPost);

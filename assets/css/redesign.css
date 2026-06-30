@@ -2,6 +2,25 @@
    Octi Site Redesign v2 — Psychology Edition
    ================================================ */
 
+/* ── Accessibility: skip-to-content link ── */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: 8px;
+  z-index: 10000;
+  background: #0984a1;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top .2s ease;
+}
+.skip-link:focus {
+  top: 8px;
+  color: #fff;
+}
+
 :root {
   --primary:       #0984a1;
   --primary-dark:  #066a80;
@@ -360,6 +379,18 @@
 @media (max-width: 767px) {
   .section-title-v2 { font-size: 26px; }
   .section-subtitle  { font-size: 15px; }
+}
+
+/* ================================================
+   O QUE É O OCTI (GEO)
+   ================================================ */
+
+.about-octi-section {
+  padding: 56px 0 16px;
+}
+
+.about-octi-section .section-title-v2 {
+  margin-bottom: 16px;
 }
 
 /* ================================================

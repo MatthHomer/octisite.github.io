@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://octi.site/</loc>
+    <image:image>
+      <image:loc>https://octi.site/assets/img/logo/Octi_Logotipo_19.png</image:loc>
+      <image:title>Octi — Logotipo</image:title>
+      <image:caption>Logotipo oficial do Octi, plataforma de prestadores de serviços</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://octi.site/assets/img/logo/Octi_Logotipo_07.png</image:loc>
+      <image:title>Octi — Ícone</image:title>
+    </image:image>
+  </url>
+
+</urlset>

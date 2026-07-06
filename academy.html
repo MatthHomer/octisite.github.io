@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Octi Academy — Biblioteca do Prestador</title>
+<meta name="description" content="Conteúdo educativo gratuito para prestadores de serviço parceiros da Octi. Ebooks, roteiros de vídeo e checklists sobre precificação, vendas, finanças e gestão.">
+<link rel="icon" type="image/png" href="/assets/img/brand/octi-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --verde: #1a5c40;
+  --verde-d: #0f3a28;
+  --verde-deep: #0F2A1E;
+  --verde-claro: #5BBE8B;
+  --laranja: #F97316;
+  --laranja-d: #EA640C;
+  --creme: #F6F1E7;
+  --creme-2: #EDE6D6;
+  --ink: #12211a;
+  --gray: #5C665C;
+  --gray-soft: #8A9A8A;
+  --line: rgba(246,241,231,.12);
+  --line-stronger: rgba(246,241,231,.22);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--verde-deep);
+  color: var(--creme);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4, .font-d { font-family: 'Outfit', sans-serif; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+.wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+/* pixel-grid ambient */
+.pixgrid {
+  position: fixed; inset: 0; z-index: 0;
+  background-image: radial-gradient(rgba(91,190,139,.055) 1.4px, transparent 1.4px);
+  background-size: 26px 26px;
+  pointer-events: none;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(15,42,30,.9);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Outfit'; font-weight: 800; font-size: 19px; letter-spacing: .5px;
+}
+.brand img { width: 30px; height: 30px; image-rendering: pixelated; }
+.brand small {
+  display: block;
+  font-weight: 500; font-size: 10px; letter-spacing: 2.5px;
+  color: var(--verde-claro); text-transform: uppercase; line-height: 1.2;
+}
+.nav-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'Outfit'; font-weight: 700; font-size: 12px; letter-spacing: 1.5px;
+  color: var(--laranja); text-transform: uppercase;
+  border: 1.5px solid rgba(249,115,22,.35); border-radius: 999px;
+  padding: 5px 14px;
+}
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.navlink {
+  font-family: 'Outfit'; font-weight: 600; font-size: 14px;
+  color: var(--creme); opacity: .75; transition: opacity .2s;
+}
+.navlink:hover { opacity: 1; }
+@media (max-width: 640px) { .nav-links { display: none; } }
+
+/* ── HERO ── */
+.hero { position: relative; z-index: 1; padding: 72px 0 52px; text-align: center; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Outfit'; font-weight: 700; font-size: 12px;
+  letter-spacing: 3px; color: var(--laranja); text-transform: uppercase; margin-bottom: 24px;
+}
+.eyebrow .r { width: 26px; height: 2px; background: var(--laranja); border-radius: 2px; }
+.hero-mascot {
+  width: 112px; height: 112px; image-rendering: pixelated;
+  margin: 0 auto 26px;
+  filter: drop-shadow(0 12px 30px rgba(0,0,0,.4));
+}
+.hero h1 {
+  font-size: clamp(38px, 6.5vw, 64px);
+  font-weight: 800; line-height: 1.04; letter-spacing: -1px;
+}
+.hero h1 .o { color: var(--laranja); }
+.hero p.sub {
+  max-width: 580px; margin: 20px auto 0;
+  font-size: clamp(16px, 2.2vw, 18px); color: #CFE3D2; line-height: 1.65;
+}
+
+/* stats strip */
+.stats {
+  position: relative; z-index: 1;
+  display: flex; justify-content: center; flex-wrap: wrap;
+  margin-top: 52px;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.stat { padding: 24px 40px; text-align: center; border-right: 1px solid var(--line); }
+.stat:last-child { border-right: none; }
+.stat .n {
+  font-family: 'Outfit'; font-weight: 800; font-size: 32px;
+  color: var(--verde-claro); line-height: 1;
+}
+.stat .l { font-size: 11px; color: var(--gray); margin-top: 5px; letter-spacing: .5px; text-transform: uppercase; }
+@media (max-width: 560px) { .stat { padding: 18px 22px; border-right: none; border-bottom: 1px solid var(--line); width: 50%; } }
+
+/* ── SECTION ── */
+section.block { position: relative; z-index: 1; padding: 72px 0; }
+.sec-head { margin-bottom: 44px; }
+.kick {
+  font-family: 'Outfit'; font-weight: 700; font-size: 11px;
+  letter-spacing: 3px; color: var(--laranja); text-transform: uppercase;
+  display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+}
+.kick .r { width: 26px; height: 2px; background: var(--laranja); border-radius: 2px; }
+.sec-head h2 { font-size: clamp(26px, 4vw, 40px); font-weight: 800; letter-spacing: -.5px; }
+.sec-head p { color: #CFE3D2; max-width: 620px; margin-top: 12px; font-size: 16px; }
+
+/* ── LIBRARY GRID ── */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 22px; }
+
+.card {
+  background: rgba(246,241,231,.04);
+  border: 1px solid var(--line);
+  border-radius: 16px; overflow: hidden;
+  transition: transform .2s, border-color .2s, background .2s;
+  display: flex; flex-direction: column;
+}
+.card:hover { transform: translateY(-4px); border-color: rgba(91,190,139,.38); background: rgba(246,241,231,.06); }
+.card.coming-soon { opacity: .55; pointer-events: none; }
+
+/* CSS-only book cover */
+.cover {
+  aspect-ratio: 3/4;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  justify-content: flex-end; padding: 20px;
+}
+.cover-ebook { background: linear-gradient(155deg, #0f3a28 0%, #1a5c40 55%, #22784f 100%); }
+.cover-video  { background: linear-gradient(155deg, #7c2d12 0%, #c2410c 55%, #f97316 100%); }
+.cover-check  { background: linear-gradient(155deg, #064e3b 0%, #065f46 55%, #047857 100%); }
+
+/* decorative circles on cover */
+.cover::before {
+  content: ""; position: absolute;
+  top: -40px; right: -40px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.06);
+}
+.cover::after {
+  content: ""; position: absolute;
+  bottom: 60px; left: -30px;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.04);
+}
+.cover-vol {
+  position: relative; z-index: 1;
+  font-family: 'Outfit'; font-weight: 800;
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(246,241,231,.5); margin-bottom: 6px;
+}
+.cover-title {
+  position: relative; z-index: 1;
+  font-family: 'Outfit'; font-weight: 800;
+  font-size: 22px; line-height: 1.15;
+  color: var(--creme);
+}
+.cover-icon {
+  position: absolute; top: 20px; right: 20px;
+  width: 38px; height: 38px;
+  image-rendering: pixelated;
+  opacity: .35;
+}
+
+.badge-tag {
+  position: absolute; top: 14px; left: 14px;
+  font-family: 'Outfit'; font-weight: 700; font-size: 10px;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 999px; color: #fff; z-index: 2;
+}
+.badge-ebook  { background: var(--verde); }
+.badge-video  { background: var(--laranja); }
+.badge-check  { background: rgba(15,42,30,.8); border: 1px solid var(--line-stronger); }
+.badge-soon   { background: rgba(100,100,100,.5); border: 1px solid rgba(255,255,255,.15); }
+
+.card-body { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+.card-body h3 { font-size: 18px; font-weight: 700; line-height: 1.22; }
+.card-body .desc { font-size: 13.5px; color: #B9CDB9; margin-top: 8px; flex: 1; }
+.card-base {
+  font-family: 'Outfit'; font-weight: 600; font-size: 10px;
+  letter-spacing: .3px; color: var(--laranja); margin-top: 10px; text-transform: uppercase;
+}
+.card-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 16px; padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.card-meta { font-size: 11.5px; color: var(--gray); }
+
+.btn-read {
+  font-family: 'Outfit'; font-weight: 700; font-size: 13px;
+  color: var(--verde-claro);
+  background: none; border: none; cursor: pointer; padding: 0;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: gap .2s, color .2s;
+}
+.btn-read:hover { gap: 10px; color: #fff; }
+.btn-read svg { width: 14px; height: 14px; }
+
+.soon-label {
+  font-family: 'Outfit'; font-weight: 600; font-size: 12px;
+  color: var(--gray-soft); letter-spacing: .5px;
+}
+
+/* ── PATH (Como usar) ── */
+.path { display: flex; flex-direction: column; gap: 2px; counter-reset: step; }
+.step {
+  display: flex; gap: 22px; padding: 22px 0;
+  border-bottom: 1px solid var(--line); align-items: flex-start;
+}
+.step:last-child { border-bottom: none; }
+.step .num {
+  counter-increment: step;
+  font-family: 'Outfit'; font-weight: 800; font-size: 14px;
+  color: var(--verde-deep); background: var(--verde-claro);
+  min-width: 34px; height: 34px; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.step .num::before { content: counter(step); }
+.step-text h4 { font-size: 17px; font-weight: 700; }
+.step-text p { font-size: 14px; color: #B9CDB9; margin-top: 4px; }
+
+/* ── CTA BAND ── */
+.cta-band {
+  position: relative; z-index: 1; margin: 40px 0;
+  background: linear-gradient(135deg, var(--verde-d), var(--verde));
+  border-radius: 24px; padding: 56px 40px; text-align: center; overflow: hidden;
+}
+.cta-band::after {
+  content: ""; position: absolute; right: -40px; bottom: -40px;
+  width: 200px; height: 200px;
+  background-image: radial-gradient(rgba(246,241,231,.08) 2px, transparent 2px);
+  background-size: 20px 20px;
+}
+.cta-band h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 800; position: relative; }
+.cta-band p { color: #CFE3D2; margin: 12px auto 26px; max-width: 500px; position: relative; }
+.btn-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Outfit'; font-weight: 700; font-size: 15px;
+  background: var(--laranja); color: #fff;
+  padding: 14px 28px; border-radius: 999px;
+  border: none; cursor: pointer;
+  transition: background .2s, transform .15s, box-shadow .2s;
+}
+.btn-cta:hover {
+  background: var(--laranja-d);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(249,115,22,.3);
+}
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--line);
+  padding: 44px 0 56px; margin-top: 40px;
+}
+footer .inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+.foot-brand { display: flex; align-items: center; gap: 10px; font-family: 'Outfit'; font-weight: 800; font-size: 17px; }
+.foot-brand img { width: 26px; height: 26px; image-rendering: pixelated; }
+.foot-disc { font-size: 12.5px; color: var(--gray); max-width: 400px; margin-top: 6px; }
+.pixocto { display: inline-flex; gap: 3px; align-items: flex-end; }
+.pixocto i {
+  width: 7px; background: var(--laranja); border-radius: 1px; display: block;
+  animation: bob 1.4s ease-in-out infinite;
+}
+.pixocto i:nth-child(1) { height: 10px; animation-delay: 0s; }
+.pixocto i:nth-child(2) { height: 16px; animation-delay: .15s; }
+.pixocto i:nth-child(3) { height: 12px; animation-delay: .3s; }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+/* ── PDF VIEWER MODAL ── */
+.pdf-modal {
+  display: none;
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(10,25,18,.9);
+  backdrop-filter: blur(6px);
+  flex-direction: column;
+}
+.pdf-modal.open { display: flex; }
+
+.pdf-modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px;
+  background: rgba(15,42,30,.95);
+  border-bottom: 1px solid var(--line-stronger);
+  flex-shrink: 0;
+}
+.pdf-modal-title {
+  font-family: 'Outfit'; font-weight: 700; font-size: 15px;
+  display: flex; align-items: center; gap: 10px;
+}
+.pdf-modal-title .tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 999px;
+  background: var(--verde); color: #fff;
+}
+.pdf-modal-note {
+  font-size: 12px; color: var(--gray-soft);
+  display: flex; align-items: center; gap: 6px;
+}
+.pdf-modal-note svg { width: 14px; height: 14px; color: var(--laranja); flex-shrink: 0; }
+.pdf-modal-actions { display: flex; align-items: center; gap: 14px; }
+.btn-close-modal {
+  font-family: 'Outfit'; font-weight: 700; font-size: 13px;
+  color: var(--creme); background: rgba(246,241,231,.1);
+  border: 1px solid var(--line-stronger); border-radius: 8px;
+  padding: 8px 16px; cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  transition: background .2s;
+}
+.btn-close-modal:hover { background: rgba(246,241,231,.2); }
+
+.pdf-modal-body { flex: 1; position: relative; overflow: hidden; }
+.pdf-modal-body iframe {
+  width: 100%; height: 100%; border: none;
+  display: block;
+}
+.pdf-mobile-fallback {
+  display: none;
+  flex-direction: column; align-items: center; justify-content: center;
+  height: 100%; gap: 16px; padding: 32px; text-align: center;
+}
+.pdf-mobile-fallback p { color: #B9CDB9; font-size: 15px; max-width: 360px; }
+
+/* reveal animation */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .55s, transform .55s; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .pixocto i { animation: none; }
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .cta-band { padding: 40px 24px; }
+  section.block { padding: 56px 0; }
+}
+</style>
+</head>
+<body>
+<div class="pixgrid"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <a href="/" class="brand">
+      <img src="/assets/img/brand/octi-icon.png" alt="Octi">
+      <span>octi <small>academy</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="#biblioteca" class="navlink">Biblioteca</a>
+      <a href="#como-usar" class="navlink">Como usar</a>
+      <span class="nav-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Parceiros Octi · Gratuito
+      </span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="r"></span> Série Profissional do Lar</div>
+    <img src="/assets/img/brand/octi-splash.png" class="hero-mascot" alt="Octi, o polvo-pixel">
+    <h1>A escola do prestador<br>que quer virar <span class="o">dono.</span></h1>
+    <p class="sub">
+      Precificação, vendas, finanças e gestão para quem presta serviço em casa de cliente.
+      Feito com dados do Sebrae e os métodos mais respeitados do mundo — traduzidos para o seu dia a dia.
+      <strong>Gratuito para parceiros Octi.</strong>
+    </p>
+  </div>
+  <div class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><div class="n">5</div><div class="l">Ebooks</div></div>
+      <div class="stat"><div class="n">16</div><div class="l">Roteiros de vídeo</div></div>
+      <div class="stat"><div class="n">8</div><div class="l">Checklists</div></div>
+      <div class="stat"><div class="n">100+</div><div class="l">Páginas · grátis</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- BIBLIOTECA -->
+<section class="block" id="biblioteca">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kick"><span class="r"></span> A biblioteca</div>
+      <h2>Tudo que ninguém te ensinou sobre tocar o negócio</h2>
+      <p>
+        Cada material foi construído com base acadêmica de verdade — e com quatro personagens
+        (João, Célia, Marcos e Rafa) que atravessam a coleção inteira, resolvendo os problemas
+        reais de quem trabalha em casa de cliente.
+      </p>
+    </div>
+
+    <div class="grid">
+
+      <!-- VOL 1 — disponível -->
+      <div class="card reveal">
+        <div class="cover cover-ebook">
+          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
+          <span class="badge-tag badge-ebook">Ebook · Vol. 1</span>
+          <div class="cover-vol">Série Profissional do Lar</div>
+          <div class="cover-title">Cobre<br>Certo</div>
+        </div>
+        <div class="card-body">
+          <h3>Cobre Certo</h3>
+          <p class="desc">Precificação sem achismo: a fórmula do preço/hora, markup, valor percebido e o orçamento que fecha o dobro.</p>
+          <div class="card-base">Contabilidade de custos · 3 métodos de preço</div>
+          <div class="card-foot">
+            <span class="card-meta">19 páginas</span>
+            <button class="btn-read" onclick="openPDF('Cobre Certo', '/materiais/Octi_Ebook_Vol1_Cobre_Certo.pdf', 'Ebook Vol. 1')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              Ler agora →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VOL 2 — em breve -->
+      <div class="card coming-soon reveal">
+        <div class="cover cover-ebook" style="opacity:.75">
+          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
+          <span class="badge-tag badge-soon">Em breve</span>
+          <div class="cover-vol">Série Profissional do Lar</div>
+          <div class="cover-title">Vender sem<br>Empurrar</div>
+        </div>
+        <div class="card-body">
+          <h3>Vender sem Empurrar</h3>
+          <p class="desc">As 4 perguntas que fecham, resposta pronta para as 7 objeções e o follow-up que ressuscita orçamento.</p>
+          <div class="card-base">SPIN Selling · Cialdini</div>
+          <div class="card-foot">
+            <span class="card-meta">16 páginas</span>
+            <span class="soon-label">Em breve</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- VOL 3 — em breve -->
+      <div class="card coming-soon reveal">
+        <div class="cover cover-ebook" style="opacity:.75">
+          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
+          <span class="badge-tag badge-soon">Em breve</span>
+          <div class="cover-vol">Série Profissional do Lar</div>
+          <div class="cover-title">Seu Dinheiro,<br>Seu Negócio</div>
+        </div>
+        <div class="card-body">
+          <h3>Seu Dinheiro, Seu Negócio</h3>
+          <p class="desc">Fluxo de caixa, ponto de equilíbrio, o método dos potes no Pix e o MEI 2026 na prática.</p>
+          <div class="card-base">Sebrae · Profit First · Thaler (Nobel)</div>
+          <div class="card-foot">
+            <span class="card-meta">19 páginas</span>
+            <span class="soon-label">Em breve</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- VOL 4 — em breve -->
+      <div class="card coming-soon reveal">
+        <div class="cover cover-ebook" style="opacity:.75">
+          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
+          <span class="badge-tag badge-soon">Em breve</span>
+          <div class="cover-vol">Série Profissional do Lar</div>
+          <div class="cover-title">Administração<br>de Bolso</div>
+        </div>
+        <div class="card-body">
+          <h3>Administração de Bolso</h3>
+          <p class="desc">As 7 ferramentas do MBA com exercício preenchível: Canvas, SWOT, PDCA, Pareto, 5S, Curva ABC e SMART.</p>
+          <div class="card-base">Osterwalder · Deming · Pareto · Toyota</div>
+          <div class="card-foot">
+            <span class="card-meta">10 páginas</span>
+            <span class="soon-label">Em breve</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- VOL 5 — em breve -->
+      <div class="card coming-soon reveal">
+        <div class="cover cover-ebook" style="opacity:.75">
+          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
+          <span class="badge-tag badge-soon">Em breve</span>
+          <div class="cover-vol">Série Profissional do Lar</div>
+          <div class="cover-title">De Autônomo<br>a Dono</div>
+        </div>
+        <div class="card-body">
+          <h3>De Autônomo a Dono</h3>
+          <p class="desc">Os 3 personagens do dono, o primeiro ajudante, parcerias, atendimento que fideliza e os 6 números do painel.</p>
+          <div class="card-base">E-Myth · Unreasonable Hospitality · LTV</div>
+          <div class="card-foot">
+            <span class="card-meta">14 páginas</span>
+            <span class="soon-label">Em breve</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROTEIROS MATEMÁTICA — em breve -->
+      <div class="card coming-soon reveal">
+        <div class="cover cover-video" style="opacity:.75">
+          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
+          <span class="badge-tag badge-soon">Em breve</span>
+          <div class="cover-vol">Roteiros de Vídeo · 10 eps</div>
+          <div class="cover-title">Matemática<br>do Prestador</div>
+        </div>
+        <div class="card-body">
+          <h3>Matemática do Prestador</h3>
+          <p class="desc">Dez roteiros de 3–5 min, cada um com UMA conta que muda uma decisão. Prontos para gravar.</p>
+          <div class="card-base">Companheiro do Vol. 3</div>
+          <div class="card-foot">
+            <span class="card-meta">10 episódios</span>
+            <span class="soon-label">Em breve</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROTEIROS VENDA — em breve -->
+      <div class="card coming-soon reveal">
+        <div class="cover cover-video" style="opacity:.75">
+          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
+          <span class="badge-tag badge-soon">Em breve</span>
+          <div class="cover-vol">Roteiros de Vídeo · 6 eps</div>
+          <div class="cover-title">Venda<br>na Prática</div>
+        </div>
+        <div class="card-body">
+          <h3>Venda na Prática</h3>
+          <p class="desc">Seis dramatizações: a mesma cena do jeito errado e do jeito certo, com as 3 frases que salvam a venda.</p>
+          <div class="card-base">Companheiro do Vol. 2</div>
+          <div class="card-foot">
+            <span class="card-meta">6 episódios</span>
+            <span class="soon-label">Em breve</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHECKLISTS — disponível -->
+      <div class="card reveal">
+        <div class="cover cover-check">
+          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
+          <span class="badge-tag badge-check">Checklists</span>
+          <div class="cover-vol">Operação Redonda · 8 cards</div>
+          <div class="cover-title">Operação<br>Redonda</div>
+        </div>
+        <div class="card-body">
+          <h3>Operação Redonda</h3>
+          <p class="desc">Oito cards de uma página: da saída para o serviço à lista do que nunca fazer. Para salvar no celular ou imprimir.</p>
+          <div class="card-base">Apoio operacional da série</div>
+          <div class="card-foot">
+            <span class="card-meta">8 checklists</span>
+            <button class="btn-read" onclick="openPDF('Operação Redonda', '/materiais/Octi_Checklists_Operacao_Redonda.pdf', 'Checklists')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              Ler agora →
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMO USAR -->
+<section class="block" id="como-usar" style="padding-top: 16px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kick"><span class="r"></span> Como usar</div>
+      <h2>Uma trilha, da dor mais urgente à visão de dono</h2>
+      <p>Você pode explorar qualquer material sozinho. Mas se quiser a jornada completa, esta é a ordem que faz mais sentido — cada volume prepara o próximo.</p>
+    </div>
+    <div class="path reveal">
+      <div class="step">
+        <div class="num"></div>
+        <div class="step-text">
+          <h4>Comece pelo preço</h4>
+          <p>Vol. 1 — Cobre Certo. A maior dor do prestador é cobrar errado todo dia. Resolva isso primeiro.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num"></div>
+        <div class="step-text">
+          <h4>Aprenda a fechar</h4>
+          <p>Vol. 2 — Vender sem Empurrar. Preço certo não adianta se o orçamento não vira serviço.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num"></div>
+        <div class="step-text">
+          <h4>Organize o dinheiro</h4>
+          <p>Vol. 3 — Seu Dinheiro, Seu Negócio. Separe as contas, monte o fluxo de caixa e pare de trabalhar de graça.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num"></div>
+        <div class="step-text">
+          <h4>Ganhe método</h4>
+          <p>Vol. 4 — Administração de Bolso. As 7 ferramentas de gestão que as empresas grandes usam, no seu bolso.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num"></div>
+        <div class="step-text">
+          <h4>Vire dono de verdade</h4>
+          <p>Vol. 5 — De Autônomo a Dono. Saia do teto do próprio corpo: padronize, contrate e cresça.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="wrap">
+  <div class="cta-band reveal">
+    <h2>É parceiro Octi e quer receber os próximos volumes?</h2>
+    <p>Cadastre-se como prestador no app e garanta acesso a tudo que está por vir — gratuito para toda a rede Octi.</p>
+    <a href="https://play.google.com/store/apps/details?id=br.com.quidittas.octi" class="btn-cta" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12l4-4 4 4M12 8v8"/></svg>
+      Baixar o app Octi
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="inner">
+      <div>
+        <div class="foot-brand">
+          <img src="/assets/img/brand/octi-icon.png" alt="Octi">
+          <span>octi <small style="font-weight:400;font-size:12px;letter-spacing:2px;color:var(--verde-claro);display:block;text-transform:uppercase">academy</small></span>
+        </div>
+        <p class="foot-disc">Conteúdo educativo gratuito para os prestadores parceiros da Octi. Santa Cruz do Sul · Brasil · 2026.</p>
+      </div>
+      <div class="pixocto"><i></i><i></i><i></i></div>
+    </div>
+  </div>
+</footer>
+
+<!-- PDF VIEWER MODAL -->
+<div class="pdf-modal" id="pdfModal" role="dialog" aria-modal="true" aria-labelledby="pdfModalTitle">
+  <div class="pdf-modal-header">
+    <div class="pdf-modal-title">
+      <span id="pdfModalTag" class="tag">Ebook</span>
+      <span id="pdfModalTitle">Cobre Certo</span>
+    </div>
+    <div class="pdf-modal-actions">
+      <span class="pdf-modal-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Leitura online — exclusivo para parceiros
+      </span>
+      <button class="btn-close-modal" onclick="closePDF()" aria-label="Fechar leitor">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Fechar
+      </button>
+    </div>
+  </div>
+  <div class="pdf-modal-body">
+    <iframe id="pdfFrame" title="Leitor de PDF" allowfullscreen></iframe>
+    <div class="pdf-mobile-fallback" id="pdfFallback">
+      <img src="/assets/img/brand/octi-icon.png" alt="Octi" style="width:56px;image-rendering:pixelated;opacity:.6">
+      <p>Para ler no celular, abra em um navegador de desktop ou instale o app Octi e acesse os materiais por lá.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// scroll reveal
+const io = new IntersectionObserver(
+  es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
+  { threshold: .1 }
+);
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+setTimeout(() => document.querySelectorAll('.reveal:not(.in)').forEach(el => el.classList.add('in')), 1400);
+
+// PDF Modal
+function openPDF(title, url, tag) {
+  const modal = document.getElementById('pdfModal');
+  const frame = document.getElementById('pdfFrame');
+  const fallback = document.getElementById('pdfFallback');
+
+  document.getElementById('pdfModalTitle').textContent = title;
+  document.getElementById('pdfModalTag').textContent = tag;
+
+  // On mobile, PDFs in iframes are unreliable — show fallback instead
+  const isMobile = window.innerWidth < 768 || /Mobi|Android/i.test(navigator.userAgent);
+  if (isMobile) {
+    frame.style.display = 'none';
+    fallback.style.display = 'flex';
+  } else {
+    frame.style.display = 'block';
+    fallback.style.display = 'none';
+    // #toolbar=0&navpanes=0 hides download toolbar in Chromium browsers
+    frame.src = url + '#toolbar=0&navpanes=0&scrollbar=1';
+  }
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePDF() {
+  const modal = document.getElementById('pdfModal');
+  const frame = document.getElementById('pdfFrame');
+  modal.classList.remove('open');
+  frame.src = '';
+  document.body.style.overflow = '';
+}
+
+// Close on Escape
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePDF(); });
+
+// Close on backdrop click
+document.getElementById('pdfModal').addEventListener('click', function(e) {
+  if (e.target === this) closePDF();
+});
+</script>
+</body>
+</html>

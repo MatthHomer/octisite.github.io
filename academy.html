@@ -803,6 +803,7 @@ function activateReveal() {
 function showGate(errorMsg) {
   document.getElementById('accessGate').classList.add('show');
   document.body.style.overflow = 'hidden';
+  document.querySelector('nav').style.zIndex = '0';
   if (errorMsg) {
     const err = document.getElementById('gateError');
     err.textContent = errorMsg;
@@ -813,6 +814,7 @@ function showGate(errorMsg) {
 function hideGate() {
   document.getElementById('accessGate').classList.remove('show');
   document.body.style.overflow = '';
+  document.querySelector('nav').style.zIndex = '';
 }
 
 async function validateToken(token) {

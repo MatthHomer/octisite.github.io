@@ -364,6 +364,74 @@ footer .inner { display: flex; justify-content: space-between; align-items: cent
   .cta-band { padding: 40px 24px; }
   section.block { padding: 56px 0; }
 }
+
+/* ── ACCESS GATE ── */
+#accessGate {
+  display: none;
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(9,20,14,.82);
+  backdrop-filter: blur(22px) saturate(1.4);
+  align-items: center; justify-content: center;
+  padding: 24px;
+}
+#accessGate.show { display: flex; }
+
+.gate-card {
+  background: rgba(15,42,30,.98);
+  border: 1px solid rgba(246,241,231,.14);
+  border-radius: 24px;
+  padding: 44px 40px 40px;
+  max-width: 420px; width: 100%;
+  text-align: center;
+  box-shadow: 0 32px 80px rgba(0,0,0,.6);
+}
+.gate-logo {
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px; margin-bottom: 28px;
+}
+.gate-logo img { width: 40px; height: 40px; image-rendering: pixelated; }
+.gate-logo span {
+  font-family: 'Outfit'; font-weight: 800; font-size: 22px;
+  color: var(--creme); letter-spacing: .5px;
+}
+.gate-logo small {
+  display: block; font-weight: 500; font-size: 9px;
+  letter-spacing: 2.5px; color: var(--verde-claro); text-transform: uppercase; line-height: 1.2;
+}
+.gate-card h2 {
+  font-size: 20px; font-weight: 800; margin-bottom: 8px; color: var(--creme);
+}
+.gate-card p {
+  font-size: 14px; color: #9bada0; line-height: 1.6; margin-bottom: 28px;
+}
+.gate-input {
+  width: 100%; padding: 14px 16px;
+  font-family: 'Outfit'; font-weight: 600; font-size: 14px; letter-spacing: .5px;
+  background: rgba(246,241,231,.06); color: var(--creme);
+  border: 1.5px solid rgba(246,241,231,.18); border-radius: 12px;
+  outline: none; text-align: center;
+  transition: border-color .2s;
+}
+.gate-input:focus { border-color: var(--verde-claro); }
+.gate-input::placeholder { color: rgba(246,241,231,.3); }
+.gate-btn {
+  margin-top: 14px; width: 100%;
+  padding: 14px; border: none; cursor: pointer; border-radius: 12px;
+  font-family: 'Outfit'; font-weight: 700; font-size: 15px; letter-spacing: .3px;
+  background: var(--verde); color: #fff;
+  transition: background .2s, transform .15s;
+}
+.gate-btn:hover:not(:disabled) { background: #22784f; transform: translateY(-1px); }
+.gate-btn:disabled { opacity: .5; cursor: not-allowed; }
+.gate-error {
+  display: none; margin-top: 14px;
+  font-size: 13px; color: #f87171; font-weight: 500;
+}
+.gate-error.show { display: block; }
+.gate-link {
+  display: block; margin-top: 24px;
+  font-size: 12px; color: rgba(246,241,231,.3);
+}
 </style>
 </head>
 <body>
@@ -422,7 +490,7 @@ footer .inner { display: flex; justify-content: space-between; align-items: cent
       </p>
     </div>
 
-    <div class="grid">
+    <div class="grid" id="libraryGrid">
 
       <!-- VOL 1 — disponível -->
       <div class="card reveal">
@@ -662,6 +730,30 @@ footer .inner { display: flex; justify-content: space-between; align-items: cent
   </div>
 </footer>
 
+<!-- ACCESS GATE -->
+<div id="accessGate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+  <div class="gate-card">
+    <div class="gate-logo">
+      <img src="/assets/img/brand/octi-icon.png" alt="Octi">
+      <span>octi <small>academy</small></span>
+    </div>
+    <h2 id="gateTitle">Área exclusiva</h2>
+    <p>Esta biblioteca é gratuita e exclusiva para prestadores parceiros da Octi.<br>Digite o código de acesso que você recebeu.</p>
+    <input
+      id="gateInput"
+      type="text"
+      class="gate-input"
+      placeholder="Cole seu código aqui"
+      autocomplete="off"
+      autocorrect="off"
+      spellcheck="false"
+    >
+    <button id="gateBtn" class="gate-btn" onclick="submitToken()">Acessar a biblioteca →</button>
+    <div id="gateError" class="gate-error"></div>
+    <span class="gate-link">Ainda não tem código? Peça à equipe Octi.</span>
+  </div>
+</div>
+
 <!-- PDF VIEWER MODAL -->
 <div class="pdf-modal" id="pdfModal" role="dialog" aria-modal="true" aria-labelledby="pdfModalTitle">
   <div class="pdf-modal-header">
@@ -690,54 +782,183 @@ footer .inner { display: flex; justify-content: space-between; align-items: cent
 </div>
 
 <script>
-// scroll reveal
+// ── Config ─────────────────────────────────────────────────────────────
+const SB_URL  = 'https://tdttqltbnizljmsajqlc.supabase.co';
+const SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkdHRxbHRibml6bGptc2FqcWxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMDc0NzAsImV4cCI6MjA1NTU4MzQ3MH0.v__13i-EzViT2Eaz4gd2CFJlTq_W5kbDdIQtXSpXnfU';
+const TOKEN_KEY = 'octi_academy_token';
+
+const sbHeaders = { 'apikey': SB_ANON, 'Authorization': 'Bearer ' + SB_ANON };
+
+// ── Scroll reveal ───────────────────────────────────────────────────────
 const io = new IntersectionObserver(
   es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
   { threshold: .1 }
 );
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-setTimeout(() => document.querySelectorAll('.reveal:not(.in)').forEach(el => el.classList.add('in')), 1400);
+function activateReveal() {
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  setTimeout(() => document.querySelectorAll('.reveal:not(.in)').forEach(el => el.classList.add('in')), 1400);
+}
 
-// PDF Modal
+// ── Gate ────────────────────────────────────────────────────────────────
+function showGate(errorMsg) {
+  document.getElementById('accessGate').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  if (errorMsg) {
+    const err = document.getElementById('gateError');
+    err.textContent = errorMsg;
+    err.classList.add('show');
+  }
+}
+
+function hideGate() {
+  document.getElementById('accessGate').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+async function validateToken(token) {
+  try {
+    const res = await fetch(
+      `${SB_URL}/rest/v1/academy_access?token=eq.${encodeURIComponent(token)}&select=id,active`,
+      { headers: sbHeaders }
+    );
+    const data = await res.json();
+    return Array.isArray(data) && data.length > 0 && data[0].active === true;
+  } catch { return false; }
+}
+
+async function submitToken() {
+  const input = document.getElementById('gateInput');
+  const btn   = document.getElementById('gateBtn');
+  const err   = document.getElementById('gateError');
+  const token = input.value.trim();
+
+  if (!token) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Verificando…';
+  err.classList.remove('show');
+
+  const valid = await validateToken(token);
+
+  if (valid) {
+    localStorage.setItem(TOKEN_KEY, token);
+    hideGate();
+    loadContent();
+  } else {
+    btn.disabled = false;
+    btn.textContent = 'Acessar a biblioteca →';
+    err.textContent = 'Código inválido ou expirado. Verifique com a equipe Octi.';
+    err.classList.add('show');
+    input.select();
+  }
+}
+
+// Allow Enter key in the input
+document.getElementById('gateInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') submitToken();
+});
+
+// ── Content loader ──────────────────────────────────────────────────────
+const COVER_CLASS = { ebook: 'cover-ebook', checklist: 'cover-check', video: 'cover-video', audio: 'cover-check' };
+const BADGE_CLASS = { ebook: 'badge-ebook', checklist: 'badge-check', video: 'badge-video', audio: 'badge-check' };
+
+function renderCard(item) {
+  const coverCls = COVER_CLASS[item.content_type] || 'cover-ebook';
+  const badgeCls = BADGE_CLASS[item.content_type] || 'badge-ebook';
+  const isSoon   = item.coming_soon || !item.pdf_url;
+  const coverStyle = isSoon ? ' style="opacity:.75"' : '';
+
+  const foot = isSoon
+    ? `<span class="card-meta">${item.page_count ? item.page_count + ' páginas' : ''}</span><span class="soon-label">Em breve</span>`
+    : `<span class="card-meta">${item.page_count ? item.page_count + ' páginas' : ''}</span>
+       <button class="btn-read" onclick="openPDF(${JSON.stringify(item.title)}, ${JSON.stringify(item.pdf_url)}, ${JSON.stringify(item.cover_label || item.content_type)})">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+         Ler agora →
+       </button>`;
+
+  return `<div class="card${isSoon ? ' coming-soon' : ''} reveal">
+    <div class="cover ${coverCls}"${coverStyle}>
+      <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
+      <span class="badge-tag ${isSoon ? 'badge-soon' : badgeCls}">${isSoon ? 'Em breve' : (item.cover_label || '')}</span>
+      <div class="cover-vol">${item.subtitle || ''}</div>
+      <div class="cover-title">${item.title.replace(/ /g, '<br>')}</div>
+    </div>
+    <div class="card-body">
+      <h3>${item.title}</h3>
+      <p class="desc">${item.description || ''}</p>
+      <div class="card-foot">${foot}</div>
+    </div>
+  </div>`;
+}
+
+async function loadContent() {
+  try {
+    const res = await fetch(
+      `${SB_URL}/rest/v1/academy_content?active=eq.true&order=display_order.asc`,
+      { headers: sbHeaders }
+    );
+    const items = await res.json();
+    if (Array.isArray(items) && items.length > 0) {
+      document.getElementById('libraryGrid').innerHTML = items.map(renderCard).join('');
+    }
+  } catch { /* keep hardcoded cards on error */ }
+  activateReveal();
+}
+
+// ── Boot ────────────────────────────────────────────────────────────────
+(async function boot() {
+  // Check URL param first (magic link)
+  const urlToken = new URLSearchParams(window.location.search).get('t');
+  const storedToken = localStorage.getItem(TOKEN_KEY);
+  const token = urlToken || storedToken;
+
+  if (!token) { showGate(); return; }
+
+  const valid = await validateToken(token);
+  if (valid) {
+    if (urlToken) {
+      // Store and clean URL
+      localStorage.setItem(TOKEN_KEY, urlToken);
+      history.replaceState(null, '', window.location.pathname);
+    }
+    hideGate();
+    loadContent();
+  } else {
+    localStorage.removeItem(TOKEN_KEY);
+    showGate(urlToken ? 'Este link de acesso é inválido ou expirou.' : null);
+  }
+})();
+
+// ── PDF Modal ───────────────────────────────────────────────────────────
 function openPDF(title, url, tag) {
-  const modal = document.getElementById('pdfModal');
-  const frame = document.getElementById('pdfFrame');
+  const modal    = document.getElementById('pdfModal');
+  const frame    = document.getElementById('pdfFrame');
   const fallback = document.getElementById('pdfFallback');
 
   document.getElementById('pdfModalTitle').textContent = title;
-  document.getElementById('pdfModalTag').textContent = tag;
+  document.getElementById('pdfModalTag').textContent   = tag;
 
-  // On mobile, PDFs in iframes are unreliable — show fallback instead
   const isMobile = window.innerWidth < 768 || /Mobi|Android/i.test(navigator.userAgent);
   if (isMobile) {
-    frame.style.display = 'none';
+    frame.style.display   = 'none';
     fallback.style.display = 'flex';
   } else {
-    frame.style.display = 'block';
+    frame.style.display   = 'block';
     fallback.style.display = 'none';
-    // #toolbar=0&navpanes=0 hides download toolbar in Chromium browsers
     frame.src = url + '#toolbar=0&navpanes=0&scrollbar=1';
   }
-
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
 function closePDF() {
-  const modal = document.getElementById('pdfModal');
-  const frame = document.getElementById('pdfFrame');
-  modal.classList.remove('open');
-  frame.src = '';
+  document.getElementById('pdfModal').classList.remove('open');
+  document.getElementById('pdfFrame').src = '';
   document.body.style.overflow = '';
 }
 
-// Close on Escape
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePDF(); });
-
-// Close on backdrop click
-document.getElementById('pdfModal').addEventListener('click', function(e) {
-  if (e.target === this) closePDF();
-});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closePDF(); } });
+document.getElementById('pdfModal').addEventListener('click', function(e) { if (e.target === this) closePDF(); });
 </script>
 </body>
 </html>

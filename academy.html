@@ -870,10 +870,11 @@ function renderCard(item) {
   const isSoon   = item.coming_soon || !item.pdf_url;
   const coverStyle = isSoon ? ' style="opacity:.75"' : '';
 
+  const esc = s => (s || '').replace(/'/g, '&#39;').replace(/"/g, '&quot;');
   const foot = isSoon
     ? `<span class="card-meta">${item.page_count ? item.page_count + ' páginas' : ''}</span><span class="soon-label">Em breve</span>`
     : `<span class="card-meta">${item.page_count ? item.page_count + ' páginas' : ''}</span>
-       <button class="btn-read" onclick="openPDF(${JSON.stringify(item.title)}, ${JSON.stringify(item.pdf_url)}, ${JSON.stringify(item.cover_label || item.content_type)})">
+       <button class="btn-read" onclick="openPDF('${esc(item.title)}','${esc(item.pdf_url)}','${esc(item.cover_label || item.content_type)}')">
          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
          Ler agora →
        </button>`;

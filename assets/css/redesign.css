@@ -1695,6 +1695,61 @@
 }
 
 /* ================================================
+   BRAND — polvo pixel-art + "octi" Outfit
+   ================================================ */
+
+/* Nav brand */
+.navbar-brand {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 10px;
+}
+
+.octi-nav-icon {
+  image-rendering: pixelated;
+  border-radius: 0 !important;
+  max-width: none !important;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.octi-nav-name {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+/* Footer brand — polvo + "octi" text */
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.footer-brand img {
+  max-width: 40px !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 0 !important;
+  image-rendering: pixelated;
+  margin-bottom: 0 !important;
+}
+
+.footer-brand-name {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+/* ================================================
    TIPOGRAFIA — Outfit para títulos (nova identidade)
    ================================================ */
 h1, h2, h3, h4, h5, .section-title-v2,

@@ -107,10 +107,14 @@
     // ── WhatsApp floating button ──────────────────────────────────────────
     var SUPABASE_URL = 'https://tdttqltbnizljmsajqlc.supabase.co';
     var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkdHRxbHRibml6bGptc2FqcWxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMDc0NzAsImV4cCI6MjA1NTU4MzQ3MH0.v__13i-EzViT2Eaz4gd2CFJlTq_W5kbDdIQtXSpXnfU';
-    var WA_NUMBER = '5551996301302';
+    // Fallback caso a leitura do site_config falhe (Supabase fora do ar, etc.)
+    // — mantém o número correto atual como rede de segurança, mas o valor
+    // que manda de verdade é o `whatsapp_number` do site_config, editável
+    // direto pela aba "Config. Site" do backoffice sem precisar de deploy.
+    var WA_NUMBER_FALLBACK = '5551995391428';
 
-    function injectWhatsAppButton(msgText) {
-      var href = 'https://wa.me/' + WA_NUMBER;
+    function injectWhatsAppButton(number, msgText) {
+      var href = 'https://wa.me/' + (number || WA_NUMBER_FALLBACK);
       if (msgText) href += '?text=' + encodeURIComponent(msgText);
       var a = document.createElement('a');
       a.href = href;
@@ -123,7 +127,7 @@
       document.body.appendChild(a);
     }
 
-    fetch(SUPABASE_URL + '/rest/v1/site_config?key=eq.whatsapp_message&select=value', {
+    fetch(SUPABASE_URL + '/rest/v1/site_config?key=in.(whatsapp_number,whatsapp_message)&select=key,value', {
       headers: {
         'apikey': SUPABASE_ANON_KEY,
         'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
@@ -131,9 +135,11 @@
     })
     .then(function(r) { return r.json(); })
     .then(function(rows) {
-      var msg = rows && rows[0] ? rows[0].value : '';
-      injectWhatsAppButton(msg);
+      var byKey = {};
+      (rows || []).forEach(function(r) { byKey[r.key] = r.value; });
+      var number = (byKey.whatsapp_number || '').replace(/[^\d]/g, '');
+      injectWhatsAppButton(number, byKey.whatsapp_message || '');
     })
-    .catch(function() { injectWhatsAppButton(''); });
+    .catch(function() { injectWhatsAppButton('', ''); });
 
 })();

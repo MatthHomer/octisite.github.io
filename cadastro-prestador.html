@@ -811,6 +811,25 @@
       'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
     };
 
+    // ── Programa de Indicações — captura do código do link (?ref=) ─────────
+    // /indicacao/<codigo> redireciona pra cá com ?ref=<codigo> (ver
+    // vercel.json). Guarda em localStorage pra sobreviver caso a pessoa
+    // navegue por outras páginas do site antes de voltar pra completar o
+    // cadastro. O código é só repassado no lead — quem resolve pro negócio
+    // indicador e cria o vínculo de indicação é o backoffice, com
+    // service_role, na hora de aprovar o cadastro.
+    (function captureReferralCode() {
+      var params = new URLSearchParams(window.location.search);
+      var ref = params.get('ref');
+      if (ref) {
+        try { localStorage.setItem('octi_referral_code', ref); } catch (e) {}
+        trackEvent('referral_link_landing', { referral_code: ref });
+      }
+    })();
+    function getReferralCode() {
+      try { return localStorage.getItem('octi_referral_code') || null; } catch (e) { return null; }
+    }
+
     // ── Load site config from Supabase ────────────────────────────────────
     fetch(SUPABASE_URL + '/rest/v1/site_config?select=key,value', { headers: SUPABASE_HEADERS })
       .then(function(r) { return r.json(); })
@@ -1028,6 +1047,7 @@
         address:        val('endereco'),
         about:          val('sobreEmpresa'),
         category:       val('categoria'),
+        referral_code:  getReferralCode(),
       };
 
       fetch(SUPABASE_URL + '/rest/v1/provider_leads', {

@@ -29,6 +29,27 @@ async function isFullAccessValid(token) {
   }
 }
 
+// withStoragePath=false é o fallback caso a migration da coluna
+// storage_path ainda não tenha rodado no Supabase — sem isso, um select
+// citando uma coluna inexistente derruba o endpoint inteiro em vez de só
+// usar o pdf_url legado. Retorna undefined (não null) quando a query em si
+// falhou, pra diferenciar de "conteúdo não existe".
+async function fetchContent(contentId, withStoragePath) {
+  const fields = withStoragePath
+    ? 'id,storage_path,pdf_url,active,coming_soon'
+    : 'id,pdf_url,active,coming_soon';
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/academy_content?id=eq.${contentId}&select=${fields}`, {
+      headers: anonHeaders,
+    });
+    const rows = await res.json();
+    if (!Array.isArray(rows)) return undefined;
+    return rows[0] || null;
+  } catch {
+    return undefined;
+  }
+}
+
 async function getEntitlement(code) {
   try {
     const res = await fetch(`${SB_URL}/rest/v1/rpc/get_academy_entitlement`, {
@@ -71,26 +92,15 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const contentRes = await fetch(
-      `${SB_URL}/rest/v1/academy_content?id=eq.${contentId}&select=id,storage_path,pdf_url,active,coming_soon`,
-      { headers: anonHeaders }
-    );
-    const contentRows = await contentRes.json();
-    const content = Array.isArray(contentRows) ? contentRows[0] : null;
+    // Tenta com storage_path; se a coluna ainda não existir (migration
+    // 20260907_academy_pdf_private_storage.sql não rodada ainda), tenta de
+    // novo sem ela — nunca deixa o endpoint inteiro fora do ar por causa
+    // disso.
+    let content = await fetchContent(contentId, true);
+    if (content === undefined) content = await fetchContent(contentId, false);
 
     if (!content || !content.active || content.coming_soon) {
       res.status(404).json({ error: 'Conteúdo não encontrado' });
-      return;
-    }
-
-    if (!content.storage_path) {
-      // Conteúdo ainda não migrado pro bucket privado — mantém o link
-      // legado (público) até ser migrado.
-      if (content.pdf_url) {
-        res.status(200).json({ url: content.pdf_url });
-        return;
-      }
-      res.status(404).json({ error: 'Arquivo não disponível' });
       return;
     }
 
@@ -112,6 +122,19 @@ module.exports = async (req, res) => {
 
     if (!allowed) {
       res.status(403).json({ error: 'Sem acesso a este conteúdo' });
+      return;
+    }
+
+    if (!content.storage_path) {
+      // Conteúdo ainda não migrado pro bucket privado (ou migration da
+      // coluna storage_path não rodou ainda) — mantém o link legado até
+      // ser migrado. Continua exigindo `allowed`, diferente do
+      // comportamento antigo do onclick estático.
+      if (content.pdf_url) {
+        res.status(200).json({ url: content.pdf_url });
+        return;
+      }
+      res.status(404).json({ error: 'Arquivo não disponível' });
       return;
     }
 

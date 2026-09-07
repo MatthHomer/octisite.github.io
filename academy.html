@@ -642,6 +642,10 @@ const TOKEN_KEY = 'octi_academy_token';
 
 const sbHeaders = { 'apikey': SB_ANON, 'Authorization': 'Bearer ' + SB_ANON };
 
+// Qual credencial usar ao pedir um arquivo em /api/academy-file — código de
+// indicação ou token de acesso manual. Setado em boot().
+const CURRENT_ACCESS = { code: null, token: null };
+
 // ── Scroll reveal ───────────────────────────────────────────────────────
 const io = new IntersectionObserver(
   es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
@@ -745,7 +749,7 @@ function renderCard(item, mode) {
     foot = `<span class="card-meta">${item.page_count ? item.page_count + ' páginas' : ''}</span><span class="soon-label">🔒 Bloqueado</span>`;
   } else {
     foot = `<span class="card-meta">${item.page_count ? item.page_count + ' páginas' : ''}</span>
-       <button class="btn-read" onclick="openPDF('${esc(item.title)}','${esc(item.pdf_url)}','${esc(item.cover_label || item.content_type)}')">
+       <button class="btn-read" onclick="openPDF(${item.id},'${esc(item.title)}','${esc(item.cover_label || item.content_type)}')">
          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
          Ler agora →
        </button>`;
@@ -838,6 +842,7 @@ function renderProgress(entitlement, tiers) {
   if (referralCode) {
     const [entitlement, tiers] = await Promise.all([fetchEntitlement(referralCode), fetchTierConfig()]);
     if (entitlement && entitlement.found) {
+      CURRENT_ACCESS.code = referralCode;
       hideGate();
       renderProgress(entitlement, tiers);
       loadLibrary(
@@ -859,6 +864,7 @@ function renderProgress(entitlement, tiers) {
 
   const valid = await validateToken(token);
   if (valid) {
+    CURRENT_ACCESS.token = token;
     if (urlToken) {
       // Store and clean URL
       localStorage.setItem(TOKEN_KEY, urlToken);
@@ -874,13 +880,40 @@ function renderProgress(entitlement, tiers) {
 })();
 
 // ── PDF Modal ───────────────────────────────────────────────────────────
-function openPDF(title, url, tag) {
+// Busca uma URL assinada e temporária pro arquivo — nunca existe um link
+// público fixo. api/academy-file.js confere de novo, no servidor, se o
+// código ou token atual realmente dá acesso a esse content_id antes de
+// gerar o link.
+async function resolveFileUrl(contentId) {
+  const params = new URLSearchParams({ id: String(contentId) });
+  if (CURRENT_ACCESS.code) params.set('code', CURRENT_ACCESS.code);
+  if (CURRENT_ACCESS.token) params.set('t', CURRENT_ACCESS.token);
+  try {
+    const res = await fetch(`/api/academy-file?${params.toString()}`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.url || null;
+  } catch {
+    return null;
+  }
+}
+
+async function openPDF(contentId, title, tag) {
   const modal    = document.getElementById('pdfModal');
   const frame    = document.getElementById('pdfFrame');
   const fallback = document.getElementById('pdfFallback');
 
   document.getElementById('pdfModalTitle').textContent = title;
   document.getElementById('pdfModalTag').textContent   = tag;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  const url = await resolveFileUrl(contentId);
+  if (!url) {
+    closePDF();
+    alert('Não foi possível abrir este conteúdo agora. Recarregue a página e tente de novo.');
+    return;
+  }
 
   const isMobile = window.innerWidth < 768 || /Mobi|Android/i.test(navigator.userAgent);
   if (isMobile) {
@@ -891,8 +924,6 @@ function openPDF(title, url, tag) {
     fallback.style.display = 'none';
     frame.src = url + '#toolbar=0&navpanes=0&scrollbar=1';
   }
-  modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
 }
 
 function closePDF() {

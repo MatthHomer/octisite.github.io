@@ -7,11 +7,6 @@
       "has": [{ "type": "host", "value": "www.octi.site" }],
       "destination": "https://octi.site/",
       "permanent": true
-    },
-    {
-      "source": "/indicacao/:code",
-      "destination": "/cadastro-prestador.html?ref=:code",
-      "permanent": false
     }
   ],
   "rewrites": [

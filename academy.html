@@ -231,6 +231,14 @@ section.block { position: relative; z-index: 1; padding: 72px 0; }
   color: var(--gray-soft); letter-spacing: .5px;
 }
 
+.referral-progress-banner {
+  margin: -8px 0 28px; padding: 16px 20px; border-radius: 14px;
+  background: var(--creme-2); border: 1px solid var(--line-stronger);
+}
+.referral-progress-banner p { margin: 0; font-size: 14px; color: var(--ink); }
+.referral-progress-banner p + p { margin-top: 6px; color: var(--gray); }
+.referral-progress-banner strong { color: var(--verde-d); }
+
 /* ── PATH (Como usar) ── */
 .path { display: flex; flex-direction: column; gap: 2px; counter-reset: step; }
 .step {
@@ -490,169 +498,14 @@ footer .inner { display: flex; justify-content: space-between; align-items: cent
       </p>
     </div>
 
+    <div id="referralProgress"></div>
+
     <div class="grid" id="libraryGrid">
-
-      <!-- VOL 1 — disponível -->
-      <div class="card reveal">
-        <div class="cover cover-ebook">
-          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
-          <span class="badge-tag badge-ebook">Ebook · Vol. 1</span>
-          <div class="cover-vol">Série Profissional do Lar</div>
-          <div class="cover-title">Cobre<br>Certo</div>
-        </div>
-        <div class="card-body">
-          <h3>Cobre Certo</h3>
-          <p class="desc">Precificação sem achismo: a fórmula do preço/hora, markup, valor percebido e o orçamento que fecha o dobro.</p>
-          <div class="card-base">Contabilidade de custos · 3 métodos de preço</div>
-          <div class="card-foot">
-            <span class="card-meta">19 páginas</span>
-            <button class="btn-read" onclick="openPDF('Cobre Certo', '/materiais/Octi_Ebook_Vol1_Cobre_Certo.pdf', 'Ebook Vol. 1')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
-              Ler agora →
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- VOL 2 — em breve -->
-      <div class="card coming-soon reveal">
-        <div class="cover cover-ebook" style="opacity:.75">
-          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
-          <span class="badge-tag badge-soon">Em breve</span>
-          <div class="cover-vol">Série Profissional do Lar</div>
-          <div class="cover-title">Vender sem<br>Empurrar</div>
-        </div>
-        <div class="card-body">
-          <h3>Vender sem Empurrar</h3>
-          <p class="desc">As 4 perguntas que fecham, resposta pronta para as 7 objeções e o follow-up que ressuscita orçamento.</p>
-          <div class="card-base">SPIN Selling · Cialdini</div>
-          <div class="card-foot">
-            <span class="card-meta">16 páginas</span>
-            <span class="soon-label">Em breve</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- VOL 3 — em breve -->
-      <div class="card coming-soon reveal">
-        <div class="cover cover-ebook" style="opacity:.75">
-          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
-          <span class="badge-tag badge-soon">Em breve</span>
-          <div class="cover-vol">Série Profissional do Lar</div>
-          <div class="cover-title">Seu Dinheiro,<br>Seu Negócio</div>
-        </div>
-        <div class="card-body">
-          <h3>Seu Dinheiro, Seu Negócio</h3>
-          <p class="desc">Fluxo de caixa, ponto de equilíbrio, o método dos potes no Pix e o MEI 2026 na prática.</p>
-          <div class="card-base">Sebrae · Profit First · Thaler (Nobel)</div>
-          <div class="card-foot">
-            <span class="card-meta">19 páginas</span>
-            <span class="soon-label">Em breve</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- VOL 4 — em breve -->
-      <div class="card coming-soon reveal">
-        <div class="cover cover-ebook" style="opacity:.75">
-          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
-          <span class="badge-tag badge-soon">Em breve</span>
-          <div class="cover-vol">Série Profissional do Lar</div>
-          <div class="cover-title">Administração<br>de Bolso</div>
-        </div>
-        <div class="card-body">
-          <h3>Administração de Bolso</h3>
-          <p class="desc">As 7 ferramentas do MBA com exercício preenchível: Canvas, SWOT, PDCA, Pareto, 5S, Curva ABC e SMART.</p>
-          <div class="card-base">Osterwalder · Deming · Pareto · Toyota</div>
-          <div class="card-foot">
-            <span class="card-meta">10 páginas</span>
-            <span class="soon-label">Em breve</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- VOL 5 — em breve -->
-      <div class="card coming-soon reveal">
-        <div class="cover cover-ebook" style="opacity:.75">
-          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
-          <span class="badge-tag badge-soon">Em breve</span>
-          <div class="cover-vol">Série Profissional do Lar</div>
-          <div class="cover-title">De Autônomo<br>a Dono</div>
-        </div>
-        <div class="card-body">
-          <h3>De Autônomo a Dono</h3>
-          <p class="desc">Os 3 personagens do dono, o primeiro ajudante, parcerias, atendimento que fideliza e os 6 números do painel.</p>
-          <div class="card-base">E-Myth · Unreasonable Hospitality · LTV</div>
-          <div class="card-foot">
-            <span class="card-meta">14 páginas</span>
-            <span class="soon-label">Em breve</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ROTEIROS MATEMÁTICA — em breve -->
-      <div class="card coming-soon reveal">
-        <div class="cover cover-video" style="opacity:.75">
-          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
-          <span class="badge-tag badge-soon">Em breve</span>
-          <div class="cover-vol">Roteiros de Vídeo · 10 eps</div>
-          <div class="cover-title">Matemática<br>do Prestador</div>
-        </div>
-        <div class="card-body">
-          <h3>Matemática do Prestador</h3>
-          <p class="desc">Dez roteiros de 3–5 min, cada um com UMA conta que muda uma decisão. Prontos para gravar.</p>
-          <div class="card-base">Companheiro do Vol. 3</div>
-          <div class="card-foot">
-            <span class="card-meta">10 episódios</span>
-            <span class="soon-label">Em breve</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ROTEIROS VENDA — em breve -->
-      <div class="card coming-soon reveal">
-        <div class="cover cover-video" style="opacity:.75">
-          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
-          <span class="badge-tag badge-soon">Em breve</span>
-          <div class="cover-vol">Roteiros de Vídeo · 6 eps</div>
-          <div class="cover-title">Venda<br>na Prática</div>
-        </div>
-        <div class="card-body">
-          <h3>Venda na Prática</h3>
-          <p class="desc">Seis dramatizações: a mesma cena do jeito errado e do jeito certo, com as 3 frases que salvam a venda.</p>
-          <div class="card-base">Companheiro do Vol. 2</div>
-          <div class="card-foot">
-            <span class="card-meta">6 episódios</span>
-            <span class="soon-label">Em breve</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- CHECKLISTS — disponível -->
-      <div class="card reveal">
-        <div class="cover cover-check">
-          <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
-          <span class="badge-tag badge-check">Checklists</span>
-          <div class="cover-vol">Operação Redonda · 8 cards</div>
-          <div class="cover-title">Operação<br>Redonda</div>
-        </div>
-        <div class="card-body">
-          <h3>Operação Redonda</h3>
-          <p class="desc">Oito cards de uma página: da saída para o serviço à lista do que nunca fazer. Para salvar no celular ou imprimir.</p>
-          <div class="card-base">Apoio operacional da série</div>
-          <div class="card-foot">
-            <span class="card-meta">8 checklists</span>
-            <button class="btn-read" onclick="openPDF('Operação Redonda', '/materiais/Octi_Checklists_Operacao_Redonda.pdf', 'Checklists')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
-              Ler agora →
-            </button>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
+
+
 
 <!-- COMO USAR -->
 <section class="block" id="como-usar" style="padding-top: 16px">
@@ -861,28 +714,47 @@ document.getElementById('gateInput').addEventListener('keydown', e => {
 });
 
 // ── Content loader ──────────────────────────────────────────────────────
+// mode.type: 'full' (token válido — vê tudo), 'partial' (código de indicação
+// — só o que já foi desbloqueado, via mode.unlockedIds), 'locked' (sem
+// acesso nenhum — nada de "Ler agora", só teaser). O catálogo sempre vem do
+// banco; não existe mais card estático com link direto pro PDF no HTML —
+// era por ali que dava pra abrir o conteúdo sem token nenhum.
 const COVER_CLASS = { ebook: 'cover-ebook', checklist: 'cover-check', video: 'cover-video', audio: 'cover-check' };
 const BADGE_CLASS = { ebook: 'badge-ebook', checklist: 'badge-check', video: 'badge-video', audio: 'badge-check' };
 
-function renderCard(item) {
+function renderCard(item, mode) {
   const coverCls = COVER_CLASS[item.content_type] || 'cover-ebook';
   const badgeCls = BADGE_CLASS[item.content_type] || 'badge-ebook';
-  const isSoon   = item.coming_soon || !item.pdf_url;
-  const coverStyle = isSoon ? ' style="opacity:.75"' : '';
+  const comingSoon = item.coming_soon || !item.pdf_url;
+
+  let entitled = false;
+  if (!comingSoon) {
+    if (mode.type === 'full') entitled = true;
+    else if (mode.type === 'partial') entitled = mode.unlockedIds.has(item.id);
+  }
+
+  const dimmed = comingSoon || !entitled;
+  const coverStyle = dimmed ? ' style="opacity:.75"' : '';
+  const badgeLabel = comingSoon ? 'Em breve' : (!entitled ? '🔒 Bloqueado' : (item.cover_label || ''));
 
   const esc = s => (s || '').replace(/'/g, '&#39;').replace(/"/g, '&quot;');
-  const foot = isSoon
-    ? `<span class="card-meta">${item.page_count ? item.page_count + ' páginas' : ''}</span><span class="soon-label">Em breve</span>`
-    : `<span class="card-meta">${item.page_count ? item.page_count + ' páginas' : ''}</span>
+  let foot;
+  if (comingSoon) {
+    foot = `<span class="card-meta">${item.page_count ? item.page_count + ' páginas' : ''}</span><span class="soon-label">Em breve</span>`;
+  } else if (!entitled) {
+    foot = `<span class="card-meta">${item.page_count ? item.page_count + ' páginas' : ''}</span><span class="soon-label">🔒 Bloqueado</span>`;
+  } else {
+    foot = `<span class="card-meta">${item.page_count ? item.page_count + ' páginas' : ''}</span>
        <button class="btn-read" onclick="openPDF('${esc(item.title)}','${esc(item.pdf_url)}','${esc(item.cover_label || item.content_type)}')">
          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
          Ler agora →
        </button>`;
+  }
 
-  return `<div class="card${isSoon ? ' coming-soon' : ''} reveal">
+  return `<div class="card${dimmed ? ' coming-soon' : ''} reveal">
     <div class="cover ${coverCls}"${coverStyle}>
       <img src="/assets/img/brand/octi-icon.png" class="cover-icon" alt="">
-      <span class="badge-tag ${isSoon ? 'badge-soon' : badgeCls}">${isSoon ? 'Em breve' : (item.cover_label || '')}</span>
+      <span class="badge-tag ${dimmed ? 'badge-soon' : badgeCls}">${badgeLabel}</span>
       <div class="cover-vol">${item.subtitle || ''}</div>
       <div class="cover-title">${item.title.replace(/ /g, '<br>')}</div>
     </div>
@@ -894,28 +766,96 @@ function renderCard(item) {
   </div>`;
 }
 
-async function loadContent() {
+async function loadLibrary(mode) {
   try {
     const res = await fetch(
       `${SB_URL}/rest/v1/academy_content?active=eq.true&order=display_order.asc`,
       { headers: sbHeaders }
     );
     const items = await res.json();
-    if (Array.isArray(items) && items.length > 0) {
-      document.getElementById('libraryGrid').innerHTML = items.map(renderCard).join('');
+    if (Array.isArray(items)) {
+      document.getElementById('libraryGrid').innerHTML = items.map(item => renderCard(item, mode)).join('');
     }
-  } catch { /* keep hardcoded cards on error */ }
+  } catch { document.getElementById('libraryGrid').innerHTML = ''; }
   activateReveal();
+}
+
+// ── Programa de Indicações — acesso por código ───────────────────────────
+// octi.site/academy.html?code=<codigo> (nunca /academy/<codigo> — este site
+// é estático, sem rota dinâmica server-side disponível). O que cada código
+// desbloqueia é calculado na hora, direto pelos números reais de indicação
+// via get_academy_entitlement (RPC no Supabase) — nunca fica desatualizado
+// quando o admin muda um limiar em Configurações do programa.
+async function fetchEntitlement(code) {
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/rpc/get_academy_entitlement`, {
+      method: 'POST',
+      headers: Object.assign({}, sbHeaders, { 'Content-Type': 'application/json' }),
+      body: JSON.stringify({ p_referral_code: code })
+    });
+    return await res.json();
+  } catch { return null; }
+}
+
+async function fetchTierConfig() {
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/referral_tier_config?active=eq.true&order=sort_order.asc`, { headers: sbHeaders });
+    const rows = await res.json();
+    return Array.isArray(rows) ? rows : [];
+  } catch { return []; }
+}
+
+function renderProgress(entitlement, tiers) {
+  const el = document.getElementById('referralProgress');
+  if (!entitlement || !entitlement.found) { el.innerHTML = ''; return; }
+
+  const current = { indicacoes: entitlement.indicacoes || 0, efetivados: entitlement.efetivados || 0 };
+  const next = tiers
+    .filter(t => current[t.metric] < t.threshold)
+    .sort((a, b) => (a.threshold - current[a.metric]) - (b.threshold - current[b.metric]))[0];
+
+  const metricLabel = { indicacoes: 'indicações', efetivados: 'efetivados' };
+  let nextMsg = '';
+  if (entitlement.full_access) {
+    nextMsg = 'Você já tem acesso à Academy inteira. 🎉';
+  } else if (next) {
+    const falta = next.threshold - current[next.metric];
+    nextMsg = `Faltam <strong>${falta}</strong> ${metricLabel[next.metric]} para desbloquear: <strong>${next.label}</strong>.`;
+  }
+
+  el.innerHTML = `
+    <div class="referral-progress-banner">
+      <p><strong>${entitlement.business_name || 'Você'}</strong> · ${current.indicacoes} indicações · ${current.efetivados} efetivados</p>
+      ${nextMsg ? `<p>${nextMsg}</p>` : ''}
+    </div>`;
 }
 
 // ── Boot ────────────────────────────────────────────────────────────────
 (async function boot() {
+  const params = new URLSearchParams(window.location.search);
+  const referralCode = params.get('code');
+
+  if (referralCode) {
+    const [entitlement, tiers] = await Promise.all([fetchEntitlement(referralCode), fetchTierConfig()]);
+    if (entitlement && entitlement.found) {
+      hideGate();
+      renderProgress(entitlement, tiers);
+      loadLibrary(
+        entitlement.full_access
+          ? { type: 'full' }
+          : { type: 'partial', unlockedIds: new Set((entitlement.unlocked_content_ids || []).map(Number)) }
+      );
+      return;
+    }
+    // Código inválido/desconhecido — cai pro fluxo normal de token abaixo.
+  }
+
   // Check URL param first (magic link)
-  const urlToken = new URLSearchParams(window.location.search).get('t');
+  const urlToken = params.get('t');
   const storedToken = localStorage.getItem(TOKEN_KEY);
   const token = urlToken || storedToken;
 
-  if (!token) { showGate(); return; }
+  if (!token) { showGate(); loadLibrary({ type: 'locked' }); return; }
 
   const valid = await validateToken(token);
   if (valid) {
@@ -925,10 +865,11 @@ async function loadContent() {
       history.replaceState(null, '', window.location.pathname);
     }
     hideGate();
-    loadContent();
+    loadLibrary({ type: 'full' });
   } else {
     localStorage.removeItem(TOKEN_KEY);
     showGate(urlToken ? 'Este link de acesso é inválido ou expirou.' : null);
+    loadLibrary({ type: 'locked' });
   }
 })();
 

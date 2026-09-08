@@ -1,11 +1,14 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "com.homerbr.Octi",
       "sha256_cert_fingerprints": [
-        "SUBSTITUIR_PELO_FINGERPRINT_SHA256_REAL_DO_APK_ANTES_DO_DEPLOY"
+        "CC:E2:E9:F4:2E:81:03:46:36:55:5C:F5:A2:B6:2F:F1:26:65:EB:9B:A7:1E:F4:BE:89:DA:5E:22:DC:09:F3:62"
       ]
     }
   }

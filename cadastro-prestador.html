@@ -671,8 +671,22 @@
 
           <div class="field-group" id="fg-endereco">
             <label for="endereco">Cidade de atuação <span class="required">*</span></label>
-            <input type="text" class="cp-input" id="endereco" placeholder="Ex: São Paulo, SP" autocomplete="address-level2">
+            <input type="text" class="cp-input" id="endereco" placeholder="Ex: São Paulo" autocomplete="address-level2">
             <p class="field-error">Informe sua cidade de atuação.</p>
+          </div>
+
+          <div class="field-group" id="fg-estado">
+            <label for="estado">Estado <span class="required">*</span></label>
+            <select class="cp-select" id="estado" autocomplete="address-level1">
+              <option value="">Selecione o estado...</option>
+            </select>
+            <p class="field-error">Selecione o estado.</p>
+          </div>
+
+          <div class="field-group" id="fg-cep">
+            <label for="cep">CEP <span style="color:#94a3b8;font-weight:400;">(opcional)</span></label>
+            <input type="text" class="cp-input" id="cep" placeholder="00000-000" inputmode="numeric" autocomplete="postal-code" maxlength="9">
+            <p class="hint">Não precisa por o traço (-), a gente formata pra você.</p>
           </div>
 
           <div class="field-group" id="fg-sobreEmpresa">
@@ -747,11 +761,21 @@
       <!-- Success state -->
       <div class="cp-success" id="success-panel">
         <div class="success-icon">✓</div>
-        <h2>Cadastro enviado!</h2>
-        <p>
-          Recebemos seus dados e nossa equipe vai entrar em contato em breve.<br>
-          <strong>Fique de olho no seu WhatsApp.</strong>
-        </p>
+        <div id="success-body-coberto">
+          <h2>Cadastro enviado!</h2>
+          <p>
+            Recebemos seus dados e nossa equipe vai entrar em contato em breve.<br>
+            <strong>Fique de olho no seu WhatsApp.</strong>
+          </p>
+        </div>
+        <div id="success-body-fora-regiao" style="display:none;">
+          <h2>Recebemos seu cadastro!</h2>
+          <p>
+            Infelizmente ainda não chegamos na sua região, mas recebemos suas informações e
+            iremos entrar em contato em algum momento estratégico para ajudarmos os prestadores
+            da sua região a alcançar mais negócios.
+          </p>
+        </div>
         <a href="index.html" class="cp-btn cp-btn-primary">
           <i class="lni lni-home"></i> Voltar ao início
         </a>
@@ -853,6 +877,45 @@
       })
       .catch(function() { /* keep defaults */ });
 
+    // ── Estados (UF) ─────────────────────────────────────────────────────
+    var ESTADOS_BR = [
+      ['AC','Acre'], ['AL','Alagoas'], ['AP','Amapá'], ['AM','Amazonas'],
+      ['BA','Bahia'], ['CE','Ceará'], ['DF','Distrito Federal'], ['ES','Espírito Santo'],
+      ['GO','Goiás'], ['MA','Maranhão'], ['MT','Mato Grosso'], ['MS','Mato Grosso do Sul'],
+      ['MG','Minas Gerais'], ['PA','Pará'], ['PB','Paraíba'], ['PR','Paraná'],
+      ['PE','Pernambuco'], ['PI','Piauí'], ['RJ','Rio de Janeiro'], ['RN','Rio Grande do Norte'],
+      ['RS','Rio Grande do Sul'], ['RO','Rondônia'], ['RR','Roraima'], ['SC','Santa Catarina'],
+      ['SP','São Paulo'], ['SE','Sergipe'], ['TO','Tocantins']
+    ];
+    (function preencherEstados() {
+      var sel = document.getElementById('estado');
+      ESTADOS_BR.forEach(function(uf) {
+        var opt = document.createElement('option');
+        opt.value = uf[0];
+        opt.textContent = uf[1] + ' (' + uf[0] + ')';
+        sel.appendChild(opt);
+      });
+    })();
+
+    // Estados onde a Octi está disponível (Backoffice → Estratégia Comercial).
+    // Usado só pra decidir a mensagem de sucesso — o cadastro é sempre salvo,
+    // coberto ou não. Se a consulta falhar, assume coberto (não bloqueia o
+    // fluxo por causa de uma falha de rede).
+    var estadosDisponiveis = null; // Set<string> | null enquanto carrega
+    fetch(SUPABASE_URL + '/rest/v1/comercial_estados?select=uf,disponivel&disponivel=eq.true', { headers: SUPABASE_HEADERS })
+      .then(function(r) { return r.json(); })
+      .then(function(rows) {
+        if (!Array.isArray(rows)) return;
+        estadosDisponiveis = new Set(rows.map(function(r) { return r.uf; }));
+      })
+      .catch(function() { /* mantém null → trata como coberto */ });
+
+    // ── CEP mask ──────────────────────────────────────────────────────────
+    document.getElementById('cep').addEventListener('input', function(e) {
+      var v = e.target.value.replace(/\D/g, '').slice(0, 8);
+      e.target.value = v.length > 5 ? v.slice(0, 5) + '-' + v.slice(5) : v;
+    });
+
     // ── Categorias (fallback local) ────────────────────────────────────────
     var CATEGORIAS_FALLBACK = [
       { id: 'eletrica',      name: '⚡ Elétrica'        },
@@ -936,6 +999,7 @@
       if (!val('nomeEmpresa')) { setInvalid('fg-nomeEmpresa'); ok = false; } else setValid('fg-nomeEmpresa');
       if (!val('categoria'))   { setInvalid('fg-categoria');   ok = false; } else setValid('fg-categoria');
       if (!val('endereco'))    { setInvalid('fg-endereco');     ok = false; } else setValid('fg-endereco');
+      if (!val('estado'))      { setInvalid('fg-estado');       ok = false; } else setValid('fg-estado');
       if (!val('sobreEmpresa') || val('sobreEmpresa').length < 20) {
         setInvalid('fg-sobreEmpresa'); ok = false;
       } else setValid('fg-sobreEmpresa');
@@ -968,7 +1032,7 @@
     document.getElementById('btn-back-3').addEventListener('click', function() { goToStep(2); });
 
     // ── Clear validation on input ─────────────────────────────────────────
-    ['contato','whatsapp','email','nomeEmpresa','endereco','sobreEmpresa'].forEach(function(id) {
+    ['contato','whatsapp','email','nomeEmpresa','endereco','sobreEmpresa','cep'].forEach(function(id) {
       var el = document.getElementById(id);
       if (el) el.addEventListener('input', function() {
         var fg = el.closest('.field-group');
@@ -977,6 +1041,9 @@
     });
     document.getElementById('categoria').addEventListener('change', function() {
       setValid('fg-categoria');
+    });
+    document.getElementById('estado').addEventListener('change', function() {
+      setValid('fg-estado');
     });
 
     // ── Image previews ────────────────────────────────────────────────────
@@ -1012,17 +1079,21 @@
       var catLabel = sel.options[sel.selectedIndex]
         ? sel.options[sel.selectedIndex].text
         : val('categoria');
+      var ufSel = document.getElementById('estado');
+      var ufLabel = ufSel.options[ufSel.selectedIndex] ? ufSel.options[ufSel.selectedIndex].text : val('estado');
 
-      var html = [
+      var linhas = [
         row('Nome',     val('contato')),
         row('WhatsApp', val('whatsapp')),
         row('E-mail',   val('email')),
         row('Empresa',  val('nomeEmpresa')),
         row('Categoria',catLabel),
         row('Cidade',   val('endereco')),
-        row('Sobre',    val('sobreEmpresa').slice(0,80) + (val('sobreEmpresa').length > 80 ? '...' : '')),
-      ].join('');
-      document.getElementById('resumo-content').innerHTML = html;
+        row('Estado',   ufLabel),
+      ];
+      if (val('cep')) linhas.push(row('CEP', val('cep')));
+      linhas.push(row('Sobre', val('sobreEmpresa').slice(0,80) + (val('sobreEmpresa').length > 80 ? '...' : '')));
+      document.getElementById('resumo-content').innerHTML = linhas.join('');
     }
     function row(label, value) {
       return '<div style="display:flex;gap:8px;"><span style="min-width:90px;font-weight:600;color:#1e293b;">' +
@@ -1039,12 +1110,16 @@
       btn.disabled = true;
       btn.innerHTML = '<span class="spinner"></span> Enviando...';
 
+      var ufEscolhida = val('estado');
       var dados = {
         name:           val('nomeEmpresa'),
         contact_person: val('contato'),
         whatsapp:       val('whatsapp'),
         email:          val('email') || null,
-        address:        val('endereco'),
+        address:        val('endereco') + (ufEscolhida ? ', ' + ufEscolhida : ''),
+        city:           val('endereco'),
+        state:          ufEscolhida || null,
+        cep:            val('cep') || null,
         about:          val('sobreEmpresa'),
         category:       val('categoria'),
         referral_code:  getReferralCode(),
@@ -1060,7 +1135,7 @@
       })
       .then(function(r) {
         if (r.ok || r.status === 201) {
-          showSuccess();
+          showSuccess(ufEscolhida);
         } else {
           return r.text().then(function(t) { throw new Error(t); });
         }
@@ -1073,10 +1148,15 @@
       });
     });
 
-    function showSuccess() {
-      trackEvent('cadastro_prestador_success');
+    function showSuccess(uf) {
+      // Sem lista carregada (falha de rede) ou estado sem UF selecionada:
+      // trata como coberto — não bloqueia a mensagem padrão por uma falha.
+      var coberto = !estadosDisponiveis || !uf || estadosDisponiveis.has(uf);
+      trackEvent('cadastro_prestador_success', { estado: uf, regiao_coberta: coberto });
       document.getElementById('form-body').style.display = 'none';
       document.querySelector('.cp-progress').style.display = 'none';
+      document.getElementById('success-body-coberto').style.display = coberto ? '' : 'none';
+      document.getElementById('success-body-fora-regiao').style.display = coberto ? 'none' : '';
       var s = document.getElementById('success-panel');
       s.classList.add('active');
     }

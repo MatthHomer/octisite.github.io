@@ -964,8 +964,12 @@
       .catch(function() { preencherCategorias(CATEGORIAS_FALLBACK); });
 
     // ── WhatsApp mask ─────────────────────────────────────────────────────
+    // Decapa o "55" (DDI Brasil) quando alguém digita o número completo com
+    // código do país — sem isso "55" vira DDD e o número real perde 2 dígitos
+    // no corte de 11 (bug real de produção, achado 2026-09-11).
     document.getElementById('whatsapp').addEventListener('input', function(e) {
       var v = e.target.value.replace(/\D/g, '');
+      if ((v.length === 12 || v.length === 13) && v.slice(0, 2) === '55') v = v.slice(2);
       if (v.length > 11) v = v.slice(0, 11);
       var fmt = '';
       if (v.length >= 1) fmt = '(' + v.slice(0,2);

@@ -115,7 +115,8 @@
         "url": "https://wa.me/5551995391428"
       },
       "sameAs": [
-        "https://play.google.com/store/apps/details?id=com.homerbr.Octi"
+        "https://play.google.com/store/apps/details?id=com.homerbr.Octi",
+        "https://apps.apple.com/br/app/octi/id6794063750"
       ]
     }
     </script>
@@ -167,7 +168,7 @@
     }
     </script>
 
-    <!-- === Schema.org: MobileApplication === -->
+    <!-- === Schema.org: MobileApplication (Android) === -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -178,6 +179,23 @@
       "applicationSubCategory": "Home Services",
       "operatingSystem": "Android",
       "downloadUrl": "https://play.google.com/store/apps/details?id=com.homerbr.Octi",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
+      "inLanguage": "pt-BR",
+      "publisher": { "@id": "https://octi.site/#organization" }
+    }
+    </script>
+
+    <!-- === Schema.org: MobileApplication (iOS) === -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      "name": "Octi — Prestadores de Serviços",
+      "description": "App para encontrar e contratar prestadores de serviços locais. Eletricistas, encanadores, pintores, diaristas e mais de 24 categorias.",
+      "applicationCategory": "LifestyleApplication",
+      "applicationSubCategory": "Home Services",
+      "operatingSystem": "iOS",
+      "downloadUrl": "https://apps.apple.com/br/app/octi/id6794063750",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
       "inLanguage": "pt-BR",
       "publisher": { "@id": "https://octi.site/#organization" }
@@ -212,14 +230,14 @@
       "name": "Como Contratar um Prestador de Serviços pelo Octi",
       "description": "Passo a passo para encontrar e contratar um profissional de confiança pelo app Octi.",
       "totalTime": "PT5M",
-      "tool": [{ "@type": "HowToTool", "name": "App Octi (Android)" }],
+      "tool": [{ "@type": "HowToTool", "name": "App Octi (Android e iOS)" }],
       "step": [
         {
           "@type": "HowToStep",
           "position": 1,
           "name": "Baixe o app",
-          "text": "Faça o download gratuito do Octi na Google Play Store e crie sua conta em menos de 2 minutos.",
-          "url": "https://play.google.com/store/apps/details?id=com.homerbr.Octi"
+          "text": "Faça o download gratuito do Octi na Google Play Store ou na App Store e crie sua conta em menos de 2 minutos.",
+          "url": "https://octi.site/#download"
         },
         {
           "@type": "HowToStep",
@@ -264,7 +282,7 @@
           "name": "O Octi está disponível para iPhone?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Por enquanto o Octi está disponível apenas para Android na Google Play Store. A versão para iOS (iPhone) está em desenvolvimento e será lançada em breve. Cadastre-se para ser avisado!"
+            "text": "Sim! O Octi está disponível tanto para Android (Google Play Store) quanto para iPhone (App Store)."
           }
         },
         {
@@ -457,7 +475,7 @@
               O <strong>Octi</strong> é um aplicativo gratuito que conecta moradores a prestadores de serviços locais — eletricistas, encanadores, pintores, diaristas, pedreiros e outros profissionais — em poucos minutos, sem comissão e sem precisar pedir indicação em grupos de WhatsApp. Basta abrir o app, escolher a categoria do serviço, conferir avaliações reais de outros usuários e falar direto com o profissional mais próximo.
             </p>
             <meta itemprop="applicationCategory" content="LifestyleApplication" />
-            <meta itemprop="operatingSystem" content="Android" />
+            <meta itemprop="operatingSystem" content="Android, iOS" />
             <meta itemprop="url" content="https://octi.site/" />
           </div>
         </div>
@@ -950,7 +968,7 @@
                   <i class="lni lni-plus faq-icon"></i>
                 </button>
                 <div class="faq-answer">
-                  <p>Por enquanto o Octi está disponível apenas para Android na Google Play Store. A versão para iOS (iPhone) está em desenvolvimento e será lançada em breve. Cadastre-se para ser avisado!</p>
+                  <p>Sim! O Octi está disponível tanto para Android (Google Play Store) quanto para iPhone (App Store).</p>
                 </div>
               </div>
 
@@ -1029,13 +1047,14 @@
                   <strong>Google Play</strong>
                 </div>
               </a>
-              <div class="store-btn disabled" title="Em breve para iOS">
+              <a href="https://apps.apple.com/br/app/octi/id6794063750"
+                 target="_blank" rel="noopener" class="store-btn" data-ga-event="download_app_store">
                 <i class="lni lni-apple store-icon"></i>
                 <div class="store-text">
-                  <small>Em breve na</small>
-                  <strong>App Store</strong>
+                  <small>Baixar para</small>
+                  <strong>Apple</strong>
                 </div>
-              </div>
+              </a>
             </div>
             <p class="download-note">
               <i class="lni lni-lock"></i> Gratuito · Sem anúncios · Sem taxa

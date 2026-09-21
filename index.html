@@ -1257,9 +1257,46 @@
     })();
     </script>
 
-    <!-- Meta Pixel: clique nos botões de download é o sinal de conversão
-         disponível hoje pro lado "dono de casa" (sem SDK no app ainda pra
-         medir instalação de verdade). -->
+    <!-- Analytics real (analytics_event) — passa pela API da Vercel, nenhuma
+         chave do Supabase fica no navegador (mesmo padrão do
+         cadastro-prestador.html). -->
+    <script>
+    (function () {
+      var API_BASE = 'https://octisite-github-io.vercel.app';
+      function getVisitorId() {
+        try {
+          var id = localStorage.getItem('octi_visitor_id');
+          if (!id) {
+            id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ('v-' + Date.now() + '-' + Math.random().toString(36).slice(2));
+            localStorage.setItem('octi_visitor_id', id);
+          }
+          return id;
+        } catch (e) { return 'anon'; }
+      }
+      window.__octiLogAnalyticsEvent = function (eventName, opts) {
+        opts = opts || {};
+        try {
+          fetch(API_BASE + '/api/track', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              source: 'site',
+              event_name: eventName,
+              screen: window.location.pathname,
+              element_id: opts.elementId || null,
+              session_id: getVisitorId(),
+              metadata: opts.metadata || null
+            })
+          }).catch(function () {});
+        } catch (e) {}
+      };
+      window.__octiLogAnalyticsEvent('page_view');
+    })();
+    </script>
+
+    <!-- Meta Pixel + analytics: clique nos botões de download é o sinal de
+         conversão disponível hoje pro lado "dono de casa" (sem SDK no app
+         ainda pra medir instalação de verdade). -->
     <script>
     document.querySelectorAll(
       '[data-ga-event="hero_play_store"],' +
@@ -1269,6 +1306,9 @@
     ).forEach(function (el) {
       el.addEventListener('click', function () {
         if (typeof fbq === 'function') fbq('track', 'Lead');
+        if (typeof window.__octiLogAnalyticsEvent === 'function') {
+          window.__octiLogAnalyticsEvent('tap', { elementId: el.getAttribute('data-ga-event') });
+        }
       });
     });
     </script>

@@ -81,7 +81,7 @@
   <link rel="manifest" href="/manifest.json" />
 
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-  <link rel="preconnect" href="https://tdttqltbnizljmsajqlc.supabase.co" />
+  <link rel="preconnect" href="https://octisite-github-io.vercel.app" />
   <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
   <link rel="stylesheet" href="assets/css/bootstrap-5.0.0-alpha-2.min.css">
@@ -846,20 +846,49 @@
 
   <script>
   (function() {
+    // ── API do site (Vercel) — nenhuma chave do Supabase fica no navegador,
+    // tudo passa por functions serverless que guardam a service_role key só
+    // no servidor. octi.site é GitHub Pages (não roteia /api sozinho), por
+    // isso a URL cheia da Vercel, mesmo padrão já usado pra /api/categorias.
+    var API_BASE = 'https://octisite-github-io.vercel.app';
+
+    // ── Analytics real (analytics_event) ──────────────────────────────────
+    // visitor_id persistente por navegador, mesmo padrão try/catch já usado
+    // pro referral_code/UTM logo abaixo.
+    function getVisitorId() {
+      try {
+        var id = localStorage.getItem('octi_visitor_id');
+        if (!id) {
+          id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ('v-' + Date.now() + '-' + Math.random().toString(36).slice(2));
+          localStorage.setItem('octi_visitor_id', id);
+        }
+        return id;
+      } catch (e) { return 'anon'; }
+    }
+    function logAnalyticsEvent(source, eventName, extra) {
+      try {
+        fetch(API_BASE + '/api/track', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            source: source,
+            event_name: eventName,
+            screen: window.location.pathname,
+            session_id: getVisitorId(),
+            metadata: extra || null
+          })
+        }).catch(function() {});
+      } catch (e) {}
+    }
+    logAnalyticsEvent('site', 'page_view');
+
     // ── GA4/GTM funnel tracking ────────────────────────────────────────────
     function trackEvent(name, extra) {
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push(Object.assign({ event: name }, extra || {}));
+      logAnalyticsEvent('formulario', name, extra);
     }
     trackEvent('cadastro_prestador_start');
-
-    // ── Supabase config ───────────────────────────────────────────────────
-    var SUPABASE_URL = 'https://tdttqltbnizljmsajqlc.supabase.co';
-    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkdHRxbHRibml6bGptc2FqcWxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMDc0NzAsImV4cCI6MjA1NTU4MzQ3MH0.v__13i-EzViT2Eaz4gd2CFJlTq_W5kbDdIQtXSpXnfU';
-    var SUPABASE_HEADERS = {
-      'apikey': SUPABASE_ANON_KEY,
-      'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
-    };
 
     // ── Programa de Indicações — captura do código do link (?ref=) ─────────
     // /indicacao/<codigo> redireciona pra cá com ?ref=<codigo> (ver
@@ -902,8 +931,8 @@
       return out;
     }
 
-    // ── Load site config from Supabase ────────────────────────────────────
-    fetch(SUPABASE_URL + '/rest/v1/site_config?select=key,value', { headers: SUPABASE_HEADERS })
+    // ── Load site config ───────────────────────────────────────────────────
+    fetch(API_BASE + '/api/site-config')
       .then(function(r) { return r.json(); })
       .then(function(rows) {
         if (!Array.isArray(rows)) return;
@@ -950,7 +979,7 @@
     // coberto ou não. Se a consulta falhar, assume coberto (não bloqueia o
     // fluxo por causa de uma falha de rede).
     var estadosDisponiveis = null; // Set<string> | null enquanto carrega
-    fetch(SUPABASE_URL + '/rest/v1/comercial_estados?select=uf,disponivel&disponivel=eq.true', { headers: SUPABASE_HEADERS })
+    fetch(API_BASE + '/api/estados-disponiveis')
       .then(function(r) { return r.json(); })
       .then(function(rows) {
         if (!Array.isArray(rows)) return;
@@ -1183,12 +1212,9 @@
         fbclid:         utm.fbclid,
       };
 
-      fetch(SUPABASE_URL + '/rest/v1/provider_leads', {
+      fetch(API_BASE + '/api/lead', {
         method: 'POST',
-        headers: Object.assign({}, SUPABASE_HEADERS, {
-          'Content-Type': 'application/json',
-          'Prefer': 'return=minimal'
-        }),
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dados)
       })
       .then(function(r) {

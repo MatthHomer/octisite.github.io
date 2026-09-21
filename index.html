@@ -37,6 +37,18 @@
     </script>
     <!-- End Microsoft Clarity -->
 
+    <!-- Google Analytics (GA4) — fluxo Web "Octi Site", propriedade 447833821,
+         a mesma que já recebe os dados do app via Firebase (dimensão
+         "platform" separa Web/Android/iOS automaticamente). -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YZGJY4WQQM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-YZGJY4WQQM');
+    </script>
+    <!-- End Google Analytics -->
+
     <!-- === Identidade e indexação === -->
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />

@@ -1273,6 +1273,25 @@
           return id;
         } catch (e) { return 'anon'; }
       }
+      // Atribuição de campanha (UTM/fbclid) — mesmo princípio já usado em
+      // cadastro-prestador.html: guarda em localStorage na chegada, pra
+      // saber que uma visita/clique veio de um anúncio específico mesmo
+      // que a pessoa navegue por outras páginas antes de agir.
+      var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'fbclid'];
+      (function captureUtmParams() {
+        var params = new URLSearchParams(window.location.search);
+        UTM_KEYS.forEach(function (key) {
+          var value = params.get(key);
+          if (value) { try { localStorage.setItem('octi_' + key, value); } catch (e) {} }
+        });
+      })();
+      function getUtmParams() {
+        var out = {};
+        UTM_KEYS.forEach(function (key) {
+          try { out[key] = localStorage.getItem('octi_' + key) || null; } catch (e) { out[key] = null; }
+        });
+        return out;
+      }
       window.__octiLogAnalyticsEvent = function (eventName, opts) {
         opts = opts || {};
         try {
@@ -1285,7 +1304,7 @@
               screen: window.location.pathname,
               element_id: opts.elementId || null,
               session_id: getVisitorId(),
-              metadata: opts.metadata || null
+              metadata: Object.assign({}, getUtmParams(), opts.metadata || {})
             })
           }).catch(function () {});
         } catch (e) {}

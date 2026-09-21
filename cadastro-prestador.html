@@ -865,6 +865,27 @@
         return id;
       } catch (e) { return 'anon'; }
     }
+    // ── Atribuição de campanha (UTM/fbclid) — precisa rodar ANTES do
+    // page_view abaixo, senão a primeira visita (a mais importante: é
+    // literalmente o clique vindo do anúncio) não fica marcada.
+    (function captureUtmParams() {
+      var params = new URLSearchParams(window.location.search);
+      var keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'fbclid'];
+      keys.forEach(function(key) {
+        var value = params.get(key);
+        if (value) {
+          try { localStorage.setItem('octi_' + key, value); } catch (e) {}
+        }
+      });
+    })();
+    function getUtmParams() {
+      var out = {};
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'fbclid'].forEach(function(key) {
+        try { out[key] = localStorage.getItem('octi_' + key) || null; } catch (e) { out[key] = null; }
+      });
+      return out;
+    }
+
     function logAnalyticsEvent(source, eventName, extra) {
       try {
         fetch(API_BASE + '/api/track', {
@@ -875,7 +896,7 @@
             event_name: eventName,
             screen: window.location.pathname,
             session_id: getVisitorId(),
-            metadata: extra || null
+            metadata: Object.assign({}, getUtmParams(), extra || {})
           })
         }).catch(function() {});
       } catch (e) {}
@@ -907,28 +928,6 @@
     })();
     function getReferralCode() {
       try { return localStorage.getItem('octi_referral_code') || null; } catch (e) { return null; }
-    }
-
-    // ── Atribuição de campanha (UTM/fbclid) — mesmo princípio do ?ref= acima:
-    // guarda em localStorage pra sobreviver navegação antes de completar o
-    // cadastro, e repassa no lead. Quem lê e mostra a campanha de origem é o
-    // backoffice (Meta Ads / CRM), não o site.
-    (function captureUtmParams() {
-      var params = new URLSearchParams(window.location.search);
-      var keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'fbclid'];
-      keys.forEach(function(key) {
-        var value = params.get(key);
-        if (value) {
-          try { localStorage.setItem('octi_' + key, value); } catch (e) {}
-        }
-      });
-    })();
-    function getUtmParams() {
-      var out = {};
-      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'fbclid'].forEach(function(key) {
-        try { out[key] = localStorage.getItem('octi_' + key) || null; } catch (e) { out[key] = null; }
-      });
-      return out;
     }
 
     // ── Load site config ───────────────────────────────────────────────────

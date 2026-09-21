@@ -8,6 +8,23 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-PSKNWXT5');</script>
   <!-- End Google Tag Manager -->
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1201685615151194');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1201685615151194&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
   <meta charset="UTF-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -854,6 +871,28 @@
       try { return localStorage.getItem('octi_referral_code') || null; } catch (e) { return null; }
     }
 
+    // ── Atribuição de campanha (UTM/fbclid) — mesmo princípio do ?ref= acima:
+    // guarda em localStorage pra sobreviver navegação antes de completar o
+    // cadastro, e repassa no lead. Quem lê e mostra a campanha de origem é o
+    // backoffice (Meta Ads / CRM), não o site.
+    (function captureUtmParams() {
+      var params = new URLSearchParams(window.location.search);
+      var keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'fbclid'];
+      keys.forEach(function(key) {
+        var value = params.get(key);
+        if (value) {
+          try { localStorage.setItem('octi_' + key, value); } catch (e) {}
+        }
+      });
+    })();
+    function getUtmParams() {
+      var out = {};
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'fbclid'].forEach(function(key) {
+        try { out[key] = localStorage.getItem('octi_' + key) || null; } catch (e) { out[key] = null; }
+      });
+      return out;
+    }
+
     // ── Load site config from Supabase ────────────────────────────────────
     fetch(SUPABASE_URL + '/rest/v1/site_config?select=key,value', { headers: SUPABASE_HEADERS })
       .then(function(r) { return r.json(); })
@@ -1115,6 +1154,7 @@
       btn.innerHTML = '<span class="spinner"></span> Enviando...';
 
       var ufEscolhida = val('estado');
+      var utm = getUtmParams();
       var dados = {
         name:           val('nomeEmpresa'),
         contact_person: val('contato'),
@@ -1127,6 +1167,11 @@
         about:          val('sobreEmpresa'),
         category:       val('categoria'),
         referral_code:  getReferralCode(),
+        utm_source:     utm.utm_source,
+        utm_medium:     utm.utm_medium,
+        utm_campaign:   utm.utm_campaign,
+        utm_content:    utm.utm_content,
+        fbclid:         utm.fbclid,
       };
 
       fetch(SUPABASE_URL + '/rest/v1/provider_leads', {
@@ -1157,6 +1202,7 @@
       // trata como coberto — não bloqueia a mensagem padrão por uma falha.
       var coberto = !estadosDisponiveis || !uf || estadosDisponiveis.has(uf);
       trackEvent('cadastro_prestador_success', { estado: uf, regiao_coberta: coberto });
+      if (typeof fbq === 'function') fbq('track', 'Lead');
       document.getElementById('form-body').style.display = 'none';
       document.querySelector('.cp-progress').style.display = 'none';
       document.getElementById('success-body-coberto').style.display = coberto ? '' : 'none';

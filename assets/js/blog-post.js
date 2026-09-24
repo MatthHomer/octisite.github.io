@@ -24,7 +24,7 @@ async function carregarConteudoPost() {
     </div>`;
 
   try {
-    const res = await fetch(`${API_BASE}/api/blog-post?slug=${encodeURIComponent(slug)}`);
+    const res = await fetch(`${API_BASE}/api/blog?slug=${encodeURIComponent(slug)}`);
 
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
 

@@ -12,7 +12,7 @@ async function carregarBlogSlider() {
   if (!sliderList) return;
 
   try {
-    const res = await fetch(`${API_BASE}/api/blog-posts?limit=10`);
+    const res = await fetch(`${API_BASE}/api/blog?limit=10`);
 
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
 

@@ -14,7 +14,7 @@ async function carregarPostsBlog() {
     </div>`;
 
   try {
-    const res = await fetch(`${API_BASE}/api/blog-posts`);
+    const res = await fetch(`${API_BASE}/api/blog`);
 
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
 

@@ -677,10 +677,10 @@ function hideGate() {
 
 async function validateToken(token) {
   try {
-    const res = await fetch(`${API_BASE}/api/academy-validate-token`, {
+    const res = await fetch(`${API_BASE}/api/academy`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token }),
+      body: JSON.stringify({ action: 'validate-token', token }),
     });
     const data = await res.json();
     return !!(data && data.valid);
@@ -774,7 +774,7 @@ function renderCard(item, mode) {
 
 async function loadLibrary(mode) {
   try {
-    const res = await fetch(`${API_BASE}/api/academy-library`);
+    const res = await fetch(`${API_BASE}/api/academy?action=library`);
     const items = await res.json();
     if (Array.isArray(items)) {
       document.getElementById('libraryGrid').innerHTML = items.map(item => renderCard(item, mode)).join('');
@@ -791,10 +791,10 @@ async function loadLibrary(mode) {
 // quando o admin muda um limiar em Configurações do programa.
 async function fetchEntitlement(code) {
   try {
-    const res = await fetch(`${API_BASE}/api/academy-entitlement`, {
+    const res = await fetch(`${API_BASE}/api/academy`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code })
+      body: JSON.stringify({ action: 'entitlement', code })
     });
     return await res.json();
   } catch { return null; }
@@ -802,7 +802,7 @@ async function fetchEntitlement(code) {
 
 async function fetchTierConfig() {
   try {
-    const res = await fetch(`${API_BASE}/api/academy-tiers`);
+    const res = await fetch(`${API_BASE}/api/academy?action=tiers`);
     const rows = await res.json();
     return Array.isArray(rows) ? rows : [];
   } catch { return []; }

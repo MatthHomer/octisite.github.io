@@ -1,7 +1,8 @@
-// blog-post.js - Carrega conteúdo completo do post do Supabase
+// blog-post.js - Carrega conteúdo completo do post via API do site (Vercel)
+// Nenhuma chave do Supabase fica no navegador — a leitura passa por
+// /api/blog-post, que usa a service_role key só no servidor.
 
-const SUPABASE_URL = "https://tdttqltbnizljmsajqlc.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkdHRxbHRibml6bGptc2FqcWxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMDc0NzAsImV4cCI6MjA1NTU4MzQ3MH0.v__13i-EzViT2Eaz4gd2CFJlTq_W5kbDdIQtXSpXnfU";
+const API_BASE = "https://octisite-github-io.vercel.app";
 
 function getSlug() {
   return new URLSearchParams(window.location.search).get("slug");
@@ -23,15 +24,7 @@ async function carregarConteudoPost() {
     </div>`;
 
   try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/blog_posts?slug=eq.${encodeURIComponent(slug)}&status=eq.published&select=title,content,cover_url,published_at,author&limit=1`,
-      {
-        headers: {
-          "apikey": SUPABASE_ANON_KEY,
-          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-        },
-      }
-    );
+    const res = await fetch(`${API_BASE}/api/blog-post?slug=${encodeURIComponent(slug)}`);
 
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
@@ -73,7 +66,7 @@ async function carregarConteudoPost() {
               ${post.author ? `<span>✍️ ${escHtml(post.author)}</span>` : ""}
             </div>
             <div class="blog-post-body">
-              ${post.content || "<p>Conteúdo não disponível.</p>"}
+              ${sanitizeHtml(post.content) || "<p>Conteúdo não disponível.</p>"}
             </div>
           </div>
           <div class="card-footer py-3 px-4">
@@ -96,6 +89,12 @@ async function carregarConteudoPost() {
 function escHtml(str) {
   if (!str) return "";
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function sanitizeHtml(html) {
+  if (!html) return "";
+  if (typeof DOMPurify === "undefined") return escHtml(html);
+  return DOMPurify.sanitize(html);
 }
 
 function plainTextExcerpt(html, maxLen) {

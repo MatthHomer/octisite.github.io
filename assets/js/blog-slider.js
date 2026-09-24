@@ -1,7 +1,8 @@
-// blog-slider.js - Slider de posts do blog (fonte: Supabase)
+// blog-slider.js - Slider de posts do blog, via API do site (Vercel)
+// Nenhuma chave do Supabase fica no navegador — a leitura passa por
+// /api/blog-posts, que usa a service_role key só no servidor.
 
-const SUPABASE_URL = "https://tdttqltbnizljmsajqlc.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkdHRxbHRibml6bGptc2FqcWxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMDc0NzAsImV4cCI6MjA1NTU4MzQ3MH0.v__13i-EzViT2Eaz4gd2CFJlTq_W5kbDdIQtXSpXnfU";
+const API_BASE = "https://octisite-github-io.vercel.app";
 
 async function carregarBlogSlider() {
   const sliderSection = document.getElementById("blog-slider");
@@ -11,15 +12,7 @@ async function carregarBlogSlider() {
   if (!sliderList) return;
 
   try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/blog_posts?status=eq.published&order=published_at.desc&limit=10&select=id,title,slug,excerpt,cover_url`,
-      {
-        headers: {
-          "apikey": SUPABASE_ANON_KEY,
-          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-        },
-      }
-    );
+    const res = await fetch(`${API_BASE}/api/blog-posts?limit=10`);
 
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
 

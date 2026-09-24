@@ -636,11 +636,12 @@ footer .inner { display: flex; justify-content: space-between; align-items: cent
 
 <script>
 // ── Config ─────────────────────────────────────────────────────────────
-const SB_URL  = 'https://tdttqltbnizljmsajqlc.supabase.co';
-const SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkdHRxbHRibml6bGptc2FqcWxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMDc0NzAsImV4cCI6MjA1NTU4MzQ3MH0.v__13i-EzViT2Eaz4gd2CFJlTq_W5kbDdIQtXSpXnfU';
+// API do site (Vercel) — nenhuma chave do Supabase fica no navegador, tudo
+// passa por functions serverless que guardam a service_role key só no
+// servidor. octi.site é GitHub Pages (não roteia /api sozinho), por isso a
+// URL cheia da Vercel, mesmo padrão já usado pra /api/categorias.
+const API_BASE = 'https://octisite-github-io.vercel.app';
 const TOKEN_KEY = 'octi_academy_token';
-
-const sbHeaders = { 'apikey': SB_ANON, 'Authorization': 'Bearer ' + SB_ANON };
 
 // Qual credencial usar ao pedir um arquivo em /api/academy-file — código de
 // indicação ou token de acesso manual. Setado em boot().
@@ -676,12 +677,13 @@ function hideGate() {
 
 async function validateToken(token) {
   try {
-    const res = await fetch(
-      `${SB_URL}/rest/v1/academy_access?token=eq.${encodeURIComponent(token)}&select=id,active`,
-      { headers: sbHeaders }
-    );
+    const res = await fetch(`${API_BASE}/api/academy-validate-token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token }),
+    });
     const data = await res.json();
-    return Array.isArray(data) && data.length > 0 && data[0].active === true;
+    return !!(data && data.valid);
   } catch { return false; }
 }
 
@@ -772,10 +774,7 @@ function renderCard(item, mode) {
 
 async function loadLibrary(mode) {
   try {
-    const res = await fetch(
-      `${SB_URL}/rest/v1/academy_content?active=eq.true&order=display_order.asc`,
-      { headers: sbHeaders }
-    );
+    const res = await fetch(`${API_BASE}/api/academy-library`);
     const items = await res.json();
     if (Array.isArray(items)) {
       document.getElementById('libraryGrid').innerHTML = items.map(item => renderCard(item, mode)).join('');
@@ -792,10 +791,10 @@ async function loadLibrary(mode) {
 // quando o admin muda um limiar em Configurações do programa.
 async function fetchEntitlement(code) {
   try {
-    const res = await fetch(`${SB_URL}/rest/v1/rpc/get_academy_entitlement`, {
+    const res = await fetch(`${API_BASE}/api/academy-entitlement`, {
       method: 'POST',
-      headers: Object.assign({}, sbHeaders, { 'Content-Type': 'application/json' }),
-      body: JSON.stringify({ p_referral_code: code })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code })
     });
     return await res.json();
   } catch { return null; }
@@ -803,7 +802,7 @@ async function fetchEntitlement(code) {
 
 async function fetchTierConfig() {
   try {
-    const res = await fetch(`${SB_URL}/rest/v1/referral_tier_config?active=eq.true&order=sort_order.asc`, { headers: sbHeaders });
+    const res = await fetch(`${API_BASE}/api/academy-tiers`);
     const rows = await res.json();
     return Array.isArray(rows) ? rows : [];
   } catch { return []; }

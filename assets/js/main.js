@@ -105,8 +105,11 @@
     // Removido o slider testimonial-active pois não existe esse container no HTML
 
     // ── WhatsApp floating button ──────────────────────────────────────────
-    var SUPABASE_URL = 'https://tdttqltbnizljmsajqlc.supabase.co';
-    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkdHRxbHRibml6bGptc2FqcWxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMDc0NzAsImV4cCI6MjA1NTU4MzQ3MH0.v__13i-EzViT2Eaz4gd2CFJlTq_W5kbDdIQtXSpXnfU';
+    // API do site (Vercel) — nenhuma chave do Supabase fica no navegador,
+    // tudo passa por functions serverless que guardam a service_role key só
+    // no servidor. octi.site é GitHub Pages (não roteia /api sozinho), por
+    // isso a URL cheia da Vercel, mesmo padrão já usado pra /api/categorias.
+    var API_BASE = 'https://octisite-github-io.vercel.app';
     // Fallback caso a leitura do site_config falhe (Supabase fora do ar, etc.)
     // — mantém o número correto atual como rede de segurança, mas o valor
     // que manda de verdade é o `whatsapp_number` do site_config, editável
@@ -127,12 +130,7 @@
       document.body.appendChild(a);
     }
 
-    fetch(SUPABASE_URL + '/rest/v1/site_config?key=in.(whatsapp_number,whatsapp_message)&select=key,value', {
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
-      }
-    })
+    fetch(API_BASE + '/api/site-config')
     .then(function(r) { return r.json(); })
     .then(function(rows) {
       var byKey = {};
